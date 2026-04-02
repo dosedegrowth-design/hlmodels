@@ -2,19 +2,19 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { ModelGrid } from "@/components/public/model-grid";
 import { HeroCarousel } from "@/components/public/hero-carousel";
-import { CATEGORIAS } from "@/types";
+import { CategoriesCarousel } from "@/components/public/categories-carousel";
 
 export default async function HomePage() {
   const supabase = await createClient();
 
-  // Get featured models for hero carousel
+  // Get featured models for hero carousel (8 = 2 slides of 4)
   const { data: heroModelos } = await supabase
     .from("modelos")
     .select("*")
     .eq("ativo", true)
     .eq("destaque", true)
     .order("ordem", { ascending: true })
-    .limit(6);
+    .limit(8);
 
   // Get all active models for grid below
   const { data: todosModelos } = await supabase
@@ -26,42 +26,45 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Hero - Split fullscreen carousel like reference */}
+      {/* Hero - 4 models fullscreen carousel */}
       <HeroCarousel modelos={heroModelos ?? []} />
 
-      {/* Categories nav */}
-      <section className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col items-center mb-16">
-            <h2 className="text-xs uppercase tracking-[0.3em] text-muted mb-8">
+      {/* Categories carousel */}
+      <section className="py-16 lg:py-24">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="px-6 lg:px-10 mb-10">
+            <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">
+              Explore
+            </p>
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight">
               Categorias
             </h2>
-            <div className="flex items-center gap-8 md:gap-16">
-              {CATEGORIAS.map((cat) => (
-                <Link
-                  key={cat.slug}
-                  href={`/${cat.slug}`}
-                  className="group text-center"
-                >
-                  <span className="text-2xl md:text-4xl font-light tracking-tight text-foreground group-hover:tracking-wider transition-all duration-300">
-                    {cat.label}
-                  </span>
-                </Link>
-              ))}
-            </div>
           </div>
-
-          {/* Model grid */}
-          {todosModelos && todosModelos.length > 0 && (
-            <ModelGrid modelos={todosModelos} />
-          )}
+          <CategoriesCarousel />
         </div>
       </section>
+
+      {/* All models grid */}
+      {todosModelos && todosModelos.length > 0 && (
+        <section className="pb-20">
+          <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
+            <div className="mb-10">
+              <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">
+                Nosso casting
+              </p>
+              <h2 className="text-3xl md:text-4xl font-light tracking-tight">
+                Todos os modelos
+              </h2>
+            </div>
+            <ModelGrid modelos={todosModelos} />
+          </div>
+        </section>
+      )}
 
       {/* CTA Faça Parte */}
       <section className="bg-foreground text-white py-24 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-6">
+          <p className="text-[10px] uppercase tracking-[0.4em] text-white/30 mb-6">
             Junte-se a nós
           </p>
           <h2 className="text-3xl md:text-5xl font-light tracking-tight mb-6">

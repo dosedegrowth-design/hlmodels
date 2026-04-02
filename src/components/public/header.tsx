@@ -8,9 +8,12 @@ import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/homem", label: "Homem" },
   { href: "/mulher", label: "Mulher" },
+  { href: "/homem", label: "Homem" },
   { href: "/nao-binario", label: "Não Binário" },
+  { href: "/baby", label: "Baby" },
+  { href: "/kids", label: "Kids" },
+  { href: "/teens", label: "Teens" },
   { href: "/faca-parte", label: "Faça Parte" },
   { href: "/contato", label: "Contato" },
 ];

@@ -215,9 +215,12 @@ export function ModeloForm({ modelo }: ModeloFormProps) {
               onChange={(e) => setCategoria(e.target.value as Categoria)}
               className="w-full border border-border px-4 py-2.5 text-sm rounded-lg focus:outline-none focus:border-foreground"
             >
-              <option value="homem">Homem</option>
               <option value="mulher">Mulher</option>
+              <option value="homem">Homem</option>
               <option value="nao_binario">Não Binário</option>
+              <option value="baby">Baby (até 5 anos)</option>
+              <option value="kids">Kids (5 a 15 anos)</option>
+              <option value="teens">Teens (15 a 18 anos)</option>
             </select>
           </div>
           <div>

@@ -1,4 +1,4 @@
-export type Categoria = "homem" | "mulher" | "nao_binario";
+export type Categoria = "homem" | "mulher" | "nao_binario" | "baby" | "kids" | "teens";
 
 export type TipoFoto = "book" | "polaroid" | "editorial";
 
@@ -66,10 +66,13 @@ export interface ModeloComFotos extends Modelo {
   modelo_fotos: ModeloFoto[];
 }
 
-export const CATEGORIAS: { value: Categoria; label: string; slug: string }[] = [
-  { value: "homem", label: "Homem", slug: "homem" },
+export const CATEGORIAS: { value: Categoria; label: string; slug: string; desc?: string }[] = [
   { value: "mulher", label: "Mulher", slug: "mulher" },
+  { value: "homem", label: "Homem", slug: "homem" },
   { value: "nao_binario", label: "Não Binário", slug: "nao-binario" },
+  { value: "baby", label: "Baby", slug: "baby", desc: "Até 5 anos" },
+  { value: "kids", label: "Kids", slug: "kids", desc: "5 a 15 anos" },
+  { value: "teens", label: "Teens", slug: "teens", desc: "15 a 18 anos" },
 ];
 
 export function categoriaFromSlug(slug: string): Categoria | null {
