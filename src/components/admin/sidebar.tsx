@@ -12,6 +12,8 @@ import {
   Menu,
   X,
   LogOut,
+  Building2,
+  ClipboardList,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
@@ -22,6 +24,8 @@ const NAV_ITEMS = [
   { href: "/admin/modelos", label: "Modelos", icon: Users },
   { href: "/admin/candidaturas", label: "Candidaturas", icon: FileText },
   { href: "/admin/contatos", label: "Contatos", icon: MessageSquare },
+  { href: "/admin/marcas", label: "Marcas", icon: Building2 },
+  { href: "/admin/orcamentos", label: "Orcamentos", icon: ClipboardList },
   { href: "/admin/configuracoes", label: "Configurações", icon: Settings },
 ];
 

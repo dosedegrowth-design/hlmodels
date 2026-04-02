@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
+          cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
           supabaseResponse = NextResponse.next({ request });
@@ -29,28 +29,78 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Protect admin routes (except login)
-  if (
-    request.nextUrl.pathname.startsWith("/admin") &&
-    !request.nextUrl.pathname.startsWith("/admin/login")
-  ) {
+  const pathname = request.nextUrl.pathname;
+
+  // --- ADMIN ROUTES ---
+  if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
     if (!user) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/admin/login";
-      return NextResponse.redirect(url);
+      return NextResponse.redirect(new URL("/admin/login", request.url));
+    }
+    // Check admin role
+    const { data: profile } = await supabase
+      .from("user_profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (!profile || profile.role !== "admin") {
+      return NextResponse.redirect(new URL("/", request.url));
     }
   }
 
-  // Redirect logged-in users away from login
-  if (request.nextUrl.pathname === "/admin/login" && user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/admin";
-    return NextResponse.redirect(url);
+  // Redirect logged-in admins away from admin login
+  if (pathname === "/admin/login" && user) {
+    const { data: profile } = await supabase
+      .from("user_profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+    if (profile?.role === "admin") {
+      return NextResponse.redirect(new URL("/admin", request.url));
+    }
+  }
+
+  // --- MARCAS ROUTES ---
+  const publicMarcasRoutes = ["/marcas/login", "/marcas/registro"];
+  const isMarcasProtected = pathname.startsWith("/marcas") && !publicMarcasRoutes.includes(pathname);
+
+  if (isMarcasProtected) {
+    if (!user) {
+      return NextResponse.redirect(new URL("/marcas/login", request.url));
+    }
+
+    // Allow aguardando page always for logged-in users
+    if (pathname === "/marcas/aguardando") {
+      return supabaseResponse;
+    }
+
+    // Check marca status
+    const { data: marca } = await supabase
+      .from("marcas")
+      .select("status")
+      .eq("user_id", user.id)
+      .single();
+
+    if (!marca || marca.status !== "aprovada") {
+      return NextResponse.redirect(new URL("/marcas/aguardando", request.url));
+    }
+  }
+
+  // Redirect logged-in brands away from marcas login
+  if (pathname === "/marcas/login" && user) {
+    const { data: marca } = await supabase
+      .from("marcas")
+      .select("status")
+      .eq("user_id", user.id)
+      .single();
+    if (marca?.status === "aprovada") {
+      return NextResponse.redirect(new URL("/marcas", request.url));
+    }
   }
 
   return supabaseResponse;
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/marcas/:path*"],
 };

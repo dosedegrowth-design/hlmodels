@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { Users, FileText, MessageSquare, Star } from "lucide-react";
+import { Users, FileText, MessageSquare, Star, Building2, ClipboardList } from "lucide-react";
 import Link from "next/link";
 
 export default async function AdminDashboard() {
@@ -10,6 +10,8 @@ export default async function AdminDashboard() {
     { count: modelosAtivos },
     { count: candidaturasPendentes },
     { count: contatosNaoLidos },
+    { count: marcasPendentes },
+    { count: orcamentosPendentes },
   ] = await Promise.all([
     supabase.from("modelos").select("*", { count: "exact", head: true }),
     supabase
@@ -24,6 +26,14 @@ export default async function AdminDashboard() {
       .from("contatos")
       .select("*", { count: "exact", head: true })
       .eq("lido", false),
+    supabase
+      .from("marcas")
+      .select("*", { count: "exact", head: true })
+      .eq("status", "pendente"),
+    supabase
+      .from("selecoes")
+      .select("*", { count: "exact", head: true })
+      .eq("status", "enviada"),
   ]);
 
   const stats = [
@@ -50,6 +60,18 @@ export default async function AdminDashboard() {
       value: contatosNaoLidos ?? 0,
       icon: MessageSquare,
       href: "/admin/contatos",
+    },
+    {
+      label: "Marcas Pendentes",
+      value: marcasPendentes ?? 0,
+      icon: Building2,
+      href: "/admin/marcas",
+    },
+    {
+      label: "Orcamentos Pendentes",
+      value: orcamentosPendentes ?? 0,
+      icon: ClipboardList,
+      href: "/admin/orcamentos",
     },
   ];
 

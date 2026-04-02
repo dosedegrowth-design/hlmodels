@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Save, Trash2, Upload, X } from "lucide-react";
 import Image from "next/image";
 import type { Modelo, ModeloFoto, Categoria } from "@/types";
+import { ETNIAS, CORES_OLHOS, CORES_CABELO, HABILIDADES_COMUNS, IDIOMAS_COMUNS, ESTADOS_BR } from "@/types";
 
 interface ModeloFormProps {
   modelo?: Modelo & { modelo_fotos?: ModeloFoto[] };
@@ -42,6 +43,13 @@ export function ModeloForm({ modelo }: ModeloFormProps) {
   const [bio, setBio] = useState(modelo?.bio ?? "");
   const [ativo, setAtivo] = useState(modelo?.ativo ?? true);
   const [destaque, setDestaque] = useState(modelo?.destaque ?? false);
+  const [alturaCm, setAlturaCm] = useState(modelo?.altura_cm?.toString() ?? "");
+  const [dataNascimento, setDataNascimento] = useState(modelo?.data_nascimento ?? "");
+  const [cidade, setCidade] = useState(modelo?.cidade ?? "");
+  const [estado, setEstado] = useState(modelo?.estado ?? "");
+  const [etnia, setEtnia] = useState(modelo?.etnia ?? "");
+  const [habilidades, setHabilidades] = useState<string[]>(modelo?.habilidades ?? []);
+  const [idiomas, setIdiomas] = useState<string[]>(modelo?.idiomas ?? []);
   const [fotoPrincipal, setFotoPrincipal] = useState(
     modelo?.foto_principal ?? ""
   );
@@ -140,6 +148,13 @@ export function ModeloForm({ modelo }: ModeloFormProps) {
       bio: bio || null,
       ativo,
       destaque,
+      altura_cm: alturaCm ? parseInt(alturaCm) : null,
+      data_nascimento: dataNascimento || null,
+      cidade: cidade || null,
+      estado: estado || null,
+      etnia: etnia || null,
+      habilidades: habilidades.length > 0 ? habilidades : null,
+      idiomas: idiomas.length > 0 ? idiomas : null,
     };
 
     if (isEditing) {
@@ -294,6 +309,72 @@ export function ModeloForm({ modelo }: ModeloFormProps) {
               />
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Additional Info for brand filtering */}
+      <div className="bg-white rounded-xl border border-border p-6">
+        <h2 className="text-sm font-medium uppercase tracking-widest text-muted mb-4">
+          Informações Adicionais (Filtros Marcas)
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+          <div>
+            <label className="block text-xs text-muted mb-1">Altura (cm)</label>
+            <input value={alturaCm} onChange={(e) => setAlturaCm(e.target.value)} type="number" placeholder="175"
+              className="w-full border border-border px-3 py-2 text-sm rounded-lg focus:outline-none focus:border-foreground" />
+          </div>
+          <div>
+            <label className="block text-xs text-muted mb-1">Data Nascimento</label>
+            <input value={dataNascimento} onChange={(e) => setDataNascimento(e.target.value)} type="date"
+              className="w-full border border-border px-3 py-2 text-sm rounded-lg focus:outline-none focus:border-foreground" />
+          </div>
+          <div>
+            <label className="block text-xs text-muted mb-1">Cidade</label>
+            <input value={cidade} onChange={(e) => setCidade(e.target.value)} placeholder="São Paulo"
+              className="w-full border border-border px-3 py-2 text-sm rounded-lg focus:outline-none focus:border-foreground" />
+          </div>
+          <div>
+            <label className="block text-xs text-muted mb-1">Estado</label>
+            <select value={estado} onChange={(e) => setEstado(e.target.value)}
+              className="w-full border border-border px-3 py-2 text-sm rounded-lg focus:outline-none focus:border-foreground">
+              <option value="">--</option>
+              {ESTADOS_BR.map((uf) => <option key={uf} value={uf}>{uf}</option>)}
+            </select>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label className="block text-xs text-muted mb-1">Etnia</label>
+            <select value={etnia} onChange={(e) => setEtnia(e.target.value)}
+              className="w-full border border-border px-3 py-2 text-sm rounded-lg focus:outline-none focus:border-foreground">
+              <option value="">--</option>
+              {ETNIAS.map((e) => <option key={e} value={e}>{e}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs text-muted mb-2">Habilidades</label>
+            <div className="flex flex-wrap gap-1">
+              {HABILIDADES_COMUNS.map((h) => (
+                <button key={h} type="button"
+                  onClick={() => setHabilidades(habilidades.includes(h) ? habilidades.filter(x => x !== h) : [...habilidades, h])}
+                  className={`px-2 py-0.5 text-[10px] rounded-full border transition-colors ${
+                    habilidades.includes(h) ? "bg-foreground text-white border-foreground" : "border-border text-muted"
+                  }`}>{h}</button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label className="block text-xs text-muted mb-2">Idiomas</label>
+            <div className="flex flex-wrap gap-1">
+              {IDIOMAS_COMUNS.map((i) => (
+                <button key={i} type="button"
+                  onClick={() => setIdiomas(idiomas.includes(i) ? idiomas.filter(x => x !== i) : [...idiomas, i])}
+                  className={`px-2 py-0.5 text-[10px] rounded-full border transition-colors ${
+                    idiomas.includes(i) ? "bg-foreground text-white border-foreground" : "border-border text-muted"
+                  }`}>{i}</button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 

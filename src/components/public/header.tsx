@@ -24,6 +24,7 @@ export function Header() {
   const pathname = usePathname();
 
   const isAdmin = pathname.startsWith("/admin");
+  const isMarcas = pathname.startsWith("/marcas");
   const isHome = pathname === "/";
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (isAdmin) return null;
+  if (isAdmin || isMarcas) return null;
 
   return (
     <>

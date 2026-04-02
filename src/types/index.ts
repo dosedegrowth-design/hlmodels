@@ -1,8 +1,9 @@
 export type Categoria = "homem" | "mulher" | "nao_binario" | "baby" | "kids" | "teens";
-
 export type TipoFoto = "book" | "polaroid" | "editorial";
-
 export type StatusCandidatura = "pendente" | "analisando" | "aprovado" | "rejeitado";
+export type UserRole = "admin" | "marca";
+export type MarcaStatus = "pendente" | "aprovada" | "rejeitada" | "suspensa";
+export type SelecaoStatus = "rascunho" | "enviada" | "em_analise" | "respondida" | "fechada";
 
 export interface Modelo {
   id: string;
@@ -11,6 +12,7 @@ export interface Modelo {
   categoria: Categoria;
   foto_principal: string | null;
   altura: string | null;
+  altura_cm: number | null;
   manequim: string | null;
   busto: string | null;
   cintura: string | null;
@@ -20,6 +22,13 @@ export interface Modelo {
   cabelo: string | null;
   instagram: string | null;
   bio: string | null;
+  idade: number | null;
+  data_nascimento: string | null;
+  cidade: string | null;
+  estado: string | null;
+  etnia: string | null;
+  habilidades: string[] | null;
+  idiomas: string[] | null;
   ativo: boolean;
   destaque: boolean;
   ordem: number;
@@ -66,6 +75,54 @@ export interface ModeloComFotos extends Modelo {
   modelo_fotos: ModeloFoto[];
 }
 
+export interface UserProfile {
+  id: string;
+  role: UserRole;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Marca {
+  id: string;
+  user_id: string;
+  nome_empresa: string;
+  cnpj: string | null;
+  nome_contato: string;
+  email: string;
+  telefone: string | null;
+  segmento: string | null;
+  site: string | null;
+  status: MarcaStatus;
+  notas_admin: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Selecao {
+  id: string;
+  marca_id: string;
+  nome: string;
+  descricao: string | null;
+  data_evento: string | null;
+  orcamento_estimado: string | null;
+  status: SelecaoStatus;
+  resposta_admin: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface SelecaoModelo {
+  id: string;
+  selecao_id: string;
+  modelo_id: string;
+  nota: string | null;
+  created_at: string;
+}
+
+export interface SelecaoComModelos extends Selecao {
+  selecao_modelos: (SelecaoModelo & { modelos: Modelo })[];
+}
+
 export const CATEGORIAS: { value: Categoria; label: string; slug: string; desc?: string }[] = [
   { value: "mulher", label: "Mulher", slug: "mulher" },
   { value: "homem", label: "Homem", slug: "homem" },
@@ -74,6 +131,14 @@ export const CATEGORIAS: { value: Categoria; label: string; slug: string; desc?:
   { value: "kids", label: "Kids", slug: "kids", desc: "5 a 15 anos" },
   { value: "teens", label: "Teens", slug: "teens", desc: "15 a 18 anos" },
 ];
+
+export const ETNIAS = ["Branco", "Negro", "Pardo", "Asiático", "Indígena", "Outro"] as const;
+export const CORES_OLHOS = ["Castanhos", "Azuis", "Verdes", "Mel", "Cinzas", "Pretos"] as const;
+export const CORES_CABELO = ["Preto", "Castanho", "Loiro", "Ruivo", "Grisalho", "Platinado", "Rosa", "Outro"] as const;
+export const HABILIDADES_COMUNS = ["Dança", "Canto", "Atuação", "Esportes", "Yoga", "Artes Marciais", "Patinação", "Surf", "Natação", "Equitação"] as const;
+export const IDIOMAS_COMUNS = ["Português", "Inglês", "Espanhol", "Francês", "Italiano", "Alemão", "Japonês", "Mandarim"] as const;
+export const SEGMENTOS_MARCA = ["Moda", "Beleza", "Publicidade", "E-commerce", "Editorial", "Eventos", "Outro"] as const;
+export const ESTADOS_BR = ["AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO"] as const;
 
 export function categoriaFromSlug(slug: string): Categoria | null {
   const found = CATEGORIAS.find((c) => c.slug === slug);
