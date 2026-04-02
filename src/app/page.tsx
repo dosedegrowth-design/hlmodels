@@ -1,72 +1,79 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { ModelGrid } from "@/components/public/model-grid";
+import { HeroCarousel } from "@/components/public/hero-carousel";
 import { CATEGORIAS } from "@/types";
 
 export default async function HomePage() {
   const supabase = await createClient();
-  const { data: destaques } = await supabase
+
+  // Get featured models for hero carousel
+  const { data: heroModelos } = await supabase
     .from("modelos")
     .select("*")
     .eq("ativo", true)
     .eq("destaque", true)
     .order("ordem", { ascending: true })
-    .limit(8);
+    .limit(6);
+
+  // Get all active models for grid below
+  const { data: todosModelos } = await supabase
+    .from("modelos")
+    .select("*")
+    .eq("ativo", true)
+    .order("ordem", { ascending: true })
+    .limit(12);
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative h-screen flex items-center justify-center bg-foreground text-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
-        <div className="relative z-10 text-center px-6">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight mb-6">
-            HL MODELS
-          </h1>
-          <p className="text-lg md:text-xl text-white/70 max-w-xl mx-auto mb-10">
-            Agência de modelos profissional. Conectando talentos a oportunidades.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            {CATEGORIAS.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/${cat.slug}`}
-                className="px-8 py-3 border border-white/30 text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300"
-              >
-                {cat.label}
-              </Link>
-            ))}
+      {/* Hero - Split fullscreen carousel like reference */}
+      <HeroCarousel modelos={heroModelos ?? []} />
+
+      {/* Categories nav */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col items-center mb-16">
+            <h2 className="text-xs uppercase tracking-[0.3em] text-muted mb-8">
+              Categorias
+            </h2>
+            <div className="flex items-center gap-8 md:gap-16">
+              {CATEGORIAS.map((cat) => (
+                <Link
+                  key={cat.slug}
+                  href={`/${cat.slug}`}
+                  className="group text-center"
+                >
+                  <span className="text-2xl md:text-4xl font-light tracking-tight text-foreground group-hover:tracking-wider transition-all duration-300">
+                    {cat.label}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
+
+          {/* Model grid */}
+          {todosModelos && todosModelos.length > 0 && (
+            <ModelGrid modelos={todosModelos} />
+          )}
         </div>
       </section>
 
-      {/* Destaques */}
-      {destaques && destaques.length > 0 && (
-        <section className="py-20 px-6 max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-12">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-light tracking-tight">
-                Destaques
-              </h2>
-              <p className="text-muted text-sm mt-1">Nossos talentos em evidência</p>
-            </div>
-          </div>
-          <ModelGrid modelos={destaques} />
-        </section>
-      )}
-
       {/* CTA Faça Parte */}
-      <section className="bg-neutral-50 py-20 px-6">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-4">
+      <section className="bg-foreground text-white py-24 px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-6">
+            Junte-se a nós
+          </p>
+          <h2 className="text-3xl md:text-5xl font-light tracking-tight mb-6">
             Quer fazer parte?
           </h2>
-          <p className="text-muted mb-8">
+          <p className="text-white/50 mb-10 max-w-lg mx-auto">
             Se você tem interesse em iniciar ou desenvolver sua carreira como
             modelo, entre em contato conosco.
           </p>
           <Link
             href="/faca-parte"
-            className="inline-block px-10 py-4 bg-foreground text-white text-sm uppercase tracking-widest hover:bg-foreground/90 transition-colors"
+            className="inline-block px-12 py-4 border border-white/30 text-xs uppercase tracking-[0.3em] hover:bg-white hover:text-foreground transition-all duration-300"
           >
             Inscreva-se
           </Link>
