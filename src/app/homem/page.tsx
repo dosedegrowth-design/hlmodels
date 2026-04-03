@@ -3,8 +3,9 @@ import { ModelGrid } from "@/components/public/model-grid";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Modelos Masculinos | HL Models",
-  description: "Conheça nosso casting de modelos masculinos.",
+  title: "Modelos Masculinos",
+  description: "Conheça nosso casting de modelos masculinos. Agência HL Models em São Paulo com modelos para moda, publicidade e editorial.",
+  alternates: { canonical: "https://hlmodels.vercel.app/homem" },
 };
 
 export default async function HomemPage() {

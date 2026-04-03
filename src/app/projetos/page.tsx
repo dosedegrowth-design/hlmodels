@@ -4,8 +4,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Projetos | HL Models",
-  description: "Conheça os projetos realizados pela HL Models com marcas e modelos.",
+  title: "Projetos e Portfolio",
+  description: "Conheça os projetos e campanhas realizados pela HL Models com marcas e modelos. Portfolio de moda, publicidade e editorial.",
+  alternates: { canonical: "https://hlmodels.vercel.app/projetos" },
 };
 
 export default async function ProjetosPage() {

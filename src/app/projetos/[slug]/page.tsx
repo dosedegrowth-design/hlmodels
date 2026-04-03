@@ -14,9 +14,20 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const supabase = await createClient();
-  const { data: projeto } = await supabase.from("projetos").select("titulo, descricao").eq("slug", slug).eq("ativo", true).single();
+  const { data: projeto } = await supabase.from("projetos").select("titulo, descricao, foto_capa, marca_parceira").eq("slug", slug).eq("ativo", true).single();
   if (!projeto) return { title: "Projeto nao encontrado" };
-  return { title: `${projeto.titulo} | HL Models`, description: projeto.descricao || `Projeto ${projeto.titulo} da HL Models.` };
+  const description = projeto.descricao || `Projeto ${projeto.titulo} da HL Models.`;
+  return {
+    title: `${projeto.titulo} - Projetos`,
+    description,
+    openGraph: {
+      title: `${projeto.titulo} | HL Models`,
+      description,
+      images: projeto.foto_capa ? [{ url: projeto.foto_capa, width: 1200, height: 800, alt: projeto.titulo }] : [],
+      type: "article",
+    },
+    alternates: { canonical: `https://hlmodels.vercel.app/projetos/${slug}` },
+  };
 }
 
 function getEmbedUrl(url: string): string | null {

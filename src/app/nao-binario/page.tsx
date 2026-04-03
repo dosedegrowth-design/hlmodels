@@ -3,8 +3,9 @@ import { ModelGrid } from "@/components/public/model-grid";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Modelos Não Binários | HL Models",
-  description: "Conheça nosso casting de modelos não binários.",
+  title: "Modelos Não Binários",
+  description: "Conheça nosso casting de modelos não binários. Agência HL Models em São Paulo valoriza diversidade na moda e publicidade.",
+  alternates: { canonical: "https://hlmodels.vercel.app/nao-binario" },
 };
 
 export default async function NaoBinarioPage() {

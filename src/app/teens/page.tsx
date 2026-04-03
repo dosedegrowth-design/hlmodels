@@ -3,8 +3,9 @@ import { ModelGrid } from "@/components/public/model-grid";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Teens - 15 a 18 anos | HL Models",
-  description: "Conheça nosso casting de modelos teens, de 15 a 18 anos.",
+  title: "Modelos Teens - 15 a 18 anos",
+  description: "Casting de modelos teens de 15 a 18 anos. Agência HL Models em São Paulo para campanhas juvenis e publicidade.",
+  alternates: { canonical: "https://hlmodels.vercel.app/teens" },
 };
 
 export default async function TeensPage() {

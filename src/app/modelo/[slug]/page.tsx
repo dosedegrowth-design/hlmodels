@@ -17,16 +17,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = await createClient();
   const { data: modelo } = await supabase
     .from("modelos")
-    .select("nome, bio")
+    .select("nome, bio, foto_principal, categoria")
     .eq("slug", slug)
     .eq("ativo", true)
     .single();
 
   if (!modelo) return { title: "Modelo não encontrado" };
 
+  const description = modelo.bio || `Conheça ${modelo.nome}, modelo na HL Models - Agência de modelos em São Paulo.`;
+
   return {
-    title: `${modelo.nome} | HL Models`,
-    description: modelo.bio || `Conheça ${modelo.nome} na HL Models.`,
+    title: `${modelo.nome} - Modelo`,
+    description,
+    openGraph: {
+      title: `${modelo.nome} | HL Models`,
+      description,
+      images: modelo.foto_principal ? [{ url: modelo.foto_principal, width: 600, height: 800, alt: modelo.nome }] : [],
+      type: "profile",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${modelo.nome} | HL Models`,
+      description,
+      images: modelo.foto_principal ? [modelo.foto_principal] : [],
+    },
+    alternates: {
+      canonical: `https://hlmodels.vercel.app/modelo/${slug}`,
+    },
   };
 }
 
@@ -57,8 +74,25 @@ export default async function ModeloPage({ params }: Props) {
   const m = modelo as ModeloComFotos;
   const fotos = (m.modelo_fotos ?? []).sort((a, b) => a.ordem - b.ordem);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: m.nome,
+    image: m.foto_principal,
+    url: `https://hlmodels.vercel.app/modelo/${m.slug}`,
+    description: m.bio,
+    worksFor: {
+      "@type": "Organization",
+      name: "HL Models",
+    },
+  };
+
   return (
     <div className="pt-28 pb-20 px-6 max-w-7xl mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Back */}
       <Link
         href={`/${m.categoria === "nao_binario" ? "nao-binario" : m.categoria}`}

@@ -2,8 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sobre | HL Models",
-  description: "Conheça a HL Models, agência de modelos profissional.",
+  title: "Sobre",
+  description: "Conheça a HL Models, agência de modelos profissional em São Paulo. Trabalhamos com diversidade, autenticidade e excelência no mercado da moda.",
+  alternates: { canonical: "https://hlmodels.vercel.app/sobre" },
 };
 
 export default function SobrePage() {

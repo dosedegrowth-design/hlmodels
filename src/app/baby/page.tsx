@@ -3,8 +3,9 @@ import { ModelGrid } from "@/components/public/model-grid";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Baby - Até 5 anos | HL Models",
-  description: "Conheça nosso casting de modelos baby, até 5 anos.",
+  title: "Modelos Baby - Até 5 anos",
+  description: "Casting de modelos baby até 5 anos. Agência HL Models em São Paulo para campanhas infantis e publicidade.",
+  alternates: { canonical: "https://hlmodels.vercel.app/baby" },
 };
 
 export default async function BabyPage() {

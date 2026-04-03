@@ -3,8 +3,9 @@ import { ModelGrid } from "@/components/public/model-grid";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kids - 5 a 15 anos | HL Models",
-  description: "Conheça nosso casting de modelos kids, de 5 a 15 anos.",
+  title: "Modelos Kids - 5 a 15 anos",
+  description: "Casting de modelos kids de 5 a 15 anos. Agência HL Models em São Paulo para campanhas infantis e publicidade.",
+  alternates: { canonical: "https://hlmodels.vercel.app/kids" },
 };
 
 export default async function KidsPage() {
