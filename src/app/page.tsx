@@ -4,6 +4,7 @@ import { ModelGrid } from "@/components/public/model-grid";
 import { HeroCarousel } from "@/components/public/hero-carousel";
 import { CategoriesCarousel } from "@/components/public/categories-carousel";
 import { CATEGORIAS } from "@/types";
+import { ProjetoCard } from "@/components/public/projeto-card";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -42,6 +43,15 @@ export default async function HomePage() {
       .filter(Boolean) as string[];
   }
 
+  // Get featured projetos for home
+  const { data: projetosDestaque } = await supabase
+    .from("projetos")
+    .select("*")
+    .eq("ativo", true)
+    .eq("destaque", true)
+    .order("ordem", { ascending: true })
+    .limit(4);
+
   return (
     <>
       {/* Hero - 4 models fullscreen carousel */}
@@ -75,6 +85,35 @@ export default async function HomePage() {
               </h2>
             </div>
             <ModelGrid modelos={todosModelos} />
+          </div>
+        </section>
+      )}
+
+      {/* Projetos destaque */}
+      {projetosDestaque && projetosDestaque.length > 0 && (
+        <section className="py-16 lg:py-24 bg-neutral-50">
+          <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">
+                  Portfolio
+                </p>
+                <h2 className="text-3xl md:text-4xl font-light tracking-tight">
+                  Projetos
+                </h2>
+              </div>
+              <Link
+                href="/projetos"
+                className="text-xs uppercase tracking-widest text-muted hover:text-foreground transition-colors"
+              >
+                Ver todos
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {projetosDestaque.map((p, i) => (
+                <ProjetoCard key={p.id} projeto={p} index={i} />
+              ))}
+            </div>
           </div>
         </section>
       )}

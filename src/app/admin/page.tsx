@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { Users, FileText, MessageSquare, Star, Building2, ClipboardList } from "lucide-react";
+import { Users, FileText, MessageSquare, Star, Building2, ClipboardList, FolderOpen } from "lucide-react";
 import Link from "next/link";
 
 export default async function AdminDashboard() {
@@ -12,6 +12,7 @@ export default async function AdminDashboard() {
     { count: contatosNaoLidos },
     { count: marcasPendentes },
     { count: orcamentosPendentes },
+    { count: totalProjetos },
   ] = await Promise.all([
     supabase.from("modelos").select("*", { count: "exact", head: true }),
     supabase
@@ -34,6 +35,7 @@ export default async function AdminDashboard() {
       .from("selecoes")
       .select("*", { count: "exact", head: true })
       .eq("status", "enviada"),
+    supabase.from("projetos").select("*", { count: "exact", head: true }),
   ]);
 
   const stats = [
@@ -72,6 +74,12 @@ export default async function AdminDashboard() {
       value: orcamentosPendentes ?? 0,
       icon: ClipboardList,
       href: "/admin/orcamentos",
+    },
+    {
+      label: "Total Projetos",
+      value: totalProjetos ?? 0,
+      icon: FolderOpen,
+      href: "/admin/projetos",
     },
   ];
 

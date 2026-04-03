@@ -14,6 +14,7 @@ const NAV_LINKS = [
   { href: "/baby", label: "Baby" },
   { href: "/kids", label: "Kids" },
   { href: "/teens", label: "Teens" },
+  { href: "/projetos", label: "Projetos" },
   { href: "/faca-parte", label: "Faça Parte" },
   { href: "/contato", label: "Contato" },
 ];

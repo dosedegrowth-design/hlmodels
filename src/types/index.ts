@@ -123,6 +123,40 @@ export interface SelecaoComModelos extends Selecao {
   selecao_modelos: (SelecaoModelo & { modelos: Modelo })[];
 }
 
+export interface Projeto {
+  id: string;
+  titulo: string;
+  slug: string;
+  descricao: string | null;
+  foto_capa: string | null;
+  video_url: string | null;
+  marca_parceira: string | null;
+  ativo: boolean;
+  destaque: boolean;
+  ordem: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ProjetoFoto {
+  id: string;
+  projeto_id: string;
+  url: string;
+  ordem: number;
+  created_at: string;
+}
+
+export interface ProjetoModelo {
+  id: string;
+  projeto_id: string;
+  modelo_id: string;
+}
+
+export interface ProjetoCompleto extends Projeto {
+  projeto_fotos: ProjetoFoto[];
+  projeto_modelos: (ProjetoModelo & { modelos: Modelo })[];
+}
+
 export const CATEGORIAS: { value: Categoria; label: string; slug: string; desc?: string }[] = [
   { value: "mulher", label: "Mulher", slug: "mulher" },
   { value: "homem", label: "Homem", slug: "homem" },
