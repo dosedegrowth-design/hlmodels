@@ -4,7 +4,6 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { UserPlus } from "lucide-react";
 import { SEGMENTOS_MARCA } from "@/types";
 
 export default function MarcasRegistroPage() {
@@ -24,7 +23,7 @@ export default function MarcasRegistroPage() {
     const confirmPassword = fd.get("confirm_password") as string;
 
     if (password !== confirmPassword) {
-      setError("As senhas não coincidem.");
+      setError("As senhas nao coincidem.");
       setLoading(false);
       return;
     }
@@ -67,78 +66,125 @@ export default function MarcasRegistroPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
-      <div className="w-full max-w-lg">
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold tracking-[0.15em] uppercase">HL Models</h1>
-          <p className="text-sm text-muted mt-1">Cadastro de Marca</p>
+    <div className="min-h-screen flex">
+      {/* Left: branding */}
+      <div className="hidden lg:flex lg:w-5/12 bg-foreground relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.06)_0%,_transparent_70%)]" />
+        <div className="relative z-10 flex flex-col justify-between p-12 w-full">
+          <Link href="/" className="text-white text-xl font-bold tracking-[0.2em] uppercase">
+            HL Models
+          </Link>
+          <div>
+            <h2 className="text-white text-4xl font-light tracking-tight leading-tight mb-4">
+              Cadastre sua<br />marca
+            </h2>
+            <p className="text-white/40 text-sm max-w-xs leading-relaxed">
+              Crie sua conta para acessar nosso banco de modelos, montar selecoes personalizadas e solicitar orcamentos para suas campanhas.
+            </p>
+          </div>
+          <div className="space-y-3">
+            {["Acesso ao banco completo de modelos", "Filtros avancados por caracteristicas", "Selecoes e orcamentos online"].map((item) => (
+              <div key={item} className="flex items-center gap-3">
+                <div className="w-1 h-1 rounded-full bg-white/30" />
+                <span className="text-white/30 text-xs">{item}</span>
+              </div>
+            ))}
+          </div>
         </div>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {error && (
-            <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-lg">{error}</div>
-          )}
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs uppercase tracking-widest text-muted mb-2">Nome da empresa *</label>
-              <input name="nome_empresa" required className="w-full border border-border px-4 py-3 text-sm rounded-lg focus:outline-none focus:border-foreground" placeholder="Empresa Ltda" />
-            </div>
-            <div>
-              <label className="block text-xs uppercase tracking-widest text-muted mb-2">CNPJ</label>
-              <input name="cnpj" className="w-full border border-border px-4 py-3 text-sm rounded-lg focus:outline-none focus:border-foreground" placeholder="00.000.000/0001-00" />
-            </div>
-            <div>
-              <label className="block text-xs uppercase tracking-widest text-muted mb-2">Nome do contato *</label>
-              <input name="nome_contato" required className="w-full border border-border px-4 py-3 text-sm rounded-lg focus:outline-none focus:border-foreground" placeholder="João Silva" />
-            </div>
-            <div>
-              <label className="block text-xs uppercase tracking-widest text-muted mb-2">Telefone</label>
-              <input name="telefone" className="w-full border border-border px-4 py-3 text-sm rounded-lg focus:outline-none focus:border-foreground" placeholder="(11) 99999-9999" />
-            </div>
-            <div>
-              <label className="block text-xs uppercase tracking-widest text-muted mb-2">Segmento</label>
-              <select name="segmento" className="w-full border border-border px-4 py-3 text-sm rounded-lg focus:outline-none focus:border-foreground">
-                <option value="">Selecione</option>
-                {SEGMENTOS_MARCA.map((s) => <option key={s} value={s}>{s}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="block text-xs uppercase tracking-widest text-muted mb-2">Site</label>
-              <input name="site" className="w-full border border-border px-4 py-3 text-sm rounded-lg focus:outline-none focus:border-foreground" placeholder="https://..." />
-            </div>
+      {/* Right: form */}
+      <div className="flex-1 flex items-center justify-center p-6 lg:p-12 overflow-y-auto">
+        <div className="w-full max-w-lg py-8">
+          <div className="lg:hidden text-center mb-8">
+            <Link href="/" className="text-xl font-bold tracking-[0.2em] uppercase">HL Models</Link>
+            <p className="text-xs text-muted mt-1 uppercase tracking-widest">Cadastro de Marca</p>
           </div>
 
-          <hr className="border-border" />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs uppercase tracking-widest text-muted mb-2">Email *</label>
-              <input name="email" type="email" required className="w-full border border-border px-4 py-3 text-sm rounded-lg focus:outline-none focus:border-foreground" placeholder="marca@empresa.com" />
-            </div>
-            <div className="sm:col-span-2 grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs uppercase tracking-widest text-muted mb-2">Senha *</label>
-                <input name="password" type="password" required minLength={6} className="w-full border border-border px-4 py-3 text-sm rounded-lg focus:outline-none focus:border-foreground" placeholder="Min. 6 caracteres" />
-              </div>
-              <div>
-                <label className="block text-xs uppercase tracking-widest text-muted mb-2">Confirmar senha *</label>
-                <input name="confirm_password" type="password" required className="w-full border border-border px-4 py-3 text-sm rounded-lg focus:outline-none focus:border-foreground" placeholder="Repetir senha" />
-              </div>
-            </div>
+          <div className="hidden lg:block mb-8">
+            <h1 className="text-2xl font-light tracking-tight">Criar conta</h1>
+            <p className="text-sm text-muted mt-1">Preencha os dados da sua empresa para solicitar acesso.</p>
           </div>
 
-          <button type="submit" disabled={loading}
-            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-foreground text-white text-sm uppercase tracking-widest rounded-lg hover:bg-foreground/90 transition-colors disabled:opacity-50">
-            <UserPlus size={16} />
-            {loading ? "Cadastrando..." : "Criar conta"}
-          </button>
-        </form>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {error && (
+              <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-xl">{error}</div>
+            )}
 
-        <p className="text-center text-sm text-muted mt-6">
-          Já tem conta?{" "}
-          <Link href="/marcas/login" className="text-foreground underline">Entrar</Link>
-        </p>
+            {/* Company info */}
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-muted mb-3">Dados da empresa</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <input name="nome_empresa" required placeholder="Nome da empresa *"
+                    className="w-full border border-border px-4 py-3 text-sm rounded-xl focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/10 transition-all" />
+                </div>
+                <div>
+                  <input name="cnpj" placeholder="CNPJ (opcional)"
+                    className="w-full border border-border px-4 py-3 text-sm rounded-xl focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/10 transition-all" />
+                </div>
+                <div>
+                  <select name="segmento"
+                    className="w-full border border-border px-4 py-3 text-sm rounded-xl focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/10 transition-all text-muted">
+                    <option value="">Segmento</option>
+                    {SEGMENTOS_MARCA.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <input name="site" placeholder="Site (opcional)"
+                    className="w-full border border-border px-4 py-3 text-sm rounded-xl focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/10 transition-all" />
+                </div>
+              </div>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-muted mb-3">Contato</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <input name="nome_contato" required placeholder="Seu nome *"
+                    className="w-full border border-border px-4 py-3 text-sm rounded-xl focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/10 transition-all" />
+                </div>
+                <div>
+                  <input name="telefone" placeholder="Telefone"
+                    className="w-full border border-border px-4 py-3 text-sm rounded-xl focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/10 transition-all" />
+                </div>
+              </div>
+            </div>
+
+            {/* Account */}
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-muted mb-3">Dados de acesso</p>
+              <div className="space-y-3">
+                <input name="email" type="email" required placeholder="Email *"
+                  className="w-full border border-border px-4 py-3 text-sm rounded-xl focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/10 transition-all" />
+                <div className="grid grid-cols-2 gap-3">
+                  <input name="password" type="password" required minLength={6} placeholder="Senha *"
+                    className="w-full border border-border px-4 py-3 text-sm rounded-xl focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/10 transition-all" />
+                  <input name="confirm_password" type="password" required placeholder="Confirmar senha *"
+                    className="w-full border border-border px-4 py-3 text-sm rounded-xl focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/10 transition-all" />
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" disabled={loading}
+              className="w-full py-3.5 bg-foreground text-white text-sm tracking-widest uppercase rounded-xl hover:bg-foreground/90 transition-colors disabled:opacity-50">
+              {loading ? "Cadastrando..." : "Solicitar acesso"}
+            </button>
+          </form>
+
+          <div className="mt-6 text-center space-y-2">
+            <p className="text-xs text-muted">
+              Ja tem conta?{" "}
+              <Link href="/marcas/login" className="text-foreground underline hover:no-underline">Entrar</Link>
+            </p>
+            <Link href="/" className="text-xs text-muted hover:text-foreground transition-colors block">
+              Voltar ao site
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
