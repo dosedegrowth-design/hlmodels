@@ -81,7 +81,10 @@ export function HeroCarousel({ modelos }: HeroCarouselProps) {
             return (
               <div
                 key={colIndex}
-                className="relative h-full flex-1 bg-neutral-900"
+                className={cn(
+                  "relative h-full flex-1 bg-neutral-900",
+                  colIndex >= 2 && "hidden md:block"
+                )}
               >
                 <div className="h-full flex items-center justify-center">
                   <span className="text-white/5 text-xs uppercase tracking-[0.3em]">
@@ -93,7 +96,13 @@ export function HeroCarousel({ modelos }: HeroCarouselProps) {
           }
 
           return (
-            <div key={modelo.id} className="relative h-full flex-1 group">
+            <div
+              key={modelo.id}
+              className={cn(
+                "relative h-full flex-1 group",
+                colIndex >= 2 && "hidden md:block"
+              )}
+            >
               <Link
                 href={`/modelo/${modelo.slug}`}
                 className="block h-full relative"
@@ -108,7 +117,7 @@ export function HeroCarousel({ modelos }: HeroCarouselProps) {
                       "group-hover:scale-[1.03] group-hover:brightness-110"
                     )}
                     priority={colIndex < 2}
-                    sizes="25vw"
+                    sizes="(max-width: 768px) 50vw, 25vw"
                     quality={90}
                   />
                 ) : (
@@ -139,10 +148,13 @@ export function HeroCarousel({ modelos }: HeroCarouselProps) {
 
       {/* Subtle dividers between photos */}
       <div className="absolute inset-0 flex pointer-events-none z-[2]">
+        {/* Mobile: 1 divider at 50% */}
+        <div className="md:hidden absolute top-0 bottom-0 w-px bg-black/20" style={{ left: "50%" }} />
+        {/* Desktop: 3 dividers at 25%, 50%, 75% */}
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="absolute top-0 bottom-0 w-px bg-black/20"
+            className="hidden md:block absolute top-0 bottom-0 w-px bg-black/20"
             style={{ left: `${i * 25}%` }}
           />
         ))}
