@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { ModelGrid } from "@/components/public/model-grid";
 import { HeroCarousel } from "@/components/public/hero-carousel";
 import { CategoriesCarousel } from "@/components/public/categories-carousel";
+import { CATEGORIAS } from "@/types";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -24,6 +25,21 @@ export default async function HomePage() {
     .order("ordem", { ascending: true })
     .limit(12);
 
+  // Get cover photo per category (first destaque model)
+  const categoryCovers: Record<string, string | null> = {};
+  for (const cat of CATEGORIAS) {
+    const { data } = await supabase
+      .from("modelos")
+      .select("foto_principal")
+      .eq("categoria", cat.value)
+      .eq("ativo", true)
+      .order("destaque", { ascending: false })
+      .order("ordem", { ascending: true })
+      .limit(1)
+      .single();
+    categoryCovers[cat.value] = data?.foto_principal ?? null;
+  }
+
   return (
     <>
       {/* Hero - 4 models fullscreen carousel */}
@@ -40,7 +56,7 @@ export default async function HomePage() {
               Categorias
             </h2>
           </div>
-          <CategoriesCarousel />
+          <CategoriesCarousel categoryCovers={categoryCovers} />
         </div>
       </section>
 
