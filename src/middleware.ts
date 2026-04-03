@@ -6,6 +6,11 @@ async function getUserRole(supabase: any, userId: string): Promise<string | null
   return data ?? null;
 }
 
+async function getMarcaStatus(supabase: any, userId: string): Promise<string | null> {
+  const { data } = await supabase.rpc("get_marca_status", { p_user_id: userId });
+  return data ?? null;
+}
+
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
@@ -65,19 +70,21 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL("/marcas/login", request.url));
     }
 
-    // Allow aguardando page always for logged-in users
+    // Admins should NOT be redirected to aguardando - send them to admin panel
+    const role = await getUserRole(supabase, user.id);
+    if (role === "admin") {
+      return NextResponse.redirect(new URL("/admin", request.url));
+    }
+
+    // Allow aguardando page always for logged-in brand users
     if (pathname === "/marcas/aguardando") {
       return supabaseResponse;
     }
 
-    // Check marca status
-    const { data: marca } = await supabase
-      .from("marcas")
-      .select("status")
-      .eq("user_id", user.id)
-      .single();
+    // Check marca status using SECURITY DEFINER function (bypasses RLS)
+    const marcaStatus = await getMarcaStatus(supabase, user.id);
 
-    if (!marca || marca.status !== "aprovada") {
+    if (!marcaStatus || marcaStatus !== "aprovada") {
       return NextResponse.redirect(
         new URL("/marcas/aguardando", request.url)
       );
@@ -86,12 +93,14 @@ export async function middleware(request: NextRequest) {
 
   // Redirect logged-in brands away from marcas login
   if (pathname === "/marcas/login" && user) {
-    const { data: marca } = await supabase
-      .from("marcas")
-      .select("status")
-      .eq("user_id", user.id)
-      .single();
-    if (marca?.status === "aprovada") {
+    const role = await getUserRole(supabase, user.id);
+    // If admin is on marcas login, redirect to admin
+    if (role === "admin") {
+      return NextResponse.redirect(new URL("/admin", request.url));
+    }
+    // If approved brand, redirect to dashboard
+    const marcaStatus = await getMarcaStatus(supabase, user.id);
+    if (marcaStatus === "aprovada") {
       return NextResponse.redirect(new URL("/marcas", request.url));
     }
   }
