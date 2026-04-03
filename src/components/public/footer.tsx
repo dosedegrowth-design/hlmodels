@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AtSign, Phone, Mail, MapPin } from "lucide-react";
 
@@ -18,9 +19,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold tracking-tight mb-4">
-              HL MODELS
-            </h3>
+            <div className="relative h-14 w-36 mb-4">
+              <Image src="/logo-white.png" alt="HL Models Agency" fill className="object-contain object-left" />
+            </div>
             <p className="text-white/60 text-sm leading-relaxed">
               Agência de modelos profissional. Conectamos talentos a
               oportunidades no mundo da moda e publicidade.

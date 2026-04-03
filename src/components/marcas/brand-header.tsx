@@ -72,11 +72,8 @@ export function BrandHeader() {
   return (
     <header className="bg-white border-b border-border sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-        <Link
-          href="/marcas"
-          className="text-base font-bold tracking-[0.15em] uppercase"
-        >
-          HL Models
+        <Link href="/marcas" className="block">
+          <img src="/logo-dark.png" alt="HL Models" className="h-8 w-auto object-contain" />
         </Link>
 
         {/* Desktop nav */}

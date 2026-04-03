@@ -34,8 +34,8 @@ export default function AdminLoginPage() {
       <div className="hidden lg:flex lg:w-1/2 bg-foreground relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.05)_0%,_transparent_60%)]" />
         <div className="relative z-10 flex flex-col justify-between p-12 w-full">
-          <Link href="/" className="text-white text-xl font-bold tracking-[0.2em] uppercase">
-            HL Models
+          <Link href="/" className="block">
+            <img src="/logo-white.png" alt="HL Models" className="h-12 w-auto object-contain" />
           </Link>
           <div>
             <h2 className="text-white text-4xl font-light tracking-tight leading-tight mb-4">
@@ -55,7 +55,7 @@ export default function AdminLoginPage() {
       <div className="flex-1 flex items-center justify-center p-6 lg:p-12">
         <div className="w-full max-w-sm">
           <div className="lg:hidden text-center mb-10">
-            <Link href="/" className="text-xl font-bold tracking-[0.2em] uppercase">HL Models</Link>
+            <Link href="/" className="block"><img src="/logo-dark.png" alt="HL Models" className="h-10 w-auto object-contain mx-auto" /></Link>
             <p className="text-xs text-muted mt-1 uppercase tracking-widest">Painel Administrativo</p>
           </div>
 

@@ -71,8 +71,8 @@ export default function MarcasRegistroPage() {
       <div className="hidden lg:flex lg:w-5/12 bg-foreground relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.06)_0%,_transparent_70%)]" />
         <div className="relative z-10 flex flex-col justify-between p-12 w-full">
-          <Link href="/" className="text-white text-xl font-bold tracking-[0.2em] uppercase">
-            HL Models
+          <Link href="/" className="block">
+            <img src="/logo-white.png" alt="HL Models" className="h-12 w-auto object-contain" />
           </Link>
           <div>
             <h2 className="text-white text-4xl font-light tracking-tight leading-tight mb-4">
@@ -97,7 +97,7 @@ export default function MarcasRegistroPage() {
       <div className="flex-1 flex items-center justify-center p-6 lg:p-12 overflow-y-auto">
         <div className="w-full max-w-lg py-8">
           <div className="lg:hidden text-center mb-8">
-            <Link href="/" className="text-xl font-bold tracking-[0.2em] uppercase">HL Models</Link>
+            <Link href="/" className="block"><img src="/logo-dark.png" alt="HL Models" className="h-10 w-auto object-contain mx-auto" /></Link>
             <p className="text-xs text-muted mt-1 uppercase tracking-widest">Cadastro de Marca</p>
           </div>
 

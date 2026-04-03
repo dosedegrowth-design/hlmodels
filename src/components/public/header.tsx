@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -54,14 +55,14 @@ export function Header() {
           <div className="w-28" />
 
           {/* Center logo */}
-          <Link
-            href="/"
-            className={cn(
-              "text-xl lg:text-2xl font-bold tracking-[0.2em] uppercase transition-colors duration-300",
-              scrolled || !isHome ? "text-foreground" : "text-white"
-            )}
-          >
-            HL Models
+          <Link href="/" className="relative h-10 w-28 lg:h-12 lg:w-36">
+            <Image
+              src={scrolled || !isHome ? "/logo-dark.png" : "/logo-white.png"}
+              alt="HL Models Agency"
+              fill
+              className="object-contain"
+              priority
+            />
           </Link>
 
           {/* Right - Menu button */}
@@ -93,12 +94,8 @@ export function Header() {
         {/* Menu header */}
         <div className="px-6 lg:px-10 h-16 lg:h-20 flex items-center justify-between shrink-0">
           <div className="w-28" />
-          <Link
-            href="/"
-            onClick={() => setMenuOpen(false)}
-            className="text-xl lg:text-2xl font-bold tracking-[0.2em] uppercase text-white"
-          >
-            HL Models
+          <Link href="/" onClick={() => setMenuOpen(false)} className="relative h-10 w-28 lg:h-12 lg:w-36">
+            <Image src="/logo-white.png" alt="HL Models Agency" fill className="object-contain" priority />
           </Link>
           <div className="w-28 flex items-center justify-end">
             <button

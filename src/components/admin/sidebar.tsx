@@ -47,8 +47,8 @@ export function AdminSidebar() {
   const navContent = (
     <>
       <div className="p-6 border-b border-border">
-        <Link href="/admin" className="text-lg font-bold tracking-tight">
-          HL MODELS
+        <Link href="/admin" className="block">
+          <img src="/logo-dark.png" alt="HL Models" className="h-10 w-auto object-contain" />
         </Link>
         <p className="text-xs text-muted mt-1">Painel Admin</p>
       </div>
@@ -100,7 +100,7 @@ export function AdminSidebar() {
     <>
       {/* Mobile toggle */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-border px-4 py-3 flex items-center justify-between">
-        <span className="font-bold text-sm">HL MODELS Admin</span>
+        <img src="/logo-dark.png" alt="HL Models" className="h-7 w-auto object-contain" />
         <button onClick={() => setMobileOpen(!mobileOpen)}>
           {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
