@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
+import Image from "next/image";
 import { CandidaturaActions } from "@/components/admin/candidatura-actions";
 import { ContactButtons } from "@/components/admin/contact-buttons";
+import { AtSign, MapPin, Ruler, Calendar } from "lucide-react";
 
 const STATUS_LABELS: Record<string, { label: string; className: string }> = {
   pendente: { label: "Pendente", className: "bg-yellow-100 text-yellow-800" },
@@ -32,9 +34,12 @@ export default async function AdminCandidaturasPage() {
         <p className="text-sm text-muted">{candidaturas?.length ?? 0} total</p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         {(candidaturas ?? []).map((c) => {
           const status = STATUS_LABELS[c.status] ?? STATUS_LABELS.pendente;
+          const fotos = (c.fotos as string[]) ?? [];
+          const igHandle = c.instagram?.replace("@", "").trim();
+
           return (
             <div
               key={c.id}
@@ -42,62 +47,116 @@ export default async function AdminCandidaturasPage() {
                 c.status === "pendente" ? "border-yellow-200" : "border-border"
               }`}
             >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-sm font-medium">{c.nome}</h3>
-                    <span
-                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${status.className}`}
-                    >
-                      {status.label}
-                    </span>
-                  </div>
-
-                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
-                    <span>{c.email}</span>
-                    {c.telefone && <span>{c.telefone}</span>}
-                    {c.cidade && <span>{c.cidade}</span>}
-                    {c.idade && <span>{c.idade} anos</span>}
-                    {c.altura && <span>{c.altura}</span>}
-                    {c.instagram && (
-                      <a
-                        href={`https://instagram.com/${c.instagram.replace("@", "")}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-foreground"
-                      >
-                        {c.instagram}
-                      </a>
+              {/* Header: nome + status + actions */}
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div className="flex items-center gap-3">
+                  {/* Avatar from first photo */}
+                  <div className="relative w-12 h-12 rounded-full bg-neutral-100 overflow-hidden shrink-0">
+                    {fotos.length > 0 ? (
+                      <Image
+                        src={fotos[0]}
+                        alt={c.nome}
+                        fill
+                        className="object-cover"
+                        sizes="48px"
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center w-full h-full text-lg text-neutral-400 font-light">
+                        {c.nome.charAt(0)}
+                      </div>
                     )}
                   </div>
-
-                  {c.mensagem && (
-                    <p className="text-sm text-muted mt-3 line-clamp-2">
-                      {c.mensagem}
-                    </p>
-                  )}
-
-                  <ContactButtons
-                    telefone={c.telefone}
-                    email={c.email}
-                    nome={c.nome}
-                  />
-
-                  <p className="text-xs text-muted/50 mt-3">
-                    {new Date(c.created_at).toLocaleDateString("pt-BR", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </p>
+                  <div>
+                    <h3 className="text-base font-medium">{c.nome}</h3>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span
+                        className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium ${status.className}`}
+                      >
+                        {status.label}
+                      </span>
+                      <span className="text-[10px] text-muted">
+                        {new Date(c.created_at).toLocaleDateString("pt-BR", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <CandidaturaActions
-                  candidaturaId={c.id}
-                  currentStatus={c.status}
-                />
+                <CandidaturaActions candidaturaId={c.id} currentStatus={c.status} />
               </div>
+
+              {/* Photo grid */}
+              {fotos.length > 0 && (
+                <div className="flex gap-2 mb-4 overflow-x-auto">
+                  {fotos.map((url, i) => (
+                    <a
+                      key={i}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative w-20 h-28 shrink-0 rounded-lg overflow-hidden bg-neutral-100 hover:opacity-80 transition-opacity"
+                    >
+                      <Image
+                        src={url}
+                        alt={`${c.nome} foto ${i + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="80px"
+                      />
+                    </a>
+                  ))}
+                </div>
+              )}
+
+              {/* Info grid */}
+              <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm mb-3">
+                <span className="text-muted">{c.email}</span>
+                {c.telefone && <span className="text-muted">{c.telefone}</span>}
+                {c.cidade && (
+                  <span className="flex items-center gap-1 text-muted">
+                    <MapPin size={12} /> {c.cidade}
+                  </span>
+                )}
+                {c.idade && (
+                  <span className="flex items-center gap-1 text-muted">
+                    <Calendar size={12} /> {c.idade} anos
+                  </span>
+                )}
+                {c.altura && (
+                  <span className="flex items-center gap-1 text-muted">
+                    <Ruler size={12} /> {c.altura}
+                  </span>
+                )}
+              </div>
+
+              {/* Instagram button */}
+              {igHandle && (
+                <a
+                  href={`https://instagram.com/${igHandle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-pink-500 text-white text-[11px] font-medium rounded-lg hover:opacity-90 transition-opacity mb-3"
+                >
+                  <AtSign size={13} />
+                  {igHandle}
+                </a>
+              )}
+
+              {/* Message */}
+              {c.mensagem && (
+                <p className="text-sm text-muted bg-neutral-50 rounded-lg p-3 mb-3">
+                  {c.mensagem}
+                </p>
+              )}
+
+              {/* Contact action buttons */}
+              <ContactButtons
+                telefone={c.telefone}
+                email={c.email}
+                nome={c.nome}
+              />
             </div>
           );
         })}
