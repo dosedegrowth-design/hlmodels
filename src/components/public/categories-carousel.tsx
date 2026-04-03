@@ -2,15 +2,113 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CATEGORIAS } from "@/types";
 
 interface CategoriesCarouselProps {
-  categoryCovers: Record<string, string | null>;
+  categoryPhotos: Record<string, string[]>;
 }
 
-export function CategoriesCarousel({ categoryCovers }: CategoriesCarouselProps) {
+function CategoryCard({
+  slug,
+  label,
+  desc,
+  photos,
+  offset,
+}: {
+  slug: string;
+  label: string;
+  desc?: string;
+  photos: string[];
+  offset: number;
+}) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (photos.length <= 1) return;
+    // Offset the start so each card transitions at a different time
+    const delay = setTimeout(() => {
+      const timer = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % photos.length);
+      }, 3000);
+      return () => clearInterval(timer);
+    }, offset * 500);
+    return () => clearTimeout(delay);
+  }, [photos.length, offset]);
+
+  // Start a separate interval after mount (the timeout above returns cleanup for the timeout only)
+  useEffect(() => {
+    if (photos.length <= 1) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % photos.length);
+    }, 3000 + offset * 200);
+    return () => clearInterval(timer);
+  }, [photos.length, offset]);
+
+  return (
+    <Link
+      href={`/${slug}`}
+      className="group snap-start shrink-0 w-[200px] md:w-[240px] lg:w-[280px]"
+    >
+      <div className="relative aspect-[3/4] bg-neutral-900 overflow-hidden">
+        {/* Slideshow images */}
+        {photos.length > 0 ? (
+          photos.map((url, i) => (
+            <Image
+              key={url}
+              src={url}
+              alt={`${label} ${i + 1}`}
+              fill
+              className={`object-cover transition-opacity duration-1000 ${
+                i === currentIndex ? "opacity-100" : "opacity-0"
+              }`}
+              sizes="280px"
+            />
+          ))
+        ) : (
+          <div className="absolute inset-0 bg-foreground" />
+        )}
+
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500 z-[1]" />
+
+        {/* Text */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-[2]">
+          <span className="text-2xl md:text-3xl font-light tracking-wider text-white drop-shadow-lg">
+            {label}
+          </span>
+          {desc && (
+            <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 mt-1">
+              {desc}
+            </span>
+          )}
+        </div>
+
+        {/* Photo indicators */}
+        {photos.length > 1 && (
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1 z-[2]">
+            {photos.map((_, i) => (
+              <div
+                key={i}
+                className={`h-[2px] rounded-full transition-all duration-500 ${
+                  i === currentIndex
+                    ? "w-4 bg-white/80"
+                    : "w-1.5 bg-white/30"
+                }`}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Hover border */}
+        <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 transition-colors duration-300 z-[2]" />
+      </div>
+    </Link>
+  );
+}
+
+export function CategoriesCarousel({ categoryPhotos }: CategoriesCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   function scrollByAmount(direction: "left" | "right") {
@@ -43,50 +141,16 @@ export function CategoriesCarousel({ categoryCovers }: CategoriesCarouselProps) 
         className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-6 lg:px-10 -mx-6 lg:-mx-10"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        {CATEGORIAS.map((cat) => {
-          const coverUrl = categoryCovers[cat.value];
-
-          return (
-            <Link
-              key={cat.slug}
-              href={`/${cat.slug}`}
-              className="group snap-start shrink-0 w-[200px] md:w-[240px] lg:w-[280px]"
-            >
-              <div className="relative aspect-[3/4] bg-neutral-200 overflow-hidden">
-                {/* Background image */}
-                {coverUrl ? (
-                  <Image
-                    src={coverUrl}
-                    alt={cat.label}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="280px"
-                  />
-                ) : (
-                  <div className="absolute inset-0 bg-foreground" />
-                )}
-
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500" />
-
-                {/* Text */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
-                  <span className="text-2xl md:text-3xl font-light tracking-wider text-white drop-shadow-lg">
-                    {cat.label}
-                  </span>
-                  {cat.desc && (
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 mt-1">
-                      {cat.desc}
-                    </span>
-                  )}
-                </div>
-
-                {/* Hover border */}
-                <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 transition-colors duration-300 z-10" />
-              </div>
-            </Link>
-          );
-        })}
+        {CATEGORIAS.map((cat, index) => (
+          <CategoryCard
+            key={cat.slug}
+            slug={cat.slug}
+            label={cat.label}
+            desc={cat.desc}
+            photos={categoryPhotos[cat.value] ?? []}
+            offset={index}
+          />
+        ))}
       </div>
     </div>
   );

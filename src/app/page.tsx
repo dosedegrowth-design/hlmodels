@@ -25,19 +25,21 @@ export default async function HomePage() {
     .order("ordem", { ascending: true })
     .limit(12);
 
-  // Get cover photo per category (first destaque model)
-  const categoryCovers: Record<string, string | null> = {};
+  // Get multiple photos per category for slideshow
+  const categoryPhotos: Record<string, string[]> = {};
   for (const cat of CATEGORIAS) {
     const { data } = await supabase
       .from("modelos")
       .select("foto_principal")
       .eq("categoria", cat.value)
       .eq("ativo", true)
+      .not("foto_principal", "is", null)
       .order("destaque", { ascending: false })
       .order("ordem", { ascending: true })
-      .limit(1)
-      .single();
-    categoryCovers[cat.value] = data?.foto_principal ?? null;
+      .limit(6);
+    categoryPhotos[cat.value] = (data ?? [])
+      .map((m) => m.foto_principal)
+      .filter(Boolean) as string[];
   }
 
   return (
@@ -56,7 +58,7 @@ export default async function HomePage() {
               Categorias
             </h2>
           </div>
-          <CategoriesCarousel categoryCovers={categoryCovers} />
+          <CategoriesCarousel categoryPhotos={categoryPhotos} />
         </div>
       </section>
 
