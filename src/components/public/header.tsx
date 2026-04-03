@@ -55,7 +55,7 @@ export function Header() {
           <div className="w-28" />
 
           {/* Center logo */}
-          <Link href="/" className="relative h-10 w-28 lg:h-12 lg:w-36">
+          <Link href="/" className="relative h-14 w-36 lg:h-16 lg:w-44">
             <Image
               src={scrolled || !isHome ? "/logo-dark.png" : "/logo-white.png"}
               alt="HL Models Agency"
@@ -94,7 +94,7 @@ export function Header() {
         {/* Menu header */}
         <div className="px-6 lg:px-10 h-16 lg:h-20 flex items-center justify-between shrink-0">
           <div className="w-28" />
-          <Link href="/" onClick={() => setMenuOpen(false)} className="relative h-10 w-28 lg:h-12 lg:w-36">
+          <Link href="/" onClick={() => setMenuOpen(false)} className="relative h-14 w-36 lg:h-16 lg:w-44">
             <Image src="/logo-white.png" alt="HL Models Agency" fill className="object-contain" priority />
           </Link>
           <div className="w-28 flex items-center justify-end">
