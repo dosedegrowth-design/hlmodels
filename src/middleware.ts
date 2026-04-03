@@ -1,6 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+async function getUserRole(supabase: any, userId: string): Promise<string | null> {
+  const { data } = await supabase.rpc("get_user_role", { user_id: userId });
+  return data ?? null;
+}
+
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
@@ -36,33 +41,24 @@ export async function middleware(request: NextRequest) {
     if (!user) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
-    // Check admin role
-    const { data: profile } = await supabase
-      .from("user_profiles")
-      .select("role")
-      .eq("id", user.id)
-      .single();
-
-    if (!profile || profile.role !== "admin") {
+    const role = await getUserRole(supabase, user.id);
+    if (role !== "admin") {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
 
   // Redirect logged-in admins away from admin login
   if (pathname === "/admin/login" && user) {
-    const { data: profile } = await supabase
-      .from("user_profiles")
-      .select("role")
-      .eq("id", user.id)
-      .single();
-    if (profile?.role === "admin") {
+    const role = await getUserRole(supabase, user.id);
+    if (role === "admin") {
       return NextResponse.redirect(new URL("/admin", request.url));
     }
   }
 
   // --- MARCAS ROUTES ---
   const publicMarcasRoutes = ["/marcas/login", "/marcas/registro"];
-  const isMarcasProtected = pathname.startsWith("/marcas") && !publicMarcasRoutes.includes(pathname);
+  const isMarcasProtected =
+    pathname.startsWith("/marcas") && !publicMarcasRoutes.includes(pathname);
 
   if (isMarcasProtected) {
     if (!user) {
@@ -82,7 +78,9 @@ export async function middleware(request: NextRequest) {
       .single();
 
     if (!marca || marca.status !== "aprovada") {
-      return NextResponse.redirect(new URL("/marcas/aguardando", request.url));
+      return NextResponse.redirect(
+        new URL("/marcas/aguardando", request.url)
+      );
     }
   }
 
