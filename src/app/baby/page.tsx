@@ -18,7 +18,7 @@ export default async function BabyPage() {
     .order("ordem", { ascending: true });
 
   return (
-    <div className="pt-24 lg:pt-28 pb-20 min-h-screen bg-gradient-to-b from-[#FFF0F5] via-[#FFF8FA] to-white">
+    <div className="pt-24 lg:pt-28 pb-20 min-h-screen bg-gradient-to-b from-[#FFE0F0] via-[#FFF0F7] to-white">
       <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
         <div className="mb-14 lg:mb-20 relative">
           {/* Decorative elements */}

@@ -53,7 +53,7 @@ function CategoryCard({
       className="group snap-start shrink-0 w-[200px] md:w-[240px] lg:w-[280px]"
     >
       <div className={`relative aspect-[3/4] overflow-hidden ${
-        isKids ? "bg-gradient-to-br from-kids-pink/30 to-kids-lavender/30 rounded-2xl" : "bg-neutral-900"
+        isKids ? "bg-gradient-to-br from-kids-pink/50 to-kids-sky/50 rounded-2xl shadow-lg" : "bg-neutral-900"
       }`}>
         {/* Slideshow images */}
         {photos.length > 0 ? (
@@ -70,7 +70,7 @@ function CategoryCard({
             />
           ))
         ) : (
-          <div className={`absolute inset-0 ${isKids ? "bg-gradient-to-br from-kids-pink/40 to-kids-sky/40" : "bg-foreground"}`} />
+          <div className={`absolute inset-0 ${isKids ? "bg-gradient-to-br from-kids-pink/60 to-kids-purple/40" : "bg-foreground"}`} />
         )}
 
         {/* Overlay */}

@@ -18,7 +18,7 @@ export default async function KidsPage() {
     .order("ordem", { ascending: true });
 
   return (
-    <div className="pt-24 lg:pt-28 pb-20 min-h-screen bg-gradient-to-b from-[#FFFDE7] via-[#FAFFF5] to-white">
+    <div className="pt-24 lg:pt-28 pb-20 min-h-screen bg-gradient-to-b from-[#FFF8E1] via-[#F1FFF0] to-white">
       <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
         <div className="mb-14 lg:mb-20 relative">
           <div className="absolute -top-4 -right-4 w-20 h-20 bg-kids-yellow/30 rounded-full blur-2xl kids-float" />

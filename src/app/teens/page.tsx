@@ -18,7 +18,7 @@ export default async function TeensPage() {
     .order("ordem", { ascending: true });
 
   return (
-    <div className="pt-24 lg:pt-28 pb-20 min-h-screen bg-gradient-to-b from-[#F5F0FF] via-[#FAF5FF] to-white">
+    <div className="pt-24 lg:pt-28 pb-20 min-h-screen bg-gradient-to-b from-[#EDE7F6] via-[#F3E5F5] to-white">
       <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
         <div className="mb-14 lg:mb-20 relative">
           <div className="absolute -top-4 -right-4 w-20 h-20 bg-kids-purple/15 rounded-full blur-2xl kids-float" />

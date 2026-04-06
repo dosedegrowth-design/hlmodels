@@ -9,15 +9,17 @@
   --color-accent: #0a0a0a;
   --color-accent-foreground: #ffffff;
 
-  /* Kids palette */
-  --color-kids-pink: #FFB6C1;
-  --color-kids-lavender: #E8D5F5;
-  --color-kids-yellow: #FFE66D;
-  --color-kids-mint: #95E1D3;
-  --color-kids-coral: #FF6B9D;
-  --color-kids-purple: #6C63FF;
-  --color-kids-sky: #87CEEB;
-  --color-kids-peach: #FFDAB9;
+  /* Kids palette - vibrant */
+  --color-kids-pink: #FF69B4;
+  --color-kids-lavender: #B388FF;
+  --color-kids-yellow: #FFD600;
+  --color-kids-mint: #00E5A0;
+  --color-kids-coral: #FF4081;
+  --color-kids-purple: #7C4DFF;
+  --color-kids-sky: #40C4FF;
+  --color-kids-peach: #FF8A65;
+  --color-kids-orange: #FF9100;
+  --color-kids-lime: #C6FF00;
 
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-display: "Inter", system-ui, -apple-system, sans-serif;
@@ -112,7 +114,7 @@ body {
 
 /* ===== HERO KIDS slide ===== */
 .hero-kids-gradient {
-  background: linear-gradient(135deg, #FFE0EC 0%, #E8D5F5 30%, #D4F1F9 60%, #FFF9E3 100%);
+  background: linear-gradient(135deg, #FFD1E8 0%, #D1C4E9 25%, #B3E5FC 50%, #FFF9C4 75%, #FFE0B2 100%);
 }
 
 /* Hero carousel transition */
