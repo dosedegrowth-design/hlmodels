@@ -9,6 +9,16 @@
   --color-accent: #0a0a0a;
   --color-accent-foreground: #ffffff;
 
+  /* Kids palette */
+  --color-kids-pink: #FFB6C1;
+  --color-kids-lavender: #E8D5F5;
+  --color-kids-yellow: #FFE66D;
+  --color-kids-mint: #95E1D3;
+  --color-kids-coral: #FF6B9D;
+  --color-kids-purple: #6C63FF;
+  --color-kids-sky: #87CEEB;
+  --color-kids-peach: #FFDAB9;
+
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-display: "Inter", system-ui, -apple-system, sans-serif;
 }
@@ -23,7 +33,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Model card hover effect */
+/* ===== MODEL CARD: FASHION (default) ===== */
 .model-card {
   position: relative;
   overflow: hidden;
@@ -63,6 +73,48 @@ body {
   transform: translateY(0);
 }
 
+/* ===== MODEL CARD: KIDS variant ===== */
+.model-card-kids {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.model-card-kids:hover {
+  box-shadow: 0 8px 30px rgba(108, 99, 255, 0.15);
+  transform: translateY(-4px);
+}
+
+.model-card-kids::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.85) 0%, transparent 50%);
+  opacity: 1;
+  z-index: 1;
+}
+
+.model-card-kids img {
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.model-card-kids:hover img {
+  transform: scale(1.05);
+}
+
+.model-card-kids .model-name {
+  z-index: 2;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== HERO KIDS slide ===== */
+.hero-kids-gradient {
+  background: linear-gradient(135deg, #FFE0EC 0%, #E8D5F5 30%, #D4F1F9 60%, #FFF9E3 100%);
+}
+
 /* Hero carousel transition */
 .hero-slide {
   transition: opacity 0.8s ease;
@@ -82,4 +134,14 @@ body {
 
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Decorative elements for kids pages */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+.kids-float {
+  animation: float 6s ease-in-out infinite;
 }

@@ -24,6 +24,7 @@ function CategoryCard({
   offset: number;
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const isKids = ["baby", "kids", "teens"].includes(slug);
 
   useEffect(() => {
     if (photos.length <= 1) return;
@@ -51,7 +52,9 @@ function CategoryCard({
       href={`/${slug}`}
       className="group snap-start shrink-0 w-[200px] md:w-[240px] lg:w-[280px]"
     >
-      <div className="relative aspect-[3/4] bg-neutral-900 overflow-hidden">
+      <div className={`relative aspect-[3/4] overflow-hidden ${
+        isKids ? "bg-gradient-to-br from-kids-pink/30 to-kids-lavender/30 rounded-2xl" : "bg-neutral-900"
+      }`}>
         {/* Slideshow images */}
         {photos.length > 0 ? (
           photos.map((url, i) => (
@@ -67,19 +70,27 @@ function CategoryCard({
             />
           ))
         ) : (
-          <div className="absolute inset-0 bg-foreground" />
+          <div className={`absolute inset-0 ${isKids ? "bg-gradient-to-br from-kids-pink/40 to-kids-sky/40" : "bg-foreground"}`} />
         )}
 
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500 z-[1]" />
+        {/* Overlay */}
+        <div className={`absolute inset-0 transition-colors duration-500 z-[1] ${
+          isKids
+            ? "bg-gradient-to-t from-white/70 via-white/20 to-transparent group-hover:from-white/80"
+            : "bg-black/30 group-hover:bg-black/50"
+        }`} />
 
         {/* Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-[2]">
-          <span className="text-2xl md:text-3xl font-light tracking-wider text-white drop-shadow-lg">
+          <span className={`text-2xl md:text-3xl font-light tracking-wider drop-shadow-lg ${
+            isKids ? "text-foreground" : "text-white"
+          }`}>
             {label}
           </span>
           {desc && (
-            <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 mt-1">
+            <span className={`text-[10px] uppercase tracking-[0.3em] mt-1 ${
+              isKids ? "text-kids-purple font-medium" : "text-white/60"
+            }`}>
               {desc}
             </span>
           )}

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Modelos Kids - 5 a 15 anos",
-  description: "Casting de modelos kids de 5 a 15 anos. Agência HL Models em São Paulo para campanhas infantis e publicidade.",
+  description: "Casting de modelos kids de 5 a 15 anos. Agencia HL Models em Sao Paulo para campanhas infantis e publicidade.",
   alternates: { canonical: "https://hlmodels.vercel.app/kids" },
 };
 
@@ -18,10 +18,12 @@ export default async function KidsPage() {
     .order("ordem", { ascending: true });
 
   return (
-    <div className="pt-24 lg:pt-28 pb-20">
+    <div className="pt-24 lg:pt-28 pb-20 min-h-screen bg-gradient-to-b from-[#FFFDE7] via-[#FAFFF5] to-white">
       <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
-        <div className="mb-14 lg:mb-20">
-          <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">
+        <div className="mb-14 lg:mb-20 relative">
+          <div className="absolute -top-4 -right-4 w-20 h-20 bg-kids-yellow/30 rounded-full blur-2xl kids-float" />
+          <div className="absolute top-10 right-20 w-12 h-12 bg-kids-mint/30 rounded-full blur-xl kids-float" style={{ animationDelay: "2s" }} />
+          <p className="text-[10px] uppercase tracking-[0.4em] text-kids-purple mb-3 font-medium">
             5 a 15 anos
           </p>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tight">

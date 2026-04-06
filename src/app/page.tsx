@@ -9,14 +9,25 @@ import { ProjetoCard } from "@/components/public/projeto-card";
 export default async function HomePage() {
   const supabase = await createClient();
 
-  // Get featured models for hero carousel (8 = 2 slides of 4)
+  // Get featured ADULT models for hero (fashion slides)
   const { data: heroModelos } = await supabase
     .from("modelos")
     .select("*")
     .eq("ativo", true)
     .eq("destaque", true)
+    .in("categoria", ["homem", "mulher", "nao_binario"])
     .order("ordem", { ascending: true })
     .limit(8);
+
+  // Get featured KIDS models for hero (kids slides)
+  const { data: heroKids } = await supabase
+    .from("modelos")
+    .select("*")
+    .eq("ativo", true)
+    .in("categoria", ["baby", "kids", "teens"])
+    .order("destaque", { ascending: false })
+    .order("ordem", { ascending: true })
+    .limit(4);
 
   // Get all active models for grid below
   const { data: todosModelos } = await supabase
@@ -55,7 +66,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero - 4 models fullscreen carousel */}
-      <HeroCarousel modelos={heroModelos ?? []} />
+      <HeroCarousel modelos={heroModelos ?? []} modelosKids={heroKids ?? []} />
 
       {/* Categories carousel */}
       <section className="py-16 lg:py-24">

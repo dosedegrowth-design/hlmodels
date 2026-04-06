@@ -4,13 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Modelo } from "@/types";
+import { categoriaLabel } from "@/types";
 
 interface ModelCardProps {
   modelo: Modelo;
   index?: number;
 }
 
+const KIDS_CATS = ["baby", "kids", "teens"];
+
 export function ModelCard({ modelo, index = 0 }: ModelCardProps) {
+  const isKids = KIDS_CATS.includes(modelo.categoria);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -18,7 +23,13 @@ export function ModelCard({ modelo, index = 0 }: ModelCardProps) {
       transition={{ duration: 0.5, delay: index * 0.06 }}
     >
       <Link href={`/modelo/${modelo.slug}`} className="group block">
-        <div className="model-card relative aspect-[3/4] bg-neutral-100 overflow-hidden">
+        <div
+          className={
+            isKids
+              ? "model-card-kids relative aspect-[3/4] bg-neutral-50 overflow-hidden"
+              : "model-card relative aspect-[3/4] bg-neutral-100 overflow-hidden"
+          }
+        >
           {modelo.foto_principal ? (
             <Image
               src={modelo.foto_principal}
@@ -28,21 +39,33 @@ export function ModelCard({ modelo, index = 0 }: ModelCardProps) {
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-neutral-200">
+            <div
+              className={`absolute inset-0 flex items-center justify-center ${
+                isKids ? "bg-gradient-to-br from-kids-pink/20 to-kids-lavender/20" : "bg-neutral-200"
+              }`}
+            >
               <span className="text-5xl font-light text-neutral-400">
                 {modelo.nome.charAt(0)}
               </span>
             </div>
           )}
-          <div className="model-name absolute bottom-0 left-0 right-0 p-4 lg:p-5">
-            <p className="text-white/60 text-[10px] uppercase tracking-[0.25em] mb-0.5">
-              {modelo.categoria === "homem"
-                ? "Homem"
-                : modelo.categoria === "mulher"
-                ? "Mulher"
-                : "Não Binário"}
+          <div
+            className={`absolute bottom-0 left-0 right-0 p-4 lg:p-5 ${
+              isKids ? "model-name" : "model-name"
+            }`}
+          >
+            <p
+              className={`text-[10px] uppercase tracking-[0.25em] mb-0.5 ${
+                isKids ? "text-kids-purple font-medium" : "text-white/60"
+              }`}
+            >
+              {categoriaLabel(modelo.categoria)}
             </p>
-            <h3 className="text-white text-sm lg:text-base font-light tracking-wider">
+            <h3
+              className={`text-sm lg:text-base font-light tracking-wider ${
+                isKids ? "text-foreground" : "text-white"
+              }`}
+            >
               {modelo.nome}
             </h3>
           </div>
