@@ -71,16 +71,16 @@ export function Footer() {
                   className="flex items-center gap-2 text-sm text-foreground/50 hover:text-kids-purple transition-colors">
                   <AtSign size={16} />@hlmodels
                 </a>
-                <a href="tel:+5511999999999"
+                <a href="tel:+5511953506752"
                   className="flex items-center gap-2 text-sm text-foreground/50 hover:text-foreground transition-colors">
-                  <Phone size={16} />(11) 99999-9999
+                  <Phone size={16} />(11) 95350-6752
                 </a>
-                <a href="mailto:contato@hlmodels.com.br"
+                <a href="mailto:hlmodels@outlook.com"
                   className="flex items-center gap-2 text-sm text-foreground/50 hover:text-foreground transition-colors">
-                  <Mail size={16} />contato@hlmodels.com.br
+                  <Mail size={16} />hlmodels@outlook.com
                 </a>
                 <p className="flex items-start gap-2 text-sm text-foreground/50">
-                  <MapPin size={16} className="mt-0.5 shrink-0" />Sao Paulo, SP
+                  <MapPin size={16} className="mt-0.5 shrink-0" />Sao Bernardo do Campo, SP
                 </p>
               </div>
             </div>
@@ -126,14 +126,14 @@ export function Footer() {
                 className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
                 <AtSign size={16} />@hlmodels
               </a>
-              <a href="tel:+5511999999999" className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
-                <Phone size={16} />(11) 99999-9999
+              <a href="tel:+5511953506752" className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
+                <Phone size={16} />(11) 95350-6752
               </a>
-              <a href="mailto:contato@hlmodels.com.br" className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
-                <Mail size={16} />contato@hlmodels.com.br
+              <a href="mailto:hlmodels@outlook.com" className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
+                <Mail size={16} />hlmodels@outlook.com
               </a>
               <p className="flex items-start gap-2 text-sm text-white/60">
-                <MapPin size={16} className="mt-0.5 shrink-0" />Sao Paulo, SP
+                <MapPin size={16} className="mt-0.5 shrink-0" />Sao Bernardo do Campo, SP
               </p>
             </div>
           </div>

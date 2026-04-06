@@ -39,6 +39,7 @@ body {
 .model-card {
   position: relative;
   overflow: hidden;
+  border-radius: 12px;
 }
 
 .model-card::after {

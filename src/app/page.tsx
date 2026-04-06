@@ -5,6 +5,8 @@ import { HeroCarousel } from "@/components/public/hero-carousel";
 import { CategoriesCarousel } from "@/components/public/categories-carousel";
 import { CATEGORIAS } from "@/types";
 import { ProjetoCard } from "@/components/public/projeto-card";
+import { BrandsCarousel } from "@/components/public/brands-carousel";
+import { FaqSection } from "@/components/public/faq-section";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -128,6 +130,36 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* Marcas Parceiras */}
+      <section className="py-16 lg:py-20">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="px-6 lg:px-10 mb-8 text-center">
+            <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">
+              Quem confia na gente
+            </p>
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight">
+              Marcas Parceiras
+            </h2>
+          </div>
+          <BrandsCarousel />
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 lg:py-24 bg-neutral-50">
+        <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">
+              Duvidas
+            </p>
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight">
+              Perguntas Frequentes
+            </h2>
+          </div>
+          <FaqSection />
+        </div>
+      </section>
 
       {/* CTA Faça Parte */}
       <section className="bg-foreground text-white py-24 px-6">

@@ -89,7 +89,7 @@ export default function ContatoPage() {
             <input
               name="telefone"
               className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors"
-              placeholder="(11) 99999-9999"
+              placeholder="(11) 95350-6752"
             />
           </div>
 
@@ -144,18 +144,18 @@ export default function ContatoPage() {
                 @hlmodels
               </a>
               <a
-                href="tel:+5511999999999"
+                href="tel:+5511953506752"
                 className="flex items-center gap-3 text-sm hover:text-foreground transition-colors"
               >
                 <Phone size={18} className="text-muted" />
-                (11) 99999-9999
+                (11) 95350-6752
               </a>
               <a
-                href="mailto:contato@hlmodels.com.br"
+                href="mailto:hlmodels@outlook.com"
                 className="flex items-center gap-3 text-sm hover:text-foreground transition-colors"
               >
                 <Mail size={18} className="text-muted" />
-                contato@hlmodels.com.br
+                hlmodels@outlook.com
               </a>
               <p className="flex items-start gap-3 text-sm">
                 <MapPin size={18} className="text-muted mt-0.5 shrink-0" />

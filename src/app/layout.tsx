@@ -86,14 +86,14 @@ export default function RootLayout({
     logo: `${SITE_URL}/logo.png`,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "São Paulo",
+      addressLocality: "Sao Bernardo do Campo",
       addressRegion: "SP",
       addressCountry: "BR",
     },
     sameAs: ["https://instagram.com/hlmodels"],
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+55-11-99999-9999",
+      telephone: "+55-11-95350-6752",
       contactType: "customer service",
       availableLanguage: "Portuguese",
     },

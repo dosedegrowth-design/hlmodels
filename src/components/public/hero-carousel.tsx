@@ -233,7 +233,7 @@ export function HeroCarousel({ modelos, modelosKids = [] }: HeroCarouselProps) {
 
       {/* WhatsApp */}
       <a
-        href="https://wa.me/5511999999999"
+        href="https://wa.me/5511953506752"
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
