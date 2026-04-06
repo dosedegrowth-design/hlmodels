@@ -7,6 +7,7 @@ import { CATEGORIAS } from "@/types";
 import { ProjetoCard } from "@/components/public/projeto-card";
 import { BrandsCarousel } from "@/components/public/brands-carousel";
 import { FaqSection } from "@/components/public/faq-section";
+import { AprovadosSection } from "@/components/public/aprovados-section";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -65,6 +66,17 @@ export default async function HomePage() {
     .order("ordem", { ascending: true })
     .limit(4);
 
+  // Get approved models with brand seals
+  const { data: aprovadosRaw } = await supabase
+    .from("modelo_aprovacoes")
+    .select("marca_nome, modelos(id, nome, slug, foto_principal, categoria)")
+    .order("created_at", { ascending: false })
+    .limit(12);
+
+  const aprovados = (aprovadosRaw ?? [])
+    .filter((a: any) => a.modelos)
+    .map((a: any) => ({ modelo: a.modelos, marca_nome: a.marca_nome }));
+
   return (
     <>
       {/* Hero - 4 models fullscreen carousel */}
@@ -98,6 +110,26 @@ export default async function HomePage() {
               </h2>
             </div>
             <ModelGrid modelos={todosModelos} />
+          </div>
+        </section>
+      )}
+
+      {/* Aprovados */}
+      {aprovados.length > 0 && (
+        <section className="py-16 lg:py-24 bg-gradient-to-b from-green-50/50 to-white">
+          <div className="max-w-[1600px] mx-auto">
+            <div className="px-6 lg:px-10 mb-10 text-center">
+              <p className="text-[10px] uppercase tracking-[0.4em] text-green-600 mb-3 font-medium">
+                Prontos para brilhar
+              </p>
+              <h2 className="text-3xl md:text-4xl font-light tracking-tight">
+                Aprovados
+              </h2>
+              <p className="text-sm text-muted mt-2">
+                Veja quem ja esta pronto para as campanhas
+              </p>
+            </div>
+            <AprovadosSection aprovados={aprovados} />
           </div>
         </section>
       )}

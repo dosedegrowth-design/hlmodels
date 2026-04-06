@@ -152,6 +152,17 @@ export interface ProjetoModelo {
   modelo_id: string;
 }
 
+export interface ModeloAprovacao {
+  id: string;
+  modelo_id: string;
+  marca_nome: string;
+  created_at: string;
+}
+
+export interface ModeloComAprovacoes extends Modelo {
+  modelo_aprovacoes: ModeloAprovacao[];
+}
+
 export interface ProjetoCompleto extends Projeto {
   projeto_fotos: ProjetoFoto[];
   projeto_modelos: (ProjetoModelo & { modelos: Modelo })[];
