@@ -80,27 +80,33 @@ export function Header() {
     loadPreviews();
   }, [menuOpen, previewImages]);
 
-  if (isAdmin || isMarcas) return null;
-
-  // Detect if we're on a kids-related page (including modelo pages for kids models)
+  // Detect if current modelo page is a kids model
   const [isKidsModel, setIsKidsModel] = useState(false);
 
   useEffect(() => {
-    // Check if the current page has a kids theme by looking at the page background
-    const main = document.querySelector("main");
-    if (main) {
-      const firstChild = main.firstElementChild as HTMLElement;
-      if (firstChild) {
-        const bg = getComputedStyle(firstChild).backgroundColor;
-        // #FFFAF7 = rgb(255, 250, 247)
-        if (bg === "rgb(255, 250, 247)") {
-          setIsKidsModel(true);
-        } else {
-          setIsKidsModel(false);
-        }
-      }
+    // Check if we're on /modelo/[slug] and if that model is kids category
+    const modelMatch = pathname.match(/^\/modelo\/(.+)$/);
+    if (modelMatch) {
+      const slug = modelMatch[1];
+      const supabase = createClient();
+      supabase
+        .from("modelos")
+        .select("categoria")
+        .eq("slug", slug)
+        .single()
+        .then(({ data }) => {
+          if (data && ["baby", "kids", "teens"].includes(data.categoria)) {
+            setIsKidsModel(true);
+          } else {
+            setIsKidsModel(false);
+          }
+        });
+    } else {
+      setIsKidsModel(false);
     }
   }, [pathname]);
+
+  if (isAdmin || isMarcas) return null;
 
   const isKidsContext = isKidsPage || isKidsModel;
 
