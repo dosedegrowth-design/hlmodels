@@ -72,10 +72,10 @@ const MEDIDAS = [
 ] as const;
 
 // Kids-specific color maps
-const KIDS_COLORS: Record<string, { bg: string; accent: string; badge: string }> = {
-  baby: { bg: "from-[#FFE0F0] via-[#FFF0F7] to-white", accent: "text-kids-coral", badge: "bg-kids-pink/15 text-kids-coral" },
-  kids: { bg: "from-[#FFF8E1] via-[#F1FFF0] to-white", accent: "text-kids-purple", badge: "bg-kids-purple/15 text-kids-purple" },
-  teens: { bg: "from-[#EDE7F6] via-[#F3E5F5] to-white", accent: "text-kids-purple", badge: "bg-kids-sky/15 text-kids-sky" },
+const KIDS_COLORS: Record<string, { accent: string; badge: string }> = {
+  baby: { accent: "text-kids-coral", badge: "bg-kids-coral/15 text-kids-coral" },
+  kids: { accent: "text-kids-sage", badge: "bg-kids-sage/15 text-kids-sage" },
+  teens: { accent: "text-kids-blue", badge: "bg-kids-blue/15 text-kids-blue" },
 };
 
 export default async function ModeloPage({ params }: Props) {
@@ -112,7 +112,7 @@ export default async function ModeloPage({ params }: Props) {
   return (
     <div
       className={`pt-28 pb-20 min-h-screen ${
-        isKids ? `bg-gradient-to-b ${kidsColor.bg}` : ""
+        isKids ? "bg-[#FFFAF7]" : ""
       }`}
     >
       <div className="px-6 max-w-7xl mx-auto">
