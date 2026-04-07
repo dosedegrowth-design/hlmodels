@@ -98,7 +98,7 @@ export default async function HomePage() {
       </section>
 
       {/* Sobre Nos - CTA curto */}
-      <section className="py-16 lg:py-20 bg-[#FFFAF7]">
+      <section className="py-16 lg:py-20 bg-[#FFF0E8]">
         <div className="px-6 lg:px-10 max-w-[1000px] mx-auto text-center">
           <p className="text-[10px] uppercase tracking-[0.4em] text-[#F1755C] mb-3 font-medium">
             Quem somos

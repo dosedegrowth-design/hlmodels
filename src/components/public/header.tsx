@@ -112,7 +112,7 @@ export function Header() {
 
   const getHeaderBg = () => {
     if (!scrolled && isHome) return "bg-transparent";
-    if (isKidsContext) return "bg-[#FFFAF7] backdrop-blur-sm border-b border-[#F1755C]/10";
+    if (isKidsContext) return "bg-[#FFF0E8] backdrop-blur-sm border-b border-[#F1755C]/10";
     return "bg-white/95 backdrop-blur-sm";
   };
 

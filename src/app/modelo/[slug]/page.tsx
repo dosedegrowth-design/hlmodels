@@ -112,7 +112,7 @@ export default async function ModeloPage({ params }: Props) {
   return (
     <div
       className={`pt-28 pb-20 min-h-screen ${
-        isKids ? "bg-[#FFFAF7]" : ""
+        isKids ? "bg-[#FFF0E8]" : ""
       }`}
     >
       <div className="px-6 max-w-7xl mx-auto">
