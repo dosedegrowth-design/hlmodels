@@ -9,20 +9,23 @@
   --color-accent: #0a0a0a;
   --color-accent-foreground: #ffffff;
 
-  /* Kids palette - vibrant */
-  --color-kids-pink: #FF69B4;
-  --color-kids-lavender: #B388FF;
+  /* Kids palette - warm & inviting (inspired by kids-r-us) */
+  --color-kids-cream: #FFFAF7;
+  --color-kids-sage: #A1BCA6;
+  --color-kids-coral: #F1755C;
+  --color-kids-blue: #3A6084;
+  --color-kids-pink: #F2919B;
+  --color-kids-orange: #FBB660;
+  --color-kids-purple: #8E6FBF;
   --color-kids-yellow: #FFD600;
-  --color-kids-mint: #00E5A0;
-  --color-kids-coral: #FF4081;
-  --color-kids-purple: #7C4DFF;
-  --color-kids-sky: #40C4FF;
-  --color-kids-peach: #FF8A65;
-  --color-kids-orange: #FF9100;
-  --color-kids-lime: #C6FF00;
+  --color-kids-mint: #7ECDA0;
+  --color-kids-sky: #6DB8D4;
+  --color-kids-lavender: #B5A1D4;
+  --color-kids-peach: #F8C9A0;
 
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-display: "Inter", system-ui, -apple-system, sans-serif;
+  --font-kids: "Quicksand", "Inter", system-ui, sans-serif;
 }
 
 html {
@@ -115,7 +118,12 @@ body {
 
 /* ===== HERO KIDS slide ===== */
 .hero-kids-gradient {
-  background: linear-gradient(135deg, #FFD1E8 0%, #D1C4E9 25%, #B3E5FC 50%, #FFF9C4 75%, #FFE0B2 100%);
+  background: linear-gradient(135deg, #F1755C 0%, #F2919B 25%, #FBB660 50%, #A1BCA6 75%, #6DB8D4 100%);
+}
+
+/* Kids font utility */
+.font-kids {
+  font-family: var(--font-kids);
 }
 
 /* Hero carousel transition */

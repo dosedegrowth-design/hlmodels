@@ -8,6 +8,7 @@ import { ProjetoCard } from "@/components/public/projeto-card";
 import { BrandsCarousel } from "@/components/public/brands-carousel";
 import { FaqSection } from "@/components/public/faq-section";
 import { AprovadosSection } from "@/components/public/aprovados-section";
+import { AboutSection } from "@/components/public/about-section";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -94,6 +95,13 @@ export default async function HomePage() {
             </h2>
           </div>
           <CategoriesCarousel categoryPhotos={categoryPhotos} />
+        </div>
+      </section>
+
+      {/* Sobre Nos */}
+      <section className="py-16 lg:py-24 bg-[#FFFAF7]">
+        <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
+          <AboutSection />
         </div>
       </section>
 

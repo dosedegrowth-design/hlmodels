@@ -18,7 +18,7 @@ export default async function KidsPage() {
     .order("ordem", { ascending: true });
 
   return (
-    <div className="pt-24 lg:pt-28 pb-20 min-h-screen bg-gradient-to-b from-[#FFF8E1] via-[#F1FFF0] to-white">
+    <div className="pt-24 lg:pt-28 pb-20 min-h-screen bg-[#FFFAF7]">
       <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
         <div className="mb-14 lg:mb-20 relative">
           <div className="absolute -top-4 -right-4 w-20 h-20 bg-kids-yellow/30 rounded-full blur-2xl kids-float" />
@@ -26,7 +26,7 @@ export default async function KidsPage() {
           <p className="text-[10px] uppercase tracking-[0.4em] text-kids-purple mb-3 font-medium">
             5 a 15 anos
           </p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-kids-sage font-kids">
             Kids
           </h1>
         </div>

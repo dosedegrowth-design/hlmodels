@@ -80,7 +80,7 @@ export function Footer() {
                   <Mail size={16} />hlmodels@outlook.com
                 </a>
                 <p className="flex items-start gap-2 text-sm text-foreground/50">
-                  <MapPin size={16} className="mt-0.5 shrink-0" />Sao Bernardo do Campo, SP
+                  <MapPin size={16} className="mt-0.5 shrink-0" />Rua dos Cajueiros, 12 - Parque Terra Nova - Sao Bernardo do Campo/SP
                 </p>
               </div>
             </div>
@@ -133,7 +133,7 @@ export function Footer() {
                 <Mail size={16} />hlmodels@outlook.com
               </a>
               <p className="flex items-start gap-2 text-sm text-white/60">
-                <MapPin size={16} className="mt-0.5 shrink-0" />Sao Bernardo do Campo, SP
+                <MapPin size={16} className="mt-0.5 shrink-0" />Rua dos Cajueiros, 12 - Parque Terra Nova - Sao Bernardo do Campo/SP
               </p>
             </div>
           </div>

@@ -26,6 +26,13 @@ function CategoryCard({
   const [currentIndex, setCurrentIndex] = useState(0);
   const isKids = ["baby", "kids", "teens"].includes(slug);
 
+  // Solid color backgrounds for kids categories
+  const KIDS_BG: Record<string, string> = {
+    baby: "bg-kids-coral",
+    kids: "bg-kids-sage",
+    teens: "bg-kids-blue",
+  };
+
   useEffect(() => {
     if (photos.length <= 1) return;
     // Offset the start so each card transitions at a different time
@@ -53,10 +60,12 @@ function CategoryCard({
       className="group snap-start shrink-0 w-[200px] md:w-[240px] lg:w-[280px]"
     >
       <div className={`relative aspect-[3/4] overflow-hidden ${
-        isKids ? "bg-gradient-to-br from-kids-pink/50 to-kids-sky/50 rounded-2xl shadow-lg" : "bg-neutral-900"
+        isKids
+          ? `${KIDS_BG[slug] || "bg-kids-coral"} rounded-2xl shadow-lg group-hover:shadow-xl transition-shadow duration-300`
+          : "bg-neutral-900"
       }`}>
-        {/* Slideshow images */}
-        {photos.length > 0 ? (
+        {/* Photos only for adult categories */}
+        {!isKids && photos.length > 0 ? (
           photos.map((url, i) => (
             <Image
               key={url}
@@ -69,27 +78,29 @@ function CategoryCard({
               sizes="280px"
             />
           ))
-        ) : (
-          <div className={`absolute inset-0 ${isKids ? "bg-gradient-to-br from-kids-pink/60 to-kids-purple/40" : "bg-foreground"}`} />
-        )}
+        ) : !isKids ? (
+          <div className="absolute inset-0 bg-foreground" />
+        ) : null}
 
-        {/* Overlay */}
-        <div className={`absolute inset-0 transition-colors duration-500 z-[1] ${
-          isKids
-            ? "bg-gradient-to-t from-white/70 via-white/20 to-transparent group-hover:from-white/80"
-            : "bg-black/30 group-hover:bg-black/50"
-        }`} />
+        {/* Overlay only for adult */}
+        {!isKids && (
+          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500 z-[1]" />
+        )}
 
         {/* Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-[2]">
-          <span className={`text-2xl md:text-3xl font-light tracking-wider drop-shadow-lg ${
-            isKids ? "text-foreground" : "text-white"
+          <span className={`drop-shadow-lg ${
+            isKids
+              ? "text-3xl md:text-4xl font-bold tracking-wide text-white font-kids"
+              : "text-2xl md:text-3xl font-light tracking-wider text-white"
           }`}>
             {label}
           </span>
           {desc && (
-            <span className={`text-[10px] uppercase tracking-[0.3em] mt-1 ${
-              isKids ? "text-kids-purple font-medium" : "text-white/60"
+            <span className={`mt-2 ${
+              isKids
+                ? "text-xs uppercase tracking-[0.2em] text-white/90 font-kids font-medium"
+                : "text-[10px] uppercase tracking-[0.3em] text-white/60"
             }`}>
               {desc}
             </span>
