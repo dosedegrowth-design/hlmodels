@@ -174,7 +174,7 @@ export function HeroCarousel({ modelos, modelosKids = [] }: HeroCarouselProps) {
                   className={cn(
                     "absolute inset-0 transition-opacity duration-500",
                     isKids
-                      ? "bg-gradient-to-t from-white/80 via-transparent to-transparent opacity-70 group-hover:opacity-50"
+                      ? "bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40"
                       : "bg-gradient-to-t from-black/70 via-transparent to-black/10 opacity-60 group-hover:opacity-40"
                   )}
                 />
@@ -184,15 +184,15 @@ export function HeroCarousel({ modelos, modelosKids = [] }: HeroCarouselProps) {
                   <p
                     className={cn(
                       "text-[9px] lg:text-[10px] uppercase tracking-[0.3em] mb-1",
-                      isKids ? "text-kids-purple font-medium" : "text-white/50"
+                      isKids ? "text-kids-yellow font-bold font-kids" : "text-white/50"
                     )}
                   >
                     {categoriaLabel(modelo.categoria)}
                   </p>
                   <h2
                     className={cn(
-                      "text-sm lg:text-base font-light tracking-wider",
-                      isKids ? "text-foreground" : "text-white"
+                      "text-sm lg:text-base tracking-wider",
+                      isKids ? "text-white font-bold font-kids" : "text-white font-light"
                     )}
                   >
                     {modelo.nome}

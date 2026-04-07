@@ -33,7 +33,7 @@ export default async function ProjetosPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projetos.map((p) => (
               <Link key={p.id} href={`/projetos/${p.slug}`} className="group block">
-                <div className="relative aspect-video bg-neutral-100 overflow-hidden rounded-lg mb-4">
+                <div className="relative aspect-video bg-neutral-100 overflow-hidden rounded-xl mb-4">
                   {p.foto_capa ? (
                     <Image src={p.foto_capa} alt={p.titulo} fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" />

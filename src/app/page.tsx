@@ -107,7 +107,7 @@ export default async function HomePage() {
 
       {/* All models grid */}
       {todosModelos && todosModelos.length > 0 && (
-        <section className="pb-20">
+        <section className="py-16 lg:py-24">
           <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
             <div className="mb-10">
               <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">

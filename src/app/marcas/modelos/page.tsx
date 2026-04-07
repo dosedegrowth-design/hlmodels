@@ -266,7 +266,7 @@ export default function MarcasModelosPage() {
             return (
               <div key={m.id} className="group relative">
                 <Link href={`/marcas/modelos/${m.id}`}>
-                  <div className="relative aspect-[3/4] bg-neutral-100 overflow-hidden rounded-lg">
+                  <div className="relative aspect-[3/4] bg-neutral-100 overflow-hidden rounded-xl">
                     {m.foto_principal ? (
                       <Image src={m.foto_principal} alt={m.nome} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="25vw" />
                     ) : (

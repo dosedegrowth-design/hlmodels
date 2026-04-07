@@ -334,7 +334,7 @@ export default function MarcasModeloDetailPage() {
               <button
                 key={foto.id}
                 onClick={() => setLightbox(i)}
-                className="relative aspect-[3/4] bg-neutral-100 rounded-lg overflow-hidden group cursor-pointer"
+                className="relative aspect-[3/4] bg-neutral-100 rounded-xl overflow-hidden group cursor-pointer"
               >
                 <Image
                   src={foto.url}

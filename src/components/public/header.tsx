@@ -110,11 +110,30 @@ export function Header() {
           <div className="h-1 bg-gradient-to-r from-kids-pink via-kids-purple to-kids-sky" />
         )}
         <div className="px-6 lg:px-10 h-16 lg:h-20 flex items-center justify-between">
-          <div className="w-28" />
+          {/* Left: CTA button */}
+          <div className="w-32 hidden lg:block">
+            <Link
+              href="/faca-parte"
+              className={cn(
+                "px-4 py-2 text-[10px] uppercase tracking-widest rounded-full border transition-all hover:scale-105",
+                isKidsPage
+                  ? "border-kids-coral text-kids-coral hover:bg-kids-coral hover:text-white"
+                  : scrolled || !isHome
+                  ? "border-foreground text-foreground hover:bg-foreground hover:text-white"
+                  : "border-white/60 text-white hover:bg-white hover:text-foreground"
+              )}
+            >
+              Cadastre-se
+            </Link>
+          </div>
+
+          {/* Center: Logo */}
           <Link href="/" className="relative h-14 w-36 lg:h-16 lg:w-44">
             <Image src={getLogoSrc()} alt="HL Models Agency" fill className="object-contain" priority />
           </Link>
-          <div className="w-28 flex items-center justify-end">
+
+          {/* Right: Menu button */}
+          <div className="w-32 flex items-center justify-end">
             <button
               onClick={() => setMenuOpen(true)}
               className={cn("flex items-center gap-2 text-sm uppercase tracking-widest transition-colors", getTextColor())}

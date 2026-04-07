@@ -33,7 +33,7 @@ export function ModelGallery({ fotos, nome }: ModelGalleryProps) {
           <button
             key={foto.id}
             onClick={() => openLightbox(i)}
-            className="relative aspect-[3/4] bg-neutral-100 rounded-sm overflow-hidden group cursor-pointer"
+            className="relative aspect-[3/4] bg-neutral-100 rounded-xl overflow-hidden group cursor-pointer"
           >
             <Image
               src={foto.url}

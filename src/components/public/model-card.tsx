@@ -56,14 +56,14 @@ export function ModelCard({ modelo, index = 0 }: ModelCardProps) {
           >
             <p
               className={`text-[10px] uppercase tracking-[0.25em] mb-0.5 ${
-                isKids ? "text-kids-purple font-medium" : "text-white/60"
+                isKids ? "text-kids-yellow font-bold font-kids" : "text-white/60"
               }`}
             >
               {categoriaLabel(modelo.categoria)}
             </p>
             <h3
-              className={`text-sm lg:text-base font-light tracking-wider ${
-                isKids ? "text-foreground" : "text-white"
+              className={`text-sm lg:text-base tracking-wider ${
+                isKids ? "text-white font-bold font-kids" : "text-white font-light"
               }`}
             >
               {modelo.nome}

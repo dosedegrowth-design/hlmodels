@@ -139,8 +139,8 @@ export default async function ModeloPage({ params }: Props) {
           <div
             className={`relative aspect-[3/4] overflow-hidden ${
               isKids
-                ? "rounded-3xl shadow-xl"
-                : "rounded-sm bg-neutral-100"
+                ? "rounded-2xl shadow-xl"
+                : "rounded-xl bg-neutral-100"
             }`}
           >
             {m.foto_principal ? (

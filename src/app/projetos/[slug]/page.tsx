@@ -71,7 +71,7 @@ export default async function ProjetoPage({ params }: Props) {
 
         {/* Hero image */}
         {p.foto_capa && (
-          <div className="relative aspect-video bg-neutral-100 rounded-lg overflow-hidden mb-8">
+          <div className="relative aspect-video bg-neutral-100 rounded-xl overflow-hidden mb-8">
             <Image src={p.foto_capa} alt={p.titulo} fill className="object-cover" priority sizes="1200px" />
           </div>
         )}
@@ -95,7 +95,7 @@ export default async function ProjetoPage({ params }: Props) {
         {embedUrl && (
           <div className="mb-12">
             <h2 className="text-xs uppercase tracking-[0.3em] text-muted mb-4">Video</h2>
-            <div className="relative aspect-video rounded-lg overflow-hidden bg-black">
+            <div className="relative aspect-video rounded-xl overflow-hidden bg-black">
               <iframe src={embedUrl} className="absolute inset-0 w-full h-full" allowFullScreen allow="autoplay; encrypted-media" />
             </div>
           </div>
@@ -116,7 +116,7 @@ export default async function ProjetoPage({ params }: Props) {
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
               {modelos.map((m: any) => (
                 <Link key={m.id} href={`/modelo/${m.slug}`} className="group">
-                  <div className="relative aspect-[3/4] bg-neutral-100 rounded-lg overflow-hidden mb-2">
+                  <div className="relative aspect-[3/4] bg-neutral-100 rounded-xl overflow-hidden mb-2">
                     {m.foto_principal ? (
                       <Image src={m.foto_principal} alt={m.nome} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="150px" />
                     ) : (
