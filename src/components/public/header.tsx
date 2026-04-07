@@ -82,15 +82,37 @@ export function Header() {
 
   if (isAdmin || isMarcas) return null;
 
+  // Detect if we're on a kids-related page (including modelo pages for kids models)
+  const [isKidsModel, setIsKidsModel] = useState(false);
+
+  useEffect(() => {
+    // Check if the current page has a kids theme by looking at the page background
+    const main = document.querySelector("main");
+    if (main) {
+      const firstChild = main.firstElementChild as HTMLElement;
+      if (firstChild) {
+        const bg = getComputedStyle(firstChild).backgroundColor;
+        // #FFFAF7 = rgb(255, 250, 247)
+        if (bg === "rgb(255, 250, 247)") {
+          setIsKidsModel(true);
+        } else {
+          setIsKidsModel(false);
+        }
+      }
+    }
+  }, [pathname]);
+
+  const isKidsContext = isKidsPage || isKidsModel;
+
   const getHeaderBg = () => {
     if (!scrolled && isHome) return "bg-transparent";
-    if (isKidsPage) return "bg-white/95 backdrop-blur-sm border-b border-kids-pink/20";
+    if (isKidsContext) return "bg-[#FFFAF7] backdrop-blur-sm border-b border-kids-coral/10";
     return "bg-white/95 backdrop-blur-sm";
   };
 
   const getTextColor = () => {
     if (!scrolled && isHome) return "text-white";
-    if (isKidsPage) return "text-kids-purple";
+    if (isKidsContext) return "text-kids-purple";
     return "text-foreground";
   };
 
@@ -106,8 +128,8 @@ export function Header() {
   return (
     <>
       <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", getHeaderBg())}>
-        {isKidsPage && (
-          <div className="h-1 bg-gradient-to-r from-kids-pink via-kids-purple to-kids-sky" />
+        {isKidsContext && (
+          <div className="h-1 bg-gradient-to-r from-kids-coral via-kids-sage to-kids-blue" />
         )}
         <div className="px-6 lg:px-10 h-16 lg:h-20 flex items-center justify-between">
           {/* Left: CTA button */}
@@ -116,7 +138,7 @@ export function Header() {
               href="/faca-parte"
               className={cn(
                 "px-4 py-2 text-[10px] uppercase tracking-widest rounded-full border transition-all hover:scale-105",
-                isKidsPage
+                isKidsContext
                   ? "border-kids-coral text-kids-coral hover:bg-kids-coral hover:text-white"
                   : scrolled || !isHome
                   ? "border-foreground text-foreground hover:bg-foreground hover:text-white"

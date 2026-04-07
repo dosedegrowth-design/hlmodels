@@ -8,7 +8,6 @@ import { ProjetoCard } from "@/components/public/projeto-card";
 import { BrandsCarousel } from "@/components/public/brands-carousel";
 import { FaqSection } from "@/components/public/faq-section";
 import { AprovadosSection } from "@/components/public/aprovados-section";
-import { AboutSection } from "@/components/public/about-section";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -98,10 +97,25 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Sobre Nos */}
-      <section className="py-16 lg:py-24 bg-[#FFFAF7]">
-        <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
-          <AboutSection />
+      {/* Sobre Nos - CTA curto */}
+      <section className="py-16 lg:py-20 bg-[#FFFAF7]">
+        <div className="px-6 lg:px-10 max-w-[1000px] mx-auto text-center">
+          <p className="text-[10px] uppercase tracking-[0.4em] text-kids-coral mb-3 font-medium">
+            Quem somos
+          </p>
+          <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-4">
+            HL Models Agency
+          </h2>
+          <p className="text-foreground/60 leading-relaxed mb-8 max-w-2xl mx-auto">
+            Somos uma agencia de talentos e campanhas que acredita no poder da imagem e da presenca para contar historias inesqueciveis. Conectamos marcas, pessoas e oportunidades com autenticidade e profissionalismo.
+          </p>
+          <Link
+            href="/sobre"
+            className="inline-flex items-center gap-2 text-sm text-foreground hover:text-kids-coral transition-colors font-medium"
+          >
+            Conheca nossa historia
+            <span className="text-lg">&rarr;</span>
+          </Link>
         </div>
       </section>
 
