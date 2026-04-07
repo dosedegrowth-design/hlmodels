@@ -41,7 +41,7 @@ export function ModelCard({ modelo, index = 0 }: ModelCardProps) {
           ) : (
             <div
               className={`absolute inset-0 flex items-center justify-center ${
-                isKids ? "bg-gradient-to-br from-kids-pink/20 to-kids-lavender/20" : "bg-neutral-200"
+                isKids ? "bg-gradient-to-br from-[#F2919B]/20 to-kids-lavender/20" : "bg-neutral-200"
               }`}
             >
               <span className="text-5xl font-light text-neutral-400">
@@ -56,7 +56,7 @@ export function ModelCard({ modelo, index = 0 }: ModelCardProps) {
           >
             <p
               className={`text-[10px] uppercase tracking-[0.25em] mb-0.5 ${
-                isKids ? "text-kids-yellow font-bold font-kids" : "text-white/60"
+                isKids ? "text-[#FFD600] font-bold font-kids" : "text-white/60"
               }`}
             >
               {categoriaLabel(modelo.categoria)}

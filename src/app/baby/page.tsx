@@ -22,12 +22,12 @@ export default async function BabyPage() {
       <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
         <div className="mb-14 lg:mb-20 relative">
           {/* Decorative elements */}
-          <div className="absolute -top-4 -right-4 w-20 h-20 bg-kids-pink/20 rounded-full blur-2xl kids-float" />
-          <div className="absolute top-10 right-20 w-12 h-12 bg-kids-lavender/30 rounded-full blur-xl kids-float" style={{ animationDelay: "2s" }} />
-          <p className="text-[10px] uppercase tracking-[0.4em] text-kids-coral mb-3 font-medium">
+          <div className="absolute -top-4 -right-4 w-20 h-20 bg-[#F2919B]/20 rounded-full blur-2xl kids-float" />
+          <div className="absolute top-10 right-20 w-12 h-12 bg-[#B5A1D4]/30 rounded-full blur-xl kids-float" style={{ animationDelay: "2s" }} />
+          <p className="text-[10px] uppercase tracking-[0.4em] text-[#F1755C] mb-3 font-medium">
             Ate 5 anos
           </p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-kids-coral font-kids">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#F1755C] font-kids">
             Baby
           </h1>
         </div>

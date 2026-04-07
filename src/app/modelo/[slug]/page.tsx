@@ -73,9 +73,9 @@ const MEDIDAS = [
 
 // Kids-specific color maps
 const KIDS_COLORS: Record<string, { accent: string; badge: string }> = {
-  baby: { accent: "text-kids-coral", badge: "bg-kids-coral/15 text-kids-coral" },
-  kids: { accent: "text-kids-sage", badge: "bg-kids-sage/15 text-kids-sage" },
-  teens: { accent: "text-kids-blue", badge: "bg-kids-blue/15 text-kids-blue" },
+  baby: { accent: "text-[#F1755C]", badge: "bg-[#F1755C]/15 text-[#F1755C]" },
+  kids: { accent: "text-[#A1BCA6]", badge: "bg-[#A1BCA6]/15 text-[#A1BCA6]" },
+  teens: { accent: "text-[#3A6084]", badge: "bg-[#3A6084]/15 text-[#3A6084]" },
 };
 
 export default async function ModeloPage({ params }: Props) {
@@ -156,7 +156,7 @@ export default async function ModeloPage({ params }: Props) {
               <div
                 className={`absolute inset-0 flex items-center justify-center text-6xl font-light ${
                   isKids
-                    ? "bg-gradient-to-br from-kids-pink/20 to-kids-lavender/20 text-kids-purple/30"
+                    ? "bg-gradient-to-br from-[#F2919B]/20 to-kids-lavender/20 text-[#8E6FBF]/30"
                     : "text-muted"
                 }`}
               >
@@ -272,7 +272,7 @@ export default async function ModeloPage({ params }: Props) {
                         {m.habilidades.map((h) => (
                           <span
                             key={h}
-                            className="px-2.5 py-1 bg-kids-yellow/15 text-foreground/70 rounded-full text-xs"
+                            className="px-2.5 py-1 bg-[#FFD600]/15 text-foreground/70 rounded-full text-xs"
                           >
                             {h}
                           </span>
@@ -291,7 +291,7 @@ export default async function ModeloPage({ params }: Props) {
                         {m.idiomas.map((i) => (
                           <span
                             key={i}
-                            className="px-2.5 py-1 bg-kids-sky/15 text-foreground/70 rounded-full text-xs"
+                            className="px-2.5 py-1 bg-[#6DB8D4]/15 text-foreground/70 rounded-full text-xs"
                           >
                             {i}
                           </span>
@@ -310,7 +310,7 @@ export default async function ModeloPage({ params }: Props) {
                 rel="noopener noreferrer"
                 className={`inline-flex items-center gap-2 text-sm transition-colors ${
                   isKids
-                    ? "text-kids-purple hover:opacity-70"
+                    ? "text-[#8E6FBF] hover:opacity-70"
                     : "text-muted hover:text-foreground"
                 }`}
               >

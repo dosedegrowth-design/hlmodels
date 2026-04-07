@@ -19,8 +19,8 @@ export function Footer() {
     return (
       <footer className="relative overflow-hidden">
         {/* Gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-kids-pink/10 via-kids-purple/10 to-kids-sky/10" />
-        <div className="h-1 bg-gradient-to-r from-kids-pink via-kids-purple to-kids-sky" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#F2919B]/10 via-[#8E6FBF]/10 to-[#6DB8D4]/10" />
+        <div className="h-1 bg-gradient-to-r from-[#F2919B] via-[#8E6FBF] to-[#6DB8D4]" />
 
         <div className="relative max-w-7xl mx-auto px-6 py-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -33,9 +33,9 @@ export function Footer() {
                 Agencia de modelos para todas as idades. Conectamos talentos a oportunidades.
               </p>
               <div className="flex gap-2 mt-4">
-                <span className="px-2.5 py-1 bg-kids-pink/15 text-kids-coral text-[10px] font-medium rounded-full">Baby</span>
-                <span className="px-2.5 py-1 bg-kids-purple/15 text-kids-purple text-[10px] font-medium rounded-full">Kids</span>
-                <span className="px-2.5 py-1 bg-kids-sky/15 text-kids-sky text-[10px] font-medium rounded-full">Teens</span>
+                <span className="px-2.5 py-1 bg-[#F2919B]/15 text-[#F1755C] text-[10px] font-medium rounded-full">Baby</span>
+                <span className="px-2.5 py-1 bg-[#8E6FBF]/15 text-[#8E6FBF] text-[10px] font-medium rounded-full">Kids</span>
+                <span className="px-2.5 py-1 bg-[#6DB8D4]/15 text-[#6DB8D4] text-[10px] font-medium rounded-full">Teens</span>
               </div>
             </div>
 
@@ -45,14 +45,14 @@ export function Footer() {
                 Categorias
               </h4>
               <div className="space-y-2">
-                <Link href="/baby" className="flex items-center gap-2 text-sm text-foreground/50 hover:text-kids-coral transition-colors">
-                  <Star size={10} className="text-kids-pink" /> Baby
+                <Link href="/baby" className="flex items-center gap-2 text-sm text-foreground/50 hover:text-[#F1755C] transition-colors">
+                  <Star size={10} className="text-[#F2919B]" /> Baby
                 </Link>
-                <Link href="/kids" className="flex items-center gap-2 text-sm text-foreground/50 hover:text-kids-purple transition-colors">
-                  <Star size={10} className="text-kids-purple" /> Kids
+                <Link href="/kids" className="flex items-center gap-2 text-sm text-foreground/50 hover:text-[#8E6FBF] transition-colors">
+                  <Star size={10} className="text-[#8E6FBF]" /> Kids
                 </Link>
-                <Link href="/teens" className="flex items-center gap-2 text-sm text-foreground/50 hover:text-kids-sky transition-colors">
-                  <Star size={10} className="text-kids-sky" /> Teens
+                <Link href="/teens" className="flex items-center gap-2 text-sm text-foreground/50 hover:text-[#6DB8D4] transition-colors">
+                  <Star size={10} className="text-[#6DB8D4]" /> Teens
                 </Link>
                 <div className="h-2" />
                 <Link href="/mulher" className="block text-sm text-foreground/30 hover:text-foreground/60 transition-colors">Mulher</Link>
@@ -68,7 +68,7 @@ export function Footer() {
               </h4>
               <div className="space-y-3">
                 <a href="https://instagram.com/hlmodels" target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-foreground/50 hover:text-kids-purple transition-colors">
+                  className="flex items-center gap-2 text-sm text-foreground/50 hover:text-[#8E6FBF] transition-colors">
                   <AtSign size={16} />@hlmodels
                 </a>
                 <a href="tel:+5511953506752"

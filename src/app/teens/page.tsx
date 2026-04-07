@@ -21,12 +21,12 @@ export default async function TeensPage() {
     <div className="pt-24 lg:pt-28 pb-20 min-h-screen bg-[#FFFAF7]">
       <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
         <div className="mb-14 lg:mb-20 relative">
-          <div className="absolute -top-4 -right-4 w-20 h-20 bg-kids-purple/15 rounded-full blur-2xl kids-float" />
-          <div className="absolute top-10 right-20 w-12 h-12 bg-kids-coral/20 rounded-full blur-xl kids-float" style={{ animationDelay: "2s" }} />
-          <p className="text-[10px] uppercase tracking-[0.4em] text-kids-coral mb-3 font-medium">
+          <div className="absolute -top-4 -right-4 w-20 h-20 bg-[#8E6FBF]/15 rounded-full blur-2xl kids-float" />
+          <div className="absolute top-10 right-20 w-12 h-12 bg-[#F1755C]/20 rounded-full blur-xl kids-float" style={{ animationDelay: "2s" }} />
+          <p className="text-[10px] uppercase tracking-[0.4em] text-[#F1755C] mb-3 font-medium">
             15 a 18 anos
           </p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-kids-blue font-kids">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#3A6084] font-kids">
             Teens
           </h1>
         </div>

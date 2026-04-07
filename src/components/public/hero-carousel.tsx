@@ -104,11 +104,11 @@ export function HeroCarousel({ modelos, modelosKids = [] }: HeroCarouselProps) {
       {/* Kids badge */}
       {isKids && (
         <div className="absolute top-20 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-5 py-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg">
-          <Star size={14} className="text-kids-coral" />
+          <Star size={14} className="text-[#F1755C]" />
           <span className="text-xs font-medium tracking-widest uppercase text-foreground/80">
             Baby &bull; Kids &bull; Teens
           </span>
-          <Star size={14} className="text-kids-yellow" />
+          <Star size={14} className="text-[#FFD600]" />
         </div>
       )}
 
@@ -184,7 +184,7 @@ export function HeroCarousel({ modelos, modelosKids = [] }: HeroCarouselProps) {
                   <p
                     className={cn(
                       "text-[9px] lg:text-[10px] uppercase tracking-[0.3em] mb-1",
-                      isKids ? "text-kids-yellow font-bold font-kids" : "text-white/50"
+                      isKids ? "text-[#FFD600] font-bold font-kids" : "text-white/50"
                     )}
                   >
                     {categoriaLabel(modelo.categoria)}
@@ -257,7 +257,7 @@ export function HeroCarousel({ modelos, modelosKids = [] }: HeroCarouselProps) {
               className={cn(
                 "h-[3px] rounded-full transition-all duration-500",
                 i === current
-                  ? cn("w-8", slide.type === "kids" ? "bg-kids-coral" : "bg-white")
+                  ? cn("w-8", slide.type === "kids" ? "bg-[#F1755C]" : "bg-white")
                   : cn("w-4", isKids ? "bg-foreground/15" : "bg-white/20")
               )}
               aria-label={`Slide ${i + 1}`}

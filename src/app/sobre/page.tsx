@@ -15,7 +15,7 @@ export default function SobrePage() {
     <div className="pt-24 lg:pt-28 pb-20">
       {/* Hero */}
       <section className="px-6 lg:px-10 max-w-[1200px] mx-auto mb-20">
-        <p className="text-[10px] uppercase tracking-[0.4em] text-kids-coral mb-3 font-medium">
+        <p className="text-[10px] uppercase tracking-[0.4em] text-[#F1755C] mb-3 font-medium">
           Quem somos
         </p>
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight mb-8">
@@ -37,7 +37,7 @@ export default function SobrePage() {
             </p>
           </div>
           <div className="relative aspect-[4/3] bg-neutral-100 rounded-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-kids-coral/20 via-kids-sage/20 to-kids-blue/20 flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#F1755C]/20 via-[#A1BCA6]/20 to-[#3A6084]/20 flex items-center justify-center">
               <div className="relative h-24 w-48">
                 <Image src="/logo-dark.png" alt="HL Models" fill className="object-contain" />
               </div>
@@ -78,17 +78,17 @@ export default function SobrePage() {
           {[
             {
               title: "Missao",
-              color: "bg-kids-coral",
+              color: "bg-[#F1755C]",
               text: "Revelar talentos, valorizar identidades e conectar pessoas e marcas por meio de experiencias visuais autenticas, campanhas marcantes e relacoes de confianca.",
             },
             {
               title: "Visao",
-              color: "bg-kids-sage",
+              color: "bg-[#A1BCA6]",
               text: "Ser referencia no mercado de agenciamento de modelos e talentos, reconhecida pela excelencia, diversidade e pela capacidade de transformar sonhos em realidade.",
             },
             {
               title: "Valores",
-              color: "bg-kids-blue",
+              color: "bg-[#3A6084]",
               text: "Autenticidade, diversidade, profissionalismo, etica, criatividade e resultado. Acreditamos no poder da imagem e da presenca para contar historias inesqueciveis.",
             },
           ].map((item) => (

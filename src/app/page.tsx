@@ -100,7 +100,7 @@ export default async function HomePage() {
       {/* Sobre Nos - CTA curto */}
       <section className="py-16 lg:py-20 bg-[#FFFAF7]">
         <div className="px-6 lg:px-10 max-w-[1000px] mx-auto text-center">
-          <p className="text-[10px] uppercase tracking-[0.4em] text-kids-coral mb-3 font-medium">
+          <p className="text-[10px] uppercase tracking-[0.4em] text-[#F1755C] mb-3 font-medium">
             Quem somos
           </p>
           <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-4">
@@ -111,7 +111,7 @@ export default async function HomePage() {
           </p>
           <Link
             href="/sobre"
-            className="inline-flex items-center gap-2 text-sm text-foreground hover:text-kids-coral transition-colors font-medium"
+            className="inline-flex items-center gap-2 text-sm text-foreground hover:text-[#F1755C] transition-colors font-medium"
           >
             Conheca nossa historia
             <span className="text-lg">&rarr;</span>

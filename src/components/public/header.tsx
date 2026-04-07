@@ -112,13 +112,13 @@ export function Header() {
 
   const getHeaderBg = () => {
     if (!scrolled && isHome) return "bg-transparent";
-    if (isKidsContext) return "bg-[#FFFAF7] backdrop-blur-sm border-b border-kids-coral/10";
+    if (isKidsContext) return "bg-[#FFFAF7] backdrop-blur-sm border-b border-[#F1755C]/10";
     return "bg-white/95 backdrop-blur-sm";
   };
 
   const getTextColor = () => {
     if (!scrolled && isHome) return "text-white";
-    if (isKidsContext) return "text-kids-purple";
+    if (isKidsContext) return "text-[#8E6FBF]";
     return "text-foreground";
   };
 
@@ -135,7 +135,7 @@ export function Header() {
     <>
       <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", getHeaderBg())}>
         {isKidsContext && (
-          <div className="h-1 bg-gradient-to-r from-kids-coral via-kids-sage to-kids-blue" />
+          <div className="h-1 bg-gradient-to-r from-[#F1755C] via-[#A1BCA6] to-[#3A6084]" />
         )}
         <div className="px-6 lg:px-10 h-16 lg:h-20 flex items-center justify-between">
           {/* Left: CTA button */}
@@ -145,7 +145,7 @@ export function Header() {
               className={cn(
                 "px-4 py-2 text-[10px] uppercase tracking-widest rounded-full border transition-all hover:scale-105",
                 isKidsContext
-                  ? "border-kids-coral text-kids-coral hover:bg-kids-coral hover:text-white"
+                  ? "border-[#F1755C] text-[#F1755C] hover:bg-[#F1755C] hover:text-white"
                   : scrolled || !isHome
                   ? "border-foreground text-foreground hover:bg-foreground hover:text-white"
                   : "border-white/60 text-white hover:bg-white hover:text-foreground"
@@ -183,7 +183,7 @@ export function Header() {
         )}
       >
         {isKidsPage && (
-          <div className="h-1 bg-gradient-to-r from-kids-pink via-kids-purple to-kids-sky" />
+          <div className="h-1 bg-gradient-to-r from-[#F2919B] via-[#8E6FBF] to-[#6DB8D4]" />
         )}
 
         <div className="h-full flex flex-col lg:flex-row">
@@ -228,7 +228,7 @@ export function Header() {
                     <span className={cn(
                       "text-[10px] w-6 tabular-nums",
                       isKidsPage
-                        ? isActive ? "text-kids-purple" : "text-foreground/20"
+                        ? isActive ? "text-[#8E6FBF]" : "text-foreground/20"
                         : isActive ? "text-white" : "text-white/20"
                     )}>
                       {String(i + 1).padStart(2, "0")}
@@ -239,22 +239,22 @@ export function Header() {
                       "text-2xl md:text-3xl lg:text-4xl font-light tracking-tight transition-all duration-200 group-hover:tracking-wider group-hover:translate-x-2",
                       isKidsPage
                         ? isActive
-                          ? "text-kids-purple"
+                          ? "text-[#8E6FBF]"
                           : link.kids
-                          ? "text-kids-pink/50 group-hover:text-kids-purple"
+                          ? "text-[#F2919B]/50 group-hover:text-[#8E6FBF]"
                           : "text-foreground/20 group-hover:text-foreground/60"
                         : isActive
                         ? "text-white"
                         : "text-white/25 group-hover:text-white/80"
                     )}>
-                      {link.kids && isKidsPage && <Star size={10} className="inline-block mr-1.5 mb-1 text-kids-yellow" />}
+                      {link.kids && isKidsPage && <Star size={10} className="inline-block mr-1.5 mb-1 text-[#FFD600]" />}
                       {link.label}
                     </span>
 
                     {/* Arrow on hover */}
                     <ArrowRight size={16} className={cn(
                       "opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-2 group-hover:translate-x-0",
-                      isKidsPage ? "text-kids-purple" : "text-white/50"
+                      isKidsPage ? "text-[#8E6FBF]" : "text-white/50"
                     )} />
                   </Link>
                 );
@@ -289,7 +289,7 @@ export function Header() {
               "absolute inset-0 transition-opacity duration-500",
               previewSrc ? "opacity-0" : "opacity-100",
               isKidsPage
-                ? "bg-gradient-to-br from-kids-pink/30 via-kids-purple/20 to-kids-sky/30"
+                ? "bg-gradient-to-br from-[#F2919B]/30 via-[#8E6FBF]/20 to-[#6DB8D4]/30"
                 : "bg-neutral-900"
             )}>
               <div className="flex items-center justify-center h-full">

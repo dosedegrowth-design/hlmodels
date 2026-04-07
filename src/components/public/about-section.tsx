@@ -30,7 +30,7 @@ export function AboutSection() {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       {/* Left: image + text */}
       <div>
-        <p className="text-[10px] uppercase tracking-[0.4em] text-kids-coral mb-3 font-medium">
+        <p className="text-[10px] uppercase tracking-[0.4em] text-[#F1755C] mb-3 font-medium">
           Quem somos
         </p>
         <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-6">
@@ -62,7 +62,7 @@ export function AboutSection() {
               className={cn(
                 "flex-1 pb-3 text-sm font-medium transition-all border-b-2 -mb-px",
                 activeTab === tab.key
-                  ? "border-kids-coral text-foreground"
+                  ? "border-[#F1755C] text-foreground"
                   : "border-transparent text-muted hover:text-foreground"
               )}
             >

@@ -28,9 +28,9 @@ function CategoryCard({
 
   // Solid color backgrounds for kids categories
   const KIDS_BG: Record<string, string> = {
-    baby: "bg-kids-coral",
-    kids: "bg-kids-sage",
-    teens: "bg-kids-blue",
+    baby: "bg-[#F1755C]",
+    kids: "bg-[#A1BCA6]",
+    teens: "bg-[#3A6084]",
   };
 
   useEffect(() => {
@@ -61,7 +61,7 @@ function CategoryCard({
     >
       <div className={`relative aspect-[3/4] overflow-hidden ${
         isKids
-          ? `${KIDS_BG[slug] || "bg-kids-coral"} rounded-2xl shadow-lg group-hover:shadow-xl transition-shadow duration-300`
+          ? `${KIDS_BG[slug] || "bg-[#F1755C]"} rounded-2xl shadow-lg group-hover:shadow-xl transition-shadow duration-300`
           : "bg-neutral-900"
       }`}>
         {/* Photos only for adult categories */}
