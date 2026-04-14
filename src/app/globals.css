@@ -51,7 +51,7 @@ body {
 .model-card {
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 16px;
 }
 
 .model-card::after {

@@ -27,9 +27,7 @@ function CategoryCard({
   return (
     <Link href={`/${slug}`} className="group block">
       <div
-        className={`category-card relative aspect-[3/4] overflow-hidden rounded-xl ${
-          isKids ? "rounded-2xl" : ""
-        }`}
+        className="category-card relative aspect-[3/4] overflow-hidden rounded-2xl"
       >
         {/* Background image */}
         {coverImage ? (

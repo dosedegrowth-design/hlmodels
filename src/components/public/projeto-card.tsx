@@ -18,7 +18,7 @@ export function ProjetoCard({ projeto, index = 0 }: ProjetoCardProps) {
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
       <Link href={`/projetos/${projeto.slug}`} className="group block">
-        <div className="relative aspect-[4/3] bg-neutral-100 overflow-hidden rounded-xl">
+        <div className="relative aspect-[4/3] bg-neutral-100 overflow-hidden rounded-2xl">
           {projeto.foto_capa ? (
             <Image
               src={projeto.foto_capa}

@@ -32,7 +32,7 @@ export function AprovadosSection({ aprovados }: AprovadosSectionProps) {
             className="snap-start shrink-0 w-48 md:w-56"
           >
             <Link href={`/modelo/${item.modelo.slug}`} className="group block">
-              <div className="relative aspect-[3/4] bg-neutral-100 overflow-hidden rounded-xl">
+              <div className="relative aspect-[3/4] bg-neutral-100 overflow-hidden rounded-2xl">
                 {/* Photo */}
                 {item.modelo.foto_principal ? (
                   <Image
