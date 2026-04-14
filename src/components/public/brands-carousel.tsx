@@ -2,17 +2,16 @@
 
 import { useRef, useEffect, useState } from "react";
 
-// Marcas parceiras — logos em /public/marcas/
 const BRANDS = [
   { name: "PomPom", logo: "/marcas/pompom.png" },
-  { name: "Brandili", logo: "/marcas/Brandili-.png" },
-  { name: "Marisa", logo: "/marcas/Marisa.png" },
+  { name: "Brandili", logo: "/marcas/brandili.png" },
+  { name: "Marisa", logo: "/marcas/marisa.png" },
   { name: "Torra", logo: "/marcas/torra.png" },
-  { name: "Wilson", logo: "/marcas/Wilson-logo.svg.png" },
-  { name: "Netflix", logo: "/marcas/Logonetflix.png" },
-  { name: "SBT", logo: "/marcas/Logotipo_do_SBT.svg.png" },
-  { name: "C&A", logo: "/marcas/c-e-a-logo-1.png" },
-  { name: "Pampers", logo: "/marcas/pampers-logo-1.png" },
+  { name: "Wilson", logo: "/marcas/wilson.png" },
+  { name: "Netflix", logo: "/marcas/netflix.png" },
+  { name: "SBT", logo: "/marcas/sbt.png" },
+  { name: "C&A", logo: "/marcas/cea.png" },
+  { name: "Pampers", logo: "/marcas/pampers.png" },
 ];
 
 export function BrandsCarousel() {
@@ -51,7 +50,6 @@ export function BrandsCarousel() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Fade edges */}
       <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
@@ -65,10 +63,10 @@ export function BrandsCarousel() {
             key={`${brand.name}-${i}`}
             className="shrink-0 flex items-center justify-center px-10 md:px-14 cursor-default group"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={brand.logo}
               alt={brand.name}
+              loading="lazy"
               className="h-14 md:h-20 w-auto max-w-[160px] md:max-w-[200px] object-contain opacity-40 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300"
             />
           </div>
