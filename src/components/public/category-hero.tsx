@@ -83,7 +83,8 @@ export function CategoryHero({ title, count }: CategoryHeroProps) {
         />
       </div>
 
-      {/* Bottom edge — clean cut, no gradient */}
+      {/* Bottom gradient — sutil */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/50 to-transparent" />
     </section>
   );
 }
