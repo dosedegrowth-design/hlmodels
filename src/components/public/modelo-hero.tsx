@@ -53,23 +53,17 @@ export function ModeloHero({
   return (
     <div ref={containerRef} className="relative">
       {/* Main layout — photo centered with info below on mobile, side on desktop */}
-      <div className="pt-20 lg:pt-0 lg:min-h-screen lg:flex lg:items-stretch">
+      <div className="lg:flex lg:items-start">
 
-        {/* Photo section */}
+        {/* Photo section — image shows in full, no cropping */}
         <div className="relative w-full lg:w-[55%] xl:w-[58%] bg-neutral-50 overflow-hidden">
-          <motion.div
-            style={{ y: imageY }}
-            className="relative w-full"
-          >
+          <motion.div style={{ y: imageY }}>
             {fotoPrincipal ? (
-              <div className="relative w-full flex items-center justify-center lg:min-h-screen">
-                {/* Image that shows FULL without cropping */}
-                <img
-                  src={fotoPrincipal}
-                  alt={nome}
-                  className="w-full h-auto max-h-[85vh] lg:max-h-screen object-contain"
-                />
-              </div>
+              <img
+                src={fotoPrincipal}
+                alt={nome}
+                className="w-full h-auto block pt-16 lg:pt-[72px]"
+              />
             ) : (
               <div className="flex items-center justify-center min-h-[60vh] lg:min-h-screen text-8xl font-light text-neutral-200">
                 {nome.charAt(0)}
@@ -81,7 +75,7 @@ export function ModeloHero({
         {/* Info section */}
         <motion.div
           style={{ opacity: infoOpacity }}
-          className="flex-1 lg:w-[45%] xl:w-[42%] flex flex-col justify-center px-6 md:px-10 lg:px-14 py-10 lg:py-20"
+          className="flex-1 lg:w-[45%] xl:w-[42%] px-6 md:px-10 lg:px-14 py-10 lg:py-0 lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col lg:justify-center"
         >
           <div className="max-w-md">
             {/* Back link */}
