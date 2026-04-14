@@ -15,6 +15,7 @@ import {
   Building2,
   ClipboardList,
   FolderOpen,
+  Award,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
@@ -26,6 +27,7 @@ const NAV_ITEMS = [
   { href: "/admin/candidaturas", label: "Candidaturas", icon: FileText },
   { href: "/admin/contatos", label: "Contatos", icon: MessageSquare },
   { href: "/admin/marcas", label: "Marcas", icon: Building2 },
+  { href: "/admin/aprovados", label: "Aprovados", icon: Award },
   { href: "/admin/orcamentos", label: "Orcamentos", icon: ClipboardList },
   { href: "/admin/projetos", label: "Projetos", icon: FolderOpen },
   { href: "/admin/configuracoes", label: "Configurações", icon: Settings },
