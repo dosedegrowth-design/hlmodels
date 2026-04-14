@@ -7,6 +7,7 @@ import { categoriaLabel } from "@/types";
 import type { ModeloComFotos } from "@/types";
 import type { Metadata } from "next";
 import { ModelGallery } from "@/components/public/model-gallery";
+import { ScrollReveal } from "@/components/public/scroll-animations";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -102,43 +103,42 @@ export default async function ModeloPage({ params }: Props) {
     m.categoria === "nao_binario" ? "/nao-binario" : `/${m.categoria}`;
 
   return (
-    <div className="pt-24 min-h-screen">
+    <div className="min-h-screen">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
-        {/* Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 lg:gap-12">
-          {/* LEFT - Main Photo */}
-          <div
-            className={`relative aspect-[3/4] overflow-hidden ${
-              isKids ? "rounded-2xl" : "rounded-sm"
-            }`}
-          >
-            {m.foto_principal ? (
-              <Image
-                src={m.foto_principal}
-                alt={m.nome}
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 1024px) 100vw, 60vw"
-              />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center bg-neutral-100 text-6xl font-light text-muted">
-                {m.nome.charAt(0)}
-              </div>
-            )}
-          </div>
+      {/* ===== HERO: Image + Info side by side, filling viewport ===== */}
+      <div className="h-screen flex flex-col lg:flex-row">
+        {/* LEFT — Main Photo (fills viewport height) */}
+        <div className="relative w-full lg:w-[55%] xl:w-[60%] h-[60vh] lg:h-full overflow-hidden bg-neutral-100">
+          {m.foto_principal ? (
+            <Image
+              src={m.foto_principal}
+              alt={m.nome}
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 1024px) 100vw, 60vw"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center text-7xl font-light text-neutral-300">
+              {m.nome.charAt(0)}
+            </div>
+          )}
 
-          {/* RIGHT - Sidebar */}
-          <div className="lg:sticky lg:top-28 lg:self-start">
+          {/* Subtle gradient at bottom for mobile */}
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/20 to-transparent lg:hidden" />
+        </div>
+
+        {/* RIGHT — Info sidebar (scrollable if content overflows) */}
+        <div className="flex-1 lg:w-[45%] xl:w-[40%] flex flex-col justify-center px-6 md:px-10 lg:px-14 py-8 lg:py-0 overflow-y-auto">
+          <div className="max-w-md">
             {/* Back link */}
             <Link
               href={backHref}
-              className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted hover:text-foreground transition-colors mb-6"
+              className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted hover:text-foreground transition-colors mb-8"
             >
               <ArrowLeft size={12} />
               Voltar para {categoriaLabel(m.categoria)}
@@ -164,16 +164,16 @@ export default async function ModeloPage({ params }: Props) {
 
             {/* Measurements */}
             <div className="mb-8">
-              <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+              <div className="grid grid-cols-2 gap-x-8 gap-y-4">
                 {MEDIDAS.map(({ key, label }) => {
                   const value = m[key];
                   if (!value) return null;
                   return (
                     <div key={key}>
-                      <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                      <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground block mb-0.5">
                         {label}
                       </span>
-                      <p className="text-sm">{value}</p>
+                      <p className="text-sm font-medium">{value}</p>
                     </div>
                   );
                 })}
@@ -236,17 +236,21 @@ export default async function ModeloPage({ params }: Props) {
             )}
           </div>
         </div>
-
-        {/* Photo Gallery - full width below split */}
-        {fotos.length > 0 && (
-          <div className="mt-16 md:mt-24 mb-16">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-6">
-              Book
-            </p>
-            <ModelGallery fotos={fotos} nome={m.nome} />
-          </div>
-        )}
       </div>
+
+      {/* ===== GALLERY: Full width below, with scroll reveal ===== */}
+      {fotos.length > 0 && (
+        <div className="px-4 md:px-6 max-w-[1800px] mx-auto py-16 md:py-24">
+          <ScrollReveal>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-8">
+              Book — {fotos.length} fotos
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={0.15} distance={60}>
+            <ModelGallery fotos={fotos} nome={m.nome} />
+          </ScrollReveal>
+        </div>
+      )}
     </div>
   );
 }

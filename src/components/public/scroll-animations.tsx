@@ -20,8 +20,8 @@ export function ScrollReveal({
   className,
   delay = 0,
   direction = "up",
-  distance = 40,
-  duration = 0.7,
+  distance = 60,
+  duration = 0.8,
   once = true,
 }: ScrollRevealProps) {
   const initial = {
@@ -34,11 +34,11 @@ export function ScrollReveal({
     <motion.div
       initial={initial}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once, margin: "-80px" }}
+      viewport={{ once, amount: 0.15 }}
       transition={{
         duration,
         delay,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.22, 1, 0.36, 1],
       }}
       className={className}
     >
