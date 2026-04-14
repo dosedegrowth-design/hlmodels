@@ -1,10 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
 import { ModelGrid } from "@/components/public/model-grid";
+import { CategoryHero } from "@/components/public/category-hero";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Modelos Teens - 15 a 18 anos",
-  description: "Casting de modelos teens de 15 a 18 anos. Agencia HL Models em Sao Paulo para campanhas juvenis e publicidade.",
+  description: "Conheça nosso casting de modelos teens. Agência HL Models em São Paulo com adolescentes para campanhas de moda.",
   alternates: { canonical: "https://hlmodels.vercel.app/teens" },
 };
 
@@ -17,35 +18,11 @@ export default async function TeensPage() {
     .eq("ativo", true)
     .order("ordem", { ascending: true });
 
-  const heroImage = modelos?.[0]?.foto_principal ?? null;
-
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative h-[50vh] overflow-hidden">
-        {heroImage ? (
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${heroImage})` }}
-          />
-        ) : (
-          <div className="absolute inset-0 bg-[#FFF0E8]" />
-        )}
-        <div className="absolute inset-0 bg-[#3A6084]/20 backdrop-blur-[1px]" />
-        <div className="absolute inset-0 bg-black/25" />
-        <div className="relative h-full flex flex-col items-center justify-center text-center">
-          <h1 className="font-kids text-5xl md:text-6xl lg:text-7xl uppercase tracking-[0.1em] text-white font-bold">
-            Teens
-          </h1>
-          <p className="mt-4 text-[10px] uppercase tracking-[0.3em] text-white/50">
-            {modelos?.length ?? 0} modelo{(modelos?.length ?? 0) !== 1 ? "s" : ""}
-          </p>
-        </div>
-      </section>
-
-      {/* Model Grid */}
+      <CategoryHero title="Teens" count={modelos?.length ?? 0} fallbackColor="#2a2a2a" />
       <div className="max-w-[1800px] mx-auto px-4 md:px-6 py-16 md:py-24">
-        <ModelGrid modelos={modelos ?? []} />
+        <ModelGrid modelos={modelos ?? []} isKids />
       </div>
     </div>
   );
