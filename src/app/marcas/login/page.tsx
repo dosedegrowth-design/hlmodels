@@ -30,72 +30,77 @@ export default function MarcasLoginPage() {
   }
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center p-6 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-foreground" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(255,255,255,0.06)_0%,_transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(255,255,255,0.04)_0%,_transparent_50%)]" />
+    <div className="min-h-screen relative flex items-center justify-center p-4 overflow-hidden">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1920')",
+        }}
+      />
 
-      {/* Decorative lines */}
-      <div className="absolute top-0 left-1/3 w-px h-full bg-white/[0.03]" />
-      <div className="absolute top-0 right-1/4 w-px h-full bg-white/[0.03]" />
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/65 backdrop-blur-[2px]" />
+
+      {/* Subtle gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(255,255,255,0.04)_0%,_transparent_60%)]" />
 
       {/* Card */}
-      <div className="relative z-10 w-full max-w-md">
+      <div className="relative z-10 w-full max-w-[440px]">
         {/* Logo */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-8">
           <Link href="/">
-            <img src="/logo-white.png" alt="HL Models" className="h-14 w-auto object-contain mx-auto" />
+            <img src="/logo-white.png" alt="HL Models" className="h-16 w-auto object-contain mx-auto" />
           </Link>
         </div>
 
         {/* Glass card */}
-        <div className="bg-white/[0.07] backdrop-blur-xl border border-white/[0.1] rounded-3xl p-8 md:p-10 shadow-2xl">
+        <div className="bg-white/10 backdrop-blur-2xl border border-white/15 rounded-3xl p-8 md:p-10 shadow-[0_8px_60px_rgba(0,0,0,0.4)]">
           <div className="text-center mb-8">
-            <h1 className="font-display text-2xl md:text-3xl text-white font-normal tracking-tight">
+            <h1 className="font-display text-3xl text-white font-medium tracking-tight">
               Portal de Marcas
             </h1>
-            <p className="text-white/40 text-sm mt-2">
-              Acesse para buscar modelos e gerenciar seleções.
+            <p className="text-white/50 text-sm mt-2">
+              Encontre os modelos ideais para sua campanha.
             </p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-5">
             {error && (
-              <div className="bg-red-500/10 border border-red-500/20 text-red-300 text-sm px-4 py-3 rounded-xl text-center">
+              <div className="bg-red-500/15 border border-red-400/20 text-red-200 text-sm px-4 py-3 rounded-2xl text-center">
                 {error}
               </div>
             )}
 
             <div>
-              <label className="block text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">
+              <label className="block text-[11px] uppercase tracking-[0.15em] text-white/50 mb-2 font-medium">
                 E-mail
               </label>
               <div className="relative">
-                <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20" />
+                <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full bg-white/[0.06] border border-white/[0.1] text-white placeholder-white/20 pl-11 pr-4 py-3.5 text-sm rounded-xl focus:outline-none focus:border-white/30 focus:bg-white/[0.08] transition-all"
+                  className="w-full bg-white/8 border border-white/12 text-white placeholder-white/25 pl-11 pr-4 py-4 text-sm rounded-2xl focus:outline-none focus:border-white/30 focus:bg-white/12 transition-all"
                   placeholder="marca@empresa.com"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">
+              <label className="block text-[11px] uppercase tracking-[0.15em] text-white/50 mb-2 font-medium">
                 Senha
               </label>
               <div className="relative">
-                <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20" />
+                <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full bg-white/[0.06] border border-white/[0.1] text-white placeholder-white/20 pl-11 pr-4 py-3.5 text-sm rounded-xl focus:outline-none focus:border-white/30 focus:bg-white/[0.08] transition-all"
+                  className="w-full bg-white/8 border border-white/12 text-white placeholder-white/25 pl-11 pr-4 py-4 text-sm rounded-2xl focus:outline-none focus:border-white/30 focus:bg-white/12 transition-all"
                   placeholder="••••••••"
                 />
               </div>
@@ -104,7 +109,7 @@ export default function MarcasLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 bg-white text-foreground text-sm font-medium tracking-widest uppercase rounded-xl hover:bg-white/90 transition-all disabled:opacity-50"
+              className="w-full py-4 bg-white text-foreground text-sm font-semibold tracking-wider uppercase rounded-2xl hover:bg-white/90 transition-all disabled:opacity-50 shadow-lg"
             >
               {loading ? "Entrando..." : "Entrar"}
             </button>
@@ -112,19 +117,19 @@ export default function MarcasLoginPage() {
 
           {/* Divider */}
           <div className="flex items-center gap-3 my-6">
-            <div className="flex-1 h-px bg-white/[0.08]" />
-            <span className="text-[10px] text-white/20 uppercase tracking-widest">ou</span>
-            <div className="flex-1 h-px bg-white/[0.08]" />
+            <div className="flex-1 h-px bg-white/10" />
+            <span className="text-[10px] text-white/25 uppercase tracking-widest">ou</span>
+            <div className="flex-1 h-px bg-white/10" />
           </div>
 
-          {/* Register CTA */}
+          {/* Register */}
           <div className="text-center">
-            <p className="text-sm text-white/30 mb-3">
+            <p className="text-sm text-white/40 mb-3">
               Não tem uma conta?
             </p>
             <Link
               href="/marcas/registro"
-              className="inline-block w-full py-3 border border-white/20 text-white/70 text-sm tracking-widest uppercase rounded-xl hover:bg-white/[0.06] hover:text-white transition-all"
+              className="inline-block w-full py-3.5 border border-white/20 text-white/70 text-sm tracking-wider uppercase rounded-2xl hover:bg-white/8 hover:text-white hover:border-white/30 transition-all"
             >
               Crie sua conta agora
             </Link>
@@ -132,24 +137,24 @@ export default function MarcasLoginPage() {
         </div>
 
         {/* Features */}
-        <div className="mt-8 flex items-center justify-center gap-8">
-          <div className="flex items-center gap-2 text-white/20">
-            <Search size={14} />
+        <div className="mt-8 flex items-center justify-center gap-6 md:gap-8 flex-wrap">
+          <div className="flex items-center gap-2 text-white/25">
+            <Search size={13} />
             <span className="text-[10px] uppercase tracking-widest">Buscar modelos</span>
           </div>
-          <div className="flex items-center gap-2 text-white/20">
-            <Star size={14} />
+          <div className="flex items-center gap-2 text-white/25">
+            <Star size={13} />
             <span className="text-[10px] uppercase tracking-widest">Criar seleções</span>
           </div>
-          <div className="flex items-center gap-2 text-white/20 hidden sm:flex">
-            <FileText size={14} />
+          <div className="flex items-center gap-2 text-white/25 hidden sm:flex">
+            <FileText size={13} />
             <span className="text-[10px] uppercase tracking-widest">Orçamentos</span>
           </div>
         </div>
 
         {/* Footer */}
         <div className="mt-6 text-center">
-          <Link href="/" className="text-xs text-white/25 hover:text-white/50 transition-colors uppercase tracking-widest">
+          <Link href="/" className="text-[11px] text-white/25 hover:text-white/50 transition-colors uppercase tracking-widest">
             Voltar ao site
           </Link>
         </div>
