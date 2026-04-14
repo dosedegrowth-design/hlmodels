@@ -50,7 +50,7 @@ export function Footer() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
               {/* Col 1 — Logo */}
               <div>
-                <div className="relative h-8 w-28 mb-3">
+                <div className="relative h-16 w-44 mb-3">
                   <Image
                     src="/logo-white.png"
                     alt="HL Models Agency"
@@ -160,7 +160,7 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
             {/* Col 1 — Logo */}
             <div>
-              <div className="relative h-8 w-28 mb-3">
+              <div className="relative h-16 w-44 mb-3">
                 <Image
                   src="/logo-white.png"
                   alt="HL Models Agency"
