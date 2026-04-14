@@ -1,20 +1,19 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 
-// Marcas parceiras da HL Models (do site antigo)
+// Marcas parceiras — logos em /public/marcas/
 const BRANDS = [
-  { name: "PomPom", color: "#FF6B00" },
-  { name: "Brandili", color: "#E91E63" },
-  { name: "Marisa", color: "#D81B60" },
-  { name: "Torra", color: "#FF1744" },
-  { name: "Wilson", color: "#1565C0" },
-  { name: "Fit", color: "#FFB300" },
-  { name: "Algodao Doce", color: "#FF4081" },
-  { name: "Felps", color: "#8D6E63" },
-  { name: "Verao de Maria", color: "#AB47BC" },
-  { name: "Yawe", color: "#2E7D32" },
-  { name: "Mona", color: "#F48FB1" },
+  { name: "PomPom", logo: "pompom.png" },
+  { name: "Brandili", logo: "Brandili-.png" },
+  { name: "Marisa", logo: "Marisa.png" },
+  { name: "Torra", logo: "torra.png" },
+  { name: "Wilson", logo: "Wilson-logo.svg.png" },
+  { name: "Netflix", logo: "Logonetflix.png" },
+  { name: "SBT", logo: "Logotipo_do_SBT.svg.png" },
+  { name: "C&A", logo: "c-e-a-logo-1.png" },
+  { name: "Pampers", logo: "pampers-logo-1.png" },
 ];
 
 export function BrandsCarousel() {
@@ -35,7 +34,6 @@ export function BrandsCarousel() {
         return;
       }
       scrollPos += 0.5;
-      // Reset to create infinite loop
       if (scrollPos >= el.scrollWidth / 2) {
         scrollPos = 0;
       }
@@ -68,12 +66,17 @@ export function BrandsCarousel() {
         {allBrands.map((brand, i) => (
           <div
             key={`${brand.name}-${i}`}
-            className="shrink-0 flex items-center cursor-default group"
+            className="shrink-0 flex items-center justify-center px-8 md:px-12 cursor-default group"
           >
-            <span className="text-2xl md:text-3xl font-light text-muted/30 group-hover:text-foreground transition-colors duration-300 whitespace-nowrap px-4">
-              {brand.name}
-            </span>
-            <span className="text-muted/20 text-lg select-none">&mdash;</span>
+            <div className="relative h-10 md:h-12 w-24 md:w-32 opacity-40 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300">
+              <Image
+                src={`/marcas/${brand.logo}`}
+                alt={brand.name}
+                fill
+                className="object-contain"
+                sizes="128px"
+              />
+            </div>
           </div>
         ))}
       </div>
