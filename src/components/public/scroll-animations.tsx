@@ -67,21 +67,21 @@ export function TextReveal({
     <motion.span
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, amount: 0.5 }}
       className={className}
     >
       {words.map((word, i) => (
         <motion.span
           key={i}
           variants={{
-            hidden: { opacity: 0, y: 20 },
+            hidden: { opacity: 0, y: 40 },
             visible: {
               opacity: 1,
               y: 0,
               transition: {
-                duration: 0.5,
+                duration: 0.7,
                 delay: delay + i * staggerDelay,
-                ease: [0.25, 0.46, 0.45, 0.94],
+                ease: [0.22, 1, 0.36, 1],
               },
             },
           }}
