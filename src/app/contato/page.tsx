@@ -4,6 +4,7 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { CheckCircle, AtSign, Phone, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
+import { ScrollReveal } from "@/components/public/scroll-animations";
 
 export default function ContatoPage() {
   const [loading, setLoading] = useState(false);
@@ -62,17 +63,19 @@ export default function ContatoPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* LEFT — Info Section */}
           <div className="lg:pt-4">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
-              Fale conosco
-            </p>
-            <h1 className="font-display text-4xl md:text-5xl font-normal tracking-tight mb-6">
-              Contato
-            </h1>
-            <p className="text-sm text-muted leading-relaxed mb-10">
-              Entre em contato para saber mais sobre nossos servicos, agendar
-              reunioes ou tirar duvidas sobre o casting. Estamos prontos para
-              atende-lo.
-            </p>
+            <ScrollReveal>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+                Fale conosco
+              </p>
+              <h1 className="font-display text-4xl md:text-5xl font-normal tracking-tight mb-6">
+                Contato
+              </h1>
+              <p className="text-sm text-muted leading-relaxed mb-10">
+                Entre em contato para saber mais sobre nossos servicos, agendar
+                reunioes ou tirar duvidas sobre o casting. Estamos prontos para
+                atende-lo.
+              </p>
+            </ScrollReveal>
 
             <div className="space-y-4">
               <a
@@ -108,6 +111,7 @@ export default function ContatoPage() {
           </div>
 
           {/* RIGHT — Form */}
+          <ScrollReveal delay={0.1}>
           <div>
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Nome */}
@@ -184,6 +188,7 @@ export default function ContatoPage() {
               </button>
             </form>
           </div>
+          </ScrollReveal>
         </div>
       </div>
     </div>

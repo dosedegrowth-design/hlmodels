@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { ProjetoCard } from "@/components/public/projeto-card";
+import { ScrollReveal } from "@/components/public/scroll-animations";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -20,12 +21,14 @@ export default async function ProjetosPage() {
     <div>
       {/* Hero */}
       <div className="pt-32 pb-16 text-center">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
-          Portfolio
-        </p>
-        <h1 className="font-display text-5xl md:text-6xl font-normal tracking-tight">
-          Projetos
-        </h1>
+        <ScrollReveal>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+            Portfolio
+          </p>
+          <h1 className="font-display text-5xl md:text-6xl font-normal tracking-tight">
+            Projetos
+          </h1>
+        </ScrollReveal>
       </div>
 
       {/* Grid */}

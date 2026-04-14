@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { CheckCircle, Camera, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { ScrollReveal } from "@/components/public/scroll-animations";
 
 export default function FacaPartePage() {
   const [loading, setLoading] = useState(false);
@@ -102,17 +103,19 @@ export default function FacaPartePage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* LEFT — Info Section */}
           <div className="lg:pt-4">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
-              Casting aberto
-            </p>
-            <h1 className="font-display text-4xl md:text-5xl font-normal tracking-tight mb-6">
-              Faca Parte
-            </h1>
-            <p className="text-sm text-muted leading-relaxed mb-8">
-              Estamos sempre em busca de novos talentos para integrar nosso casting.
-              Se voce tem interesse em trabalhar como modelo, preencha o formulario
-              ao lado com seus dados e fotos.
-            </p>
+            <ScrollReveal>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+                Casting aberto
+              </p>
+              <h1 className="font-display text-4xl md:text-5xl font-normal tracking-tight mb-6">
+                Faca Parte
+              </h1>
+              <p className="text-sm text-muted leading-relaxed mb-8">
+                Estamos sempre em busca de novos talentos para integrar nosso casting.
+                Se voce tem interesse em trabalhar como modelo, preencha o formulario
+                ao lado com seus dados e fotos.
+              </p>
+            </ScrollReveal>
 
             <div className="mb-10">
               <p className="text-[10px] uppercase tracking-[0.2em] text-muted mb-4">
@@ -156,6 +159,7 @@ export default function FacaPartePage() {
           </div>
 
           {/* RIGHT — Form */}
+          <ScrollReveal delay={0.1}>
           <div>
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Photo upload */}
@@ -347,6 +351,7 @@ export default function FacaPartePage() {
               )}
             </form>
           </div>
+          </ScrollReveal>
         </div>
       </div>
     </div>

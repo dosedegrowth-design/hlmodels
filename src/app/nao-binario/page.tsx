@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { ModelGrid } from "@/components/public/model-grid";
+import { ScrollReveal } from "@/components/public/scroll-animations";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -44,7 +45,9 @@ export default async function NaoBinarioPage() {
 
       {/* Model Grid */}
       <div className="max-w-[1800px] mx-auto px-4 md:px-6 py-16 md:py-24">
-        <ModelGrid modelos={modelos ?? []} />
+        <ScrollReveal>
+          <ModelGrid modelos={modelos ?? []} />
+        </ScrollReveal>
       </div>
     </div>
   );

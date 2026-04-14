@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ScrollReveal } from "@/components/public/scroll-animations";
 
 export const metadata: Metadata = {
   title: "Sobre",
@@ -13,40 +14,50 @@ export default function SobrePage() {
     <div>
       {/* Hero */}
       <section className="pt-32 pb-16 md:pb-24 text-center px-4 md:px-6">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
-          Quem somos
-        </p>
-        <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight">
-          Sobre Nos
-        </h1>
-        <p className="max-w-2xl mx-auto text-sm md:text-base text-muted leading-relaxed mt-6">
-          Somos uma agencia de talentos e campanhas que acredita no poder da
-          imagem e da presenca para contar historias inesqueciveis. Nascemos da
-          paixao por conectar marcas, pessoas e oportunidades com autenticidade,
-          diversidade e profissionalismo.
-        </p>
+        <ScrollReveal>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+            Quem somos
+          </p>
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight">
+            Sobre Nos
+          </h1>
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-muted leading-relaxed mt-6">
+            Somos uma agencia de talentos e campanhas que acredita no poder da
+            imagem e da presenca para contar historias inesqueciveis. Nascemos da
+            paixao por conectar marcas, pessoas e oportunidades com autenticidade,
+            diversidade e profissionalismo.
+          </p>
+        </ScrollReveal>
       </section>
 
       {/* Stats */}
       <section className="bg-surface py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-4 md:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <p className="font-display text-4xl md:text-5xl font-normal">+100</p>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Modelos</p>
-            </div>
-            <div className="text-center">
-              <p className="font-display text-4xl md:text-5xl font-normal">+50</p>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Clientes</p>
-            </div>
-            <div className="text-center">
-              <p className="font-display text-4xl md:text-5xl font-normal">+200</p>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Trabalhos</p>
-            </div>
-            <div className="text-center">
-              <p className="font-display text-4xl md:text-5xl font-normal">6</p>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Categorias</p>
-            </div>
+            <ScrollReveal delay={0}>
+              <div className="text-center">
+                <p className="font-display text-4xl md:text-5xl font-normal">+100</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Modelos</p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={0.1}>
+              <div className="text-center">
+                <p className="font-display text-4xl md:text-5xl font-normal">+50</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Clientes</p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={0.2}>
+              <div className="text-center">
+                <p className="font-display text-4xl md:text-5xl font-normal">+200</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Trabalhos</p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={0.3}>
+              <div className="text-center">
+                <p className="font-display text-4xl md:text-5xl font-normal">6</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Categorias</p>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -54,39 +65,47 @@ export default function SobrePage() {
       {/* Missao / Visao / Valores */}
       <section className="max-w-5xl mx-auto px-6 py-20 md:py-28">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-          <div className="text-left">
-            <h2 className="font-display text-2xl font-normal mb-4">Missao</h2>
-            <p className="text-sm text-muted leading-relaxed">
-              Conectar talentos unicos a oportunidades no mundo da moda e
-              publicidade. Revelar identidades, valorizar historias e construir
-              carreiras com etica, planejamento e proposito.
-            </p>
-          </div>
-          <div className="text-left">
-            <h2 className="font-display text-2xl font-normal mb-4">Visao</h2>
-            <p className="text-sm text-muted leading-relaxed">
-              Ser referencia em gestao de modelos e talentos, reconhecida pela
-              excelencia, diversidade e pela capacidade de transformar sonhos em
-              realidade no mercado da moda e publicidade.
-            </p>
-          </div>
-          <div className="text-left">
-            <h2 className="font-display text-2xl font-normal mb-4">Valores</h2>
-            <p className="text-sm text-muted leading-relaxed">
-              Diversidade, profissionalismo, transparencia, etica e
-              criatividade. Acreditamos no poder da autenticidade e da presenca
-              para contar historias inesqueciveis.
-            </p>
-          </div>
+          <ScrollReveal delay={0}>
+            <div className="text-left">
+              <h2 className="font-display text-2xl font-normal mb-4">Missao</h2>
+              <p className="text-sm text-muted leading-relaxed">
+                Conectar talentos unicos a oportunidades no mundo da moda e
+                publicidade. Revelar identidades, valorizar historias e construir
+                carreiras com etica, planejamento e proposito.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
+            <div className="text-left">
+              <h2 className="font-display text-2xl font-normal mb-4">Visao</h2>
+              <p className="text-sm text-muted leading-relaxed">
+                Ser referencia em gestao de modelos e talentos, reconhecida pela
+                excelencia, diversidade e pela capacidade de transformar sonhos em
+                realidade no mercado da moda e publicidade.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={0.2}>
+            <div className="text-left">
+              <h2 className="font-display text-2xl font-normal mb-4">Valores</h2>
+              <p className="text-sm text-muted leading-relaxed">
+                Diversidade, profissionalismo, transparencia, etica e
+                criatividade. Acreditamos no poder da autenticidade e da presenca
+                para contar historias inesqueciveis.
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Como Participar */}
       <section className="bg-foreground text-white py-20 md:py-28">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="font-display text-4xl font-normal text-white mb-12 text-center">
-            Como Participar
-          </h2>
+          <ScrollReveal>
+            <h2 className="font-display text-4xl font-normal text-white mb-12 text-center">
+              Como Participar
+            </h2>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
               <p className="text-5xl font-display text-white/10 mb-3">01</p>

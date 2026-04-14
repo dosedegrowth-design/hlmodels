@@ -8,6 +8,7 @@ import { ProjetoCard } from "@/components/public/projeto-card";
 import { BrandsCarousel } from "@/components/public/brands-carousel";
 import { FaqSection } from "@/components/public/faq-section";
 import { AprovadosSection } from "@/components/public/aprovados-section";
+import { ScrollReveal } from "@/components/public/scroll-animations";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -86,16 +87,20 @@ export default async function HomePage() {
       <section className="py-14 md:py-20">
         <div className="max-w-[1600px] mx-auto">
           <div className="px-6 lg:px-10 mb-10">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
-              Explore
-            </p>
-            <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
-              Categorias
-            </h2>
+            <ScrollReveal>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+                Explore
+              </p>
+              <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
+                Categorias
+              </h2>
+            </ScrollReveal>
           </div>
-          <div className="px-6 lg:px-10">
-            <CategoriesCarousel categoryPhotos={categoryPhotos} />
-          </div>
+          <ScrollReveal delay={0.2}>
+            <div className="px-6 lg:px-10">
+              <CategoriesCarousel categoryPhotos={categoryPhotos} />
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -103,23 +108,27 @@ export default async function HomePage() {
       {todosModelos && todosModelos.length > 0 && (
         <section className="py-14 md:py-20">
           <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
-            <div className="mb-10">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
-                Nosso casting
-              </p>
-              <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
-                Nossos Talentos
-              </h2>
-            </div>
+            <ScrollReveal>
+              <div className="mb-10">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+                  Nosso casting
+                </p>
+                <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
+                  Nossos Talentos
+                </h2>
+              </div>
+            </ScrollReveal>
             <ModelGrid modelos={todosModelos} />
-            <div className="mt-10 text-center">
-              <Link
-                href="/mulher"
-                className="inline-block text-xs uppercase tracking-[0.3em] text-muted hover:text-foreground transition-colors"
-              >
-                Ver todos os modelos &rarr;
-              </Link>
-            </div>
+            <ScrollReveal delay={0.3}>
+              <div className="mt-10 text-center">
+                <Link
+                  href="/mulher"
+                  className="inline-block text-xs uppercase tracking-[0.3em] text-muted hover:text-foreground transition-colors"
+                >
+                  Ver todos os modelos &rarr;
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
       )}
@@ -129,12 +138,14 @@ export default async function HomePage() {
         <section className="py-14 md:py-20">
           <div className="max-w-[1600px] mx-auto">
             <div className="px-6 lg:px-10 mb-10">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
-                Prontos para brilhar
-              </p>
-              <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
-                Aprovados
-              </h2>
+              <ScrollReveal>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+                  Prontos para brilhar
+                </p>
+                <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
+                  Aprovados
+                </h2>
+              </ScrollReveal>
             </div>
             <AprovadosSection aprovados={aprovados} />
           </div>
@@ -145,22 +156,24 @@ export default async function HomePage() {
       {projetosDestaque && projetosDestaque.length > 0 && (
         <section className="py-14 md:py-20">
           <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
-            <div className="flex items-end justify-between mb-10">
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
-                  Portfolio
-                </p>
-                <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
-                  Projetos
-                </h2>
+            <ScrollReveal>
+              <div className="flex items-end justify-between mb-10">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+                    Portfolio
+                  </p>
+                  <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
+                    Projetos
+                  </h2>
+                </div>
+                <Link
+                  href="/projetos"
+                  className="text-xs uppercase tracking-[0.3em] text-muted hover:text-foreground transition-colors"
+                >
+                  Ver todos
+                </Link>
               </div>
-              <Link
-                href="/projetos"
-                className="text-xs uppercase tracking-[0.3em] text-muted hover:text-foreground transition-colors"
-              >
-                Ver todos
-              </Link>
-            </div>
+            </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {projetosDestaque.map((p, i) => (
                 <ProjetoCard key={p.id} projeto={p} index={i} />
@@ -174,12 +187,14 @@ export default async function HomePage() {
       <section className="py-14 md:py-20">
         <div className="max-w-[1600px] mx-auto">
           <div className="px-6 lg:px-10 mb-10 text-center">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
-              Quem confia na gente
-            </p>
-            <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
-              Marcas Parceiras
-            </h2>
+            <ScrollReveal>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+                Quem confia na gente
+              </p>
+              <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
+                Marcas Parceiras
+              </h2>
+            </ScrollReveal>
           </div>
           <BrandsCarousel />
         </div>
@@ -188,22 +203,24 @@ export default async function HomePage() {
       {/* Section 6: CTA Faca Parte */}
       <section className="bg-foreground text-white py-14 md:py-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6">
-            Junte-se a nos
-          </p>
-          <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight mb-6">
-            Faca Parte
-          </h2>
-          <p className="text-white/50 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
-            Se voce tem interesse em iniciar ou desenvolver sua carreira como
-            modelo, entre em contato conosco.
-          </p>
-          <Link
-            href="/faca-parte"
-            className="inline-block px-12 py-4 border border-white/30 text-xs uppercase tracking-[0.3em] hover:bg-white hover:text-foreground transition-all duration-300"
-          >
-            Inscreva-se
-          </Link>
+          <ScrollReveal>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6">
+              Junte-se a nos
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight mb-6">
+              Faca Parte
+            </h2>
+            <p className="text-white/50 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
+              Se voce tem interesse em iniciar ou desenvolver sua carreira como
+              modelo, entre em contato conosco.
+            </p>
+            <Link
+              href="/faca-parte"
+              className="inline-block px-12 py-4 border border-white/30 text-xs uppercase tracking-[0.3em] hover:bg-white hover:text-foreground transition-all duration-300"
+            >
+              Inscreva-se
+            </Link>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -211,12 +228,14 @@ export default async function HomePage() {
       <section className="py-14 md:py-20">
         <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
           <div className="text-center mb-12">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
-              Duvidas
-            </p>
-            <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
-              Perguntas Frequentes
-            </h2>
+            <ScrollReveal>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+                Duvidas
+              </p>
+              <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
+                Perguntas Frequentes
+              </h2>
+            </ScrollReveal>
           </div>
           <FaqSection />
         </div>
