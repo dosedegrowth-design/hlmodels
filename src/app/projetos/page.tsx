@@ -23,7 +23,7 @@ export default async function ProjetosPage() {
         <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
           Portfolio
         </p>
-        <h1 className="font-display text-5xl md:text-6xl font-light tracking-tight">
+        <h1 className="font-display text-5xl md:text-6xl font-normal tracking-tight">
           Projetos
         </h1>
       </div>

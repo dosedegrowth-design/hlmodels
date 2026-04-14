@@ -33,7 +33,7 @@ export default async function NaoBinarioPage() {
         )}
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative h-full flex flex-col items-center justify-center text-center">
-          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl uppercase tracking-[0.1em] text-white font-light">
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl uppercase tracking-[0.1em] text-white font-normal">
             Não Binário
           </h1>
           <p className="mt-4 text-[10px] uppercase tracking-[0.3em] text-white/40">

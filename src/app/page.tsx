@@ -89,7 +89,7 @@ export default async function HomePage() {
             <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
               Explore
             </p>
-            <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight">
+            <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
               Categorias
             </h2>
           </div>
@@ -107,7 +107,7 @@ export default async function HomePage() {
               <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
                 Nosso casting
               </p>
-              <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight">
+              <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
                 Nossos Talentos
               </h2>
             </div>
@@ -132,7 +132,7 @@ export default async function HomePage() {
               <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
                 Prontos para brilhar
               </p>
-              <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight">
+              <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
                 Aprovados
               </h2>
             </div>
@@ -150,7 +150,7 @@ export default async function HomePage() {
                 <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
                   Portfolio
                 </p>
-                <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight">
+                <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
                   Projetos
                 </h2>
               </div>
@@ -177,7 +177,7 @@ export default async function HomePage() {
             <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
               Quem confia na gente
             </p>
-            <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight">
+            <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
               Marcas Parceiras
             </h2>
           </div>
@@ -191,7 +191,7 @@ export default async function HomePage() {
           <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6">
             Junte-se a nos
           </p>
-          <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight mb-6">
+          <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight mb-6">
             Faca Parte
           </h2>
           <p className="text-white/50 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
@@ -214,7 +214,7 @@ export default async function HomePage() {
             <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
               Duvidas
             </p>
-            <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight">
+            <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
               Perguntas Frequentes
             </h2>
           </div>

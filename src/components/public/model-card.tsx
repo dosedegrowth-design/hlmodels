@@ -58,7 +58,7 @@ export function ModelCard({ modelo, index = 0, isKids }: ModelCardProps) {
               className={`text-xs uppercase tracking-[0.2em] ${
                 kidsMode
                   ? "text-white font-bold font-kids"
-                  : "text-white font-light"
+                  : "text-white font-normal"
               }`}
             >
               {modelo.nome}

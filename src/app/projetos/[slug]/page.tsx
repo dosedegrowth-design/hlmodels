@@ -97,7 +97,7 @@ export default async function ProjetoPage({ params }: Props) {
                 {p.marca_parceira}
               </p>
             )}
-            <h1 className="font-display text-4xl md:text-5xl font-light text-white tracking-tight">
+            <h1 className="font-display text-4xl md:text-5xl font-normal text-white tracking-tight">
               {p.titulo}
             </h1>
           </div>

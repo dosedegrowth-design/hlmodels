@@ -151,7 +151,7 @@ export default async function ModeloPage({ params }: Props) {
             </p>
 
             {/* Name */}
-            <h1 className="font-display text-4xl md:text-5xl font-light tracking-tight mb-4">
+            <h1 className="font-display text-4xl md:text-5xl font-normal tracking-tight mb-4">
               {m.nome}
             </h1>
 

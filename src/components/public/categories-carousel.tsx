@@ -55,7 +55,7 @@ function CategoryCard({
         <div className="absolute inset-0 z-[2] flex flex-col items-center justify-end pb-8">
           <h3
             className={`font-display text-2xl md:text-3xl text-white uppercase tracking-wide text-center ${
-              isKids ? "font-kids font-bold" : "font-light"
+              isKids ? "font-kids font-bold" : "font-normal"
             }`}
           >
             {label}

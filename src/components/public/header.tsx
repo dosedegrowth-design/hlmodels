@@ -282,7 +282,7 @@ export function Header() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className={cn(
-                      "font-display text-3xl md:text-4xl lg:text-[2.8rem] font-light tracking-tight transition-all duration-300",
+                      "font-display text-3xl md:text-4xl lg:text-[2.8rem] font-normal tracking-tight transition-all duration-300",
                       "group-hover:translate-x-3",
                       isActive
                         ? "text-white"
@@ -372,7 +372,7 @@ export function Header() {
                 <p className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">
                   Explore
                 </p>
-                <p className="font-display text-4xl font-light text-white tracking-tight">
+                <p className="font-display text-4xl font-normal text-white tracking-tight">
                   {NAV_LINKS.find(l => l.href === hoveredLink)?.label}
                 </p>
               </div>

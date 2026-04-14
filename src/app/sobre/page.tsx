@@ -16,7 +16,7 @@ export default function SobrePage() {
         <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
           Quem somos
         </p>
-        <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light tracking-tight">
+        <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight">
           Sobre Nos
         </h1>
         <p className="max-w-2xl mx-auto text-sm md:text-base text-muted leading-relaxed mt-6">
@@ -32,19 +32,19 @@ export default function SobrePage() {
         <div className="max-w-5xl mx-auto px-4 md:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <p className="font-display text-4xl md:text-5xl font-light">+100</p>
+              <p className="font-display text-4xl md:text-5xl font-normal">+100</p>
               <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Modelos</p>
             </div>
             <div className="text-center">
-              <p className="font-display text-4xl md:text-5xl font-light">+50</p>
+              <p className="font-display text-4xl md:text-5xl font-normal">+50</p>
               <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Clientes</p>
             </div>
             <div className="text-center">
-              <p className="font-display text-4xl md:text-5xl font-light">+200</p>
+              <p className="font-display text-4xl md:text-5xl font-normal">+200</p>
               <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Trabalhos</p>
             </div>
             <div className="text-center">
-              <p className="font-display text-4xl md:text-5xl font-light">6</p>
+              <p className="font-display text-4xl md:text-5xl font-normal">6</p>
               <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Categorias</p>
             </div>
           </div>
@@ -55,7 +55,7 @@ export default function SobrePage() {
       <section className="max-w-5xl mx-auto px-6 py-20 md:py-28">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           <div className="text-left">
-            <h2 className="font-display text-2xl font-light mb-4">Missao</h2>
+            <h2 className="font-display text-2xl font-normal mb-4">Missao</h2>
             <p className="text-sm text-muted leading-relaxed">
               Conectar talentos unicos a oportunidades no mundo da moda e
               publicidade. Revelar identidades, valorizar historias e construir
@@ -63,7 +63,7 @@ export default function SobrePage() {
             </p>
           </div>
           <div className="text-left">
-            <h2 className="font-display text-2xl font-light mb-4">Visao</h2>
+            <h2 className="font-display text-2xl font-normal mb-4">Visao</h2>
             <p className="text-sm text-muted leading-relaxed">
               Ser referencia em gestao de modelos e talentos, reconhecida pela
               excelencia, diversidade e pela capacidade de transformar sonhos em
@@ -71,7 +71,7 @@ export default function SobrePage() {
             </p>
           </div>
           <div className="text-left">
-            <h2 className="font-display text-2xl font-light mb-4">Valores</h2>
+            <h2 className="font-display text-2xl font-normal mb-4">Valores</h2>
             <p className="text-sm text-muted leading-relaxed">
               Diversidade, profissionalismo, transparencia, etica e
               criatividade. Acreditamos no poder da autenticidade e da presenca
@@ -84,7 +84,7 @@ export default function SobrePage() {
       {/* Como Participar */}
       <section className="bg-foreground text-white py-20 md:py-28">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="font-display text-4xl font-light text-white mb-12 text-center">
+          <h2 className="font-display text-4xl font-normal text-white mb-12 text-center">
             Como Participar
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

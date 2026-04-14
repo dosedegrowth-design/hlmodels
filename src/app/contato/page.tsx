@@ -39,7 +39,7 @@ export default function ContatoPage() {
       <div className="pt-28 md:pt-32 pb-24 px-4 md:px-6 min-h-[70vh] flex items-center justify-center">
         <div className="text-center max-w-md">
           <CheckCircle size={40} className="mx-auto text-foreground mb-6" strokeWidth={1} />
-          <h1 className="font-display text-3xl md:text-4xl font-light tracking-tight mb-4">
+          <h1 className="font-display text-3xl md:text-4xl font-normal tracking-tight mb-4">
             Mensagem enviada
           </h1>
           <p className="text-sm text-muted leading-relaxed mb-8">
@@ -65,7 +65,7 @@ export default function ContatoPage() {
             <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
               Fale conosco
             </p>
-            <h1 className="font-display text-4xl md:text-5xl font-light tracking-tight mb-6">
+            <h1 className="font-display text-4xl md:text-5xl font-normal tracking-tight mb-6">
               Contato
             </h1>
             <p className="text-sm text-muted leading-relaxed mb-10">
