@@ -14,9 +14,8 @@ export default function MarcasLoginPage() {
   const [bgImage, setBgImage] = useState<string | null>(null);
   const router = useRouter();
 
-  // Load random featured model photo
   useEffect(() => {
-    async function loadRandomPhoto() {
+    async function loadPhoto() {
       const supabase = createClient();
       const { data } = await supabase
         .from("modelos")
@@ -25,127 +24,101 @@ export default function MarcasLoginPage() {
         .eq("destaque", true)
         .not("foto_principal", "is", null);
       if (data && data.length > 0) {
-        const random = data[Math.floor(Math.random() * data.length)];
-        setBgImage(random.foto_principal);
+        setBgImage(data[Math.floor(Math.random() * data.length)].foto_principal);
       }
     }
-    loadRandomPhoto();
+    loadPhoto();
   }, []);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
-
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithPassword({ email, password });
-
     setLoading(false);
-    if (error) {
-      setError("Email ou senha incorretos.");
-      return;
-    }
+    if (error) { setError("Email ou senha incorretos."); return; }
     router.push("/marcas");
   }
 
   return (
-    <div className="h-screen flex bg-[#12121f]">
-      {/* Left — Image side (hidden on mobile) */}
-      <div className="hidden lg:block lg:w-[55%] relative overflow-hidden">
-        {/* Featured model photo */}
+    <div
+      className="fixed inset-0 flex"
+      style={{ background: "#12121f", zIndex: 60 }}
+    >
+      {/* LEFT — Photo (desktop only) */}
+      <div className="hidden lg:block relative" style={{ width: "55%" }}>
         {bgImage && (
           <img
             src={bgImage}
-            alt="HL Models"
-            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+            alt=""
+            className="absolute inset-0 w-full h-full"
+            style={{ objectFit: "cover", objectPosition: "top center" }}
           />
         )}
-        {!bgImage && (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a2e] to-[#12121f]" />
-        )}
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, transparent 50%, #12121f 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #12121f 0%, transparent 35%)" }} />
 
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#12121f]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#12121f]/80 via-transparent to-[#12121f]/30" />
-
-        {/* Logo top-left */}
         <div className="absolute top-8 left-8 z-10">
-          <img src="/logo-white.png" alt="HL Models" className="h-12 w-auto object-contain" />
+          <img src="/logo-white.png" alt="HL Models" className="h-12" />
         </div>
 
-        {/* Bottom text */}
-        <div className="absolute bottom-10 left-8 right-8 z-10">
-          <h2 className="font-display text-4xl xl:text-5xl text-white font-medium tracking-tight leading-tight">
+        <div className="absolute bottom-10 left-8 right-20 z-10">
+          <h2 className="font-display text-white" style={{ fontSize: 42, fontWeight: 500, lineHeight: 1.1 }}>
             Encontre os talentos<br />ideais para sua marca
           </h2>
-          <p className="text-white/30 text-sm mt-3 max-w-md">
+          <p style={{ color: "rgba(255,255,255,0.3)", fontSize: 14, marginTop: 12 }}>
             Busque modelos, crie seleções e solicite orçamentos.
           </p>
         </div>
       </div>
 
-      {/* Right — Form side */}
-      <div className="flex-1 flex flex-col justify-center px-6 md:px-12 lg:px-16 xl:px-20 bg-[#12121f]">
-        <div className="w-full max-w-[400px] mx-auto">
-          {/* Mobile logo */}
+      {/* RIGHT — Form */}
+      <div className="flex-1 flex flex-col justify-center px-8 lg:px-16 xl:px-20">
+        <div className="w-full" style={{ maxWidth: 380, margin: "0 auto" }}>
           <div className="lg:hidden text-center mb-10">
-            <Link href="/">
-              <img src="/logo-white.png" alt="HL Models" className="h-14 w-auto object-contain mx-auto" />
-            </Link>
+            <Link href="/"><img src="/logo-white.png" alt="HL Models" className="h-14 mx-auto" /></Link>
           </div>
 
-          <h1 className="font-display text-3xl md:text-4xl text-white font-medium tracking-tight mb-2">
+          <h1 className="font-display text-white" style={{ fontSize: 34, fontWeight: 500, marginBottom: 6 }}>
             Portal de Marcas
           </h1>
-          <p className="text-white/40 text-sm mb-8">
+          <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 32 }}>
             Já tem uma conta? Faça login abaixo.
           </p>
 
           <form onSubmit={handleLogin} className="space-y-5">
             {error && (
-              <div className="bg-red-500/10 border border-red-400/20 text-red-300 text-sm px-4 py-3 rounded-xl text-center">
+              <div className="text-sm text-center rounded-xl px-4 py-3" style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)", color: "#fca5a5" }}>
                 {error}
               </div>
             )}
 
             <div>
-              <label className="block text-[11px] uppercase tracking-[0.15em] text-white/40 mb-2 font-medium">
-                E-mail
-              </label>
+              <label className="block text-xs uppercase mb-2" style={{ letterSpacing: "0.15em", color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>E-mail</label>
               <div className="relative">
-                <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/25" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-white/20 pl-11 pr-4 py-4 text-sm rounded-xl focus:outline-none focus:border-white/25 focus:bg-white/8 transition-all"
-                  placeholder="marca@empresa.com"
+                <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: "rgba(255,255,255,0.25)" }} />
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="marca@empresa.com"
+                  className="w-full rounded-xl text-sm text-white outline-none"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", padding: "16px 16px 16px 44px" }}
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-[11px] uppercase tracking-[0.15em] text-white/40 mb-2 font-medium">
-                Senha
-              </label>
+              <label className="block text-xs uppercase mb-2" style={{ letterSpacing: "0.15em", color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>Senha</label>
               <div className="relative">
-                <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/25" />
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-white/20 pl-11 pr-4 py-4 text-sm rounded-xl focus:outline-none focus:border-white/25 focus:bg-white/8 transition-all"
-                  placeholder="••••••••"
+                <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: "rgba(255,255,255,0.25)" }} />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••"
+                  className="w-full rounded-xl text-sm text-white outline-none"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", padding: "16px 16px 16px 44px" }}
                 />
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-4 bg-white text-[#12121f] text-sm font-semibold tracking-wider uppercase rounded-xl hover:bg-white/90 transition-all disabled:opacity-50"
+            <button type="submit" disabled={loading}
+              className="w-full rounded-xl text-sm uppercase cursor-pointer"
+              style={{ background: "white", color: "#12121f", padding: "16px 0", fontWeight: 600, letterSpacing: "0.1em", border: "none", opacity: loading ? 0.5 : 1 }}
             >
               {loading ? "Entrando..." : "Entrar"}
             </button>
@@ -153,37 +126,36 @@ export default function MarcasLoginPage() {
 
           {/* Divider */}
           <div className="flex items-center gap-3 my-6">
-            <div className="flex-1 h-px bg-white/8" />
-            <span className="text-[10px] text-white/20 uppercase tracking-widest">ou</span>
-            <div className="flex-1 h-px bg-white/8" />
+            <div className="flex-1" style={{ height: 1, background: "rgba(255,255,255,0.08)" }} />
+            <span className="text-xs uppercase" style={{ color: "rgba(255,255,255,0.2)", letterSpacing: "0.15em" }}>ou</span>
+            <div className="flex-1" style={{ height: 1, background: "rgba(255,255,255,0.08)" }} />
           </div>
 
-          {/* Register */}
-          <Link
-            href="/marcas/registro"
-            className="block w-full py-3.5 text-center border border-white/15 text-white/60 text-sm tracking-wider uppercase rounded-xl hover:bg-white/5 hover:text-white hover:border-white/25 transition-all"
+          <Link href="/marcas/registro"
+            className="block w-full text-center rounded-xl text-sm uppercase no-underline"
+            style={{ border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.6)", padding: "14px 0", letterSpacing: "0.1em" }}
           >
             Crie sua conta agora
           </Link>
 
           {/* Features */}
           <div className="mt-8 flex items-center justify-center gap-6 flex-wrap">
-            <div className="flex items-center gap-1.5 text-white/20">
+            <div className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.2)" }}>
               <Search size={12} />
-              <span className="text-[10px] uppercase tracking-widest">Buscar</span>
+              <span className="text-xs uppercase" style={{ letterSpacing: "0.15em" }}>Buscar</span>
             </div>
-            <div className="flex items-center gap-1.5 text-white/20">
+            <div className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.2)" }}>
               <Star size={12} />
-              <span className="text-[10px] uppercase tracking-widest">Selecionar</span>
+              <span className="text-xs uppercase" style={{ letterSpacing: "0.15em" }}>Selecionar</span>
             </div>
-            <div className="flex items-center gap-1.5 text-white/20">
+            <div className="hidden sm:flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.2)" }}>
               <FileText size={12} />
-              <span className="text-[10px] uppercase tracking-widest">Orçar</span>
+              <span className="text-xs uppercase" style={{ letterSpacing: "0.15em" }}>Orçar</span>
             </div>
           </div>
 
           <div className="mt-6 text-center">
-            <Link href="/" className="text-[11px] text-white/25 hover:text-white/50 transition-colors uppercase tracking-widest">
+            <Link href="/" className="text-xs uppercase no-underline" style={{ color: "rgba(255,255,255,0.25)", letterSpacing: "0.15em" }}>
               Voltar ao site
             </Link>
           </div>
