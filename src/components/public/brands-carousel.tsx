@@ -1,26 +1,24 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import Image from "next/image";
 
 // Marcas parceiras — logos em /public/marcas/
 const BRANDS = [
-  { name: "PomPom", logo: "pompom.png" },
-  { name: "Brandili", logo: "Brandili-.png" },
-  { name: "Marisa", logo: "Marisa.png" },
-  { name: "Torra", logo: "torra.png" },
-  { name: "Wilson", logo: "Wilson-logo.svg.png" },
-  { name: "Netflix", logo: "Logonetflix.png" },
-  { name: "SBT", logo: "Logotipo_do_SBT.svg.png" },
-  { name: "C&A", logo: "c-e-a-logo-1.png" },
-  { name: "Pampers", logo: "pampers-logo-1.png" },
+  { name: "PomPom", logo: "/marcas/pompom.png" },
+  { name: "Brandili", logo: "/marcas/Brandili-.png" },
+  { name: "Marisa", logo: "/marcas/Marisa.png" },
+  { name: "Torra", logo: "/marcas/torra.png" },
+  { name: "Wilson", logo: "/marcas/Wilson-logo.svg.png" },
+  { name: "Netflix", logo: "/marcas/Logonetflix.png" },
+  { name: "SBT", logo: "/marcas/Logotipo_do_SBT.svg.png" },
+  { name: "C&A", logo: "/marcas/c-e-a-logo-1.png" },
+  { name: "Pampers", logo: "/marcas/pampers-logo-1.png" },
 ];
 
 export function BrandsCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Auto-scroll infinite
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -45,7 +43,6 @@ export function BrandsCarousel() {
     return () => cancelAnimationFrame(animationId);
   }, [isHovered]);
 
-  // Duplicate brands for infinite scroll
   const allBrands = [...BRANDS, ...BRANDS];
 
   return (
@@ -60,23 +57,20 @@ export function BrandsCarousel() {
 
       <div
         ref={scrollRef}
-        className="flex items-center overflow-hidden"
+        className="flex items-center overflow-hidden py-4"
         style={{ scrollbarWidth: "none" }}
       >
         {allBrands.map((brand, i) => (
           <div
             key={`${brand.name}-${i}`}
-            className="shrink-0 flex items-center justify-center px-8 md:px-12 cursor-default group"
+            className="shrink-0 flex items-center justify-center px-10 md:px-14 cursor-default group"
           >
-            <div className="relative h-10 md:h-12 w-24 md:w-32 opacity-40 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300">
-              <Image
-                src={`/marcas/${brand.logo}`}
-                alt={brand.name}
-                fill
-                className="object-contain"
-                sizes="128px"
-              />
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={brand.logo}
+              alt={brand.name}
+              className="h-14 md:h-20 w-auto max-w-[160px] md:max-w-[200px] object-contain opacity-40 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300"
+            />
           </div>
         ))}
       </div>
