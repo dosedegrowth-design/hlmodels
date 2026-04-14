@@ -8,65 +8,45 @@ import { ProjetoCard } from "@/components/public/projeto-card";
 import { BrandsCarousel } from "@/components/public/brands-carousel";
 import { FaqSection } from "@/components/public/faq-section";
 import { AprovadosSection } from "@/components/public/aprovados-section";
-import { ScrollReveal, TextReveal } from "@/components/public/scroll-animations";
+import {
+  ClipReveal,
+  ScrollReveal,
+  TextReveal,
+  ScaleReveal,
+} from "@/components/public/scroll-animations";
 
 export default async function HomePage() {
   const supabase = await createClient();
 
   const { data: heroModelos } = await supabase
-    .from("modelos")
-    .select("*")
-    .eq("ativo", true)
-    .eq("destaque", true)
-    .in("categoria", ["homem", "mulher", "nao_binario"])
-    .order("ordem", { ascending: true })
-    .limit(8);
+    .from("modelos").select("*").eq("ativo", true).eq("destaque", true)
+    .in("categoria", ["homem", "mulher", "nao_binario"]).order("ordem", { ascending: true }).limit(8);
 
   const { data: heroKids } = await supabase
-    .from("modelos")
-    .select("*")
-    .eq("ativo", true)
-    .in("categoria", ["baby", "kids", "teens"])
-    .order("destaque", { ascending: false })
-    .order("ordem", { ascending: true })
-    .limit(4);
+    .from("modelos").select("*").eq("ativo", true)
+    .in("categoria", ["baby", "kids", "teens"]).order("destaque", { ascending: false })
+    .order("ordem", { ascending: true }).limit(4);
 
   const { data: todosModelos } = await supabase
-    .from("modelos")
-    .select("*")
-    .eq("ativo", true)
-    .order("ordem", { ascending: true })
-    .limit(12);
+    .from("modelos").select("*").eq("ativo", true).order("ordem", { ascending: true }).limit(12);
 
   const categoryPhotos: Record<string, string[]> = {};
   for (const cat of CATEGORIAS) {
     const { data } = await supabase
-      .from("modelos")
-      .select("foto_principal")
-      .eq("categoria", cat.value)
-      .eq("ativo", true)
-      .not("foto_principal", "is", null)
-      .order("destaque", { ascending: false })
-      .order("ordem", { ascending: true })
-      .limit(6);
-    categoryPhotos[cat.value] = (data ?? [])
-      .map((m) => m.foto_principal)
-      .filter(Boolean) as string[];
+      .from("modelos").select("foto_principal").eq("categoria", cat.value)
+      .eq("ativo", true).not("foto_principal", "is", null)
+      .order("destaque", { ascending: false }).order("ordem", { ascending: true }).limit(6);
+    categoryPhotos[cat.value] = (data ?? []).map((m) => m.foto_principal).filter(Boolean) as string[];
   }
 
   const { data: projetosDestaque } = await supabase
-    .from("projetos")
-    .select("*")
-    .eq("ativo", true)
-    .eq("destaque", true)
-    .order("ordem", { ascending: true })
-    .limit(4);
+    .from("projetos").select("*").eq("ativo", true).eq("destaque", true)
+    .order("ordem", { ascending: true }).limit(4);
 
   const { data: aprovadosRaw } = await supabase
     .from("modelo_aprovacoes")
     .select("marca_nome, marca_logo, modelos(id, nome, slug, foto_principal, categoria)")
-    .order("created_at", { ascending: false })
-    .limit(12);
+    .order("created_at", { ascending: false }).limit(12);
 
   const aprovados = (aprovadosRaw ?? [])
     .filter((a: any) => a.modelos)
@@ -80,18 +60,20 @@ export default async function HomePage() {
       <section className="py-14 md:py-20">
         <div className="max-w-[1600px] mx-auto">
           <div className="px-6 lg:px-10 mb-10">
-            <ScrollReveal distance={80} duration={1}>
+            <ScrollReveal distance={50} duration={0.8}>
               <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">Explore</p>
             </ScrollReveal>
-            <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
-              <TextReveal text="Categorias" delay={0.2} staggerDelay={0.06} />
-            </h2>
+            <ClipReveal delay={0.1}>
+              <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
+                Categorias
+              </h2>
+            </ClipReveal>
           </div>
-          <ScrollReveal delay={0.4} distance={100} duration={1}>
+          <ScaleReveal delay={0.3}>
             <div className="px-6 lg:px-10">
               <CategoriesCarousel categoryPhotos={categoryPhotos} />
             </div>
-          </ScrollReveal>
+          </ScaleReveal>
         </div>
       </section>
 
@@ -100,17 +82,19 @@ export default async function HomePage() {
         <section className="py-14 md:py-20">
           <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
             <div className="mb-10">
-              <ScrollReveal distance={80} duration={1}>
+              <ScrollReveal distance={50} duration={0.8}>
                 <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">Nosso casting</p>
               </ScrollReveal>
-              <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
-                <TextReveal text="Nossos Talentos" delay={0.2} staggerDelay={0.06} />
-              </h2>
+              <ClipReveal delay={0.1}>
+                <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
+                  Nossos Talentos
+                </h2>
+              </ClipReveal>
             </div>
-            <ScrollReveal delay={0.3} distance={80} duration={1}>
+            <ScaleReveal delay={0.2}>
               <ModelGrid modelos={todosModelos} />
-            </ScrollReveal>
-            <ScrollReveal delay={0.5} distance={40}>
+            </ScaleReveal>
+            <ScrollReveal delay={0.4} distance={30}>
               <div className="mt-10 text-center">
                 <Link href="/mulher" className="inline-block text-xs uppercase tracking-[0.3em] text-muted hover:text-foreground transition-colors">
                   Ver todos os modelos &rarr;
@@ -126,14 +110,16 @@ export default async function HomePage() {
         <section className="py-14 md:py-20">
           <div className="max-w-[1600px] mx-auto">
             <div className="px-6 lg:px-10 mb-10">
-              <ScrollReveal distance={80} duration={1}>
+              <ScrollReveal distance={50} duration={0.8}>
                 <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">Prontos para brilhar</p>
               </ScrollReveal>
-              <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
-                <TextReveal text="Aprovados" delay={0.2} staggerDelay={0.06} />
-              </h2>
+              <ClipReveal delay={0.1}>
+                <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
+                  Aprovados
+                </h2>
+              </ClipReveal>
             </div>
-            <ScrollReveal delay={0.3} distance={100} duration={1}>
+            <ScrollReveal delay={0.3} distance={100} duration={1.2}>
               <AprovadosSection aprovados={aprovados} />
             </ScrollReveal>
           </div>
@@ -146,12 +132,14 @@ export default async function HomePage() {
           <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
             <div className="flex items-end justify-between mb-10">
               <div>
-                <ScrollReveal distance={80} duration={1}>
+                <ScrollReveal distance={50} duration={0.8}>
                   <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">Portfolio</p>
                 </ScrollReveal>
-                <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
-                  <TextReveal text="Projetos" delay={0.2} staggerDelay={0.06} />
-                </h2>
+                <ClipReveal delay={0.1}>
+                  <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
+                    Projetos
+                  </h2>
+                </ClipReveal>
               </div>
               <ScrollReveal delay={0.3} direction="right" distance={30}>
                 <Link href="/projetos" className="text-xs uppercase tracking-[0.3em] text-muted hover:text-foreground transition-colors">
@@ -159,13 +147,13 @@ export default async function HomePage() {
                 </Link>
               </ScrollReveal>
             </div>
-            <ScrollReveal delay={0.3} distance={100} duration={1}>
+            <ScaleReveal delay={0.2}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {projetosDestaque.map((p, i) => (
                   <ProjetoCard key={p.id} projeto={p} index={i} />
                 ))}
               </div>
-            </ScrollReveal>
+            </ScaleReveal>
           </div>
         </section>
       )}
@@ -174,12 +162,14 @@ export default async function HomePage() {
       <section className="py-14 md:py-20">
         <div className="max-w-[1600px] mx-auto">
           <div className="px-6 lg:px-10 mb-10 text-center">
-            <ScrollReveal distance={80} duration={1}>
+            <ScrollReveal distance={50} duration={0.8}>
               <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">Quem confia na gente</p>
             </ScrollReveal>
-            <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
-              <TextReveal text="Marcas Parceiras" delay={0.2} staggerDelay={0.06} />
-            </h2>
+            <ClipReveal delay={0.1}>
+              <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
+                Marcas Parceiras
+              </h2>
+            </ClipReveal>
           </div>
           <ScrollReveal delay={0.3} distance={60}>
             <BrandsCarousel />
@@ -190,13 +180,15 @@ export default async function HomePage() {
       {/* ===== CTA FAÇA PARTE ===== */}
       <section className="bg-foreground text-white py-14 md:py-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <ScrollReveal distance={80} duration={1}>
+          <ScrollReveal distance={50} duration={0.8}>
             <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6">Junte-se a nos</p>
           </ScrollReveal>
-          <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight mb-6">
-            <TextReveal text="Faça Parte" delay={0.2} staggerDelay={0.08} />
-          </h2>
-          <ScrollReveal delay={0.4} distance={40}>
+          <ClipReveal delay={0.1}>
+            <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight mb-6">
+              Faça Parte
+            </h2>
+          </ClipReveal>
+          <ScrollReveal delay={0.3} distance={40}>
             <p className="text-white/50 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
               Se voce tem interesse em iniciar ou desenvolver sua carreira como modelo, entre em contato conosco.
             </p>
@@ -211,12 +203,14 @@ export default async function HomePage() {
       <section className="py-14 md:py-20">
         <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
           <div className="text-center mb-12">
-            <ScrollReveal distance={80} duration={1}>
+            <ScrollReveal distance={50} duration={0.8}>
               <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">Duvidas</p>
             </ScrollReveal>
-            <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
-              <TextReveal text="Perguntas Frequentes" delay={0.2} staggerDelay={0.05} />
-            </h2>
+            <ClipReveal delay={0.1}>
+              <h2 className="font-display text-4xl md:text-5xl font-normal tracking-tight">
+                Perguntas Frequentes
+              </h2>
+            </ClipReveal>
           </div>
           <ScrollReveal delay={0.3} distance={60}>
             <FaqSection />
