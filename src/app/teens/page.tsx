@@ -20,7 +20,7 @@ export default async function TeensPage() {
 
   return (
     <div>
-      <CategoryHero title="Teens" count={modelos?.length ?? 0} fallbackColor="#2a2a2a" />
+      <CategoryHero title="Teens" count={modelos?.length ?? 0} />
       <div className="max-w-[1800px] mx-auto px-4 md:px-6 py-16 md:py-24">
         <ModelGrid modelos={modelos ?? []} isKids />
       </div>
