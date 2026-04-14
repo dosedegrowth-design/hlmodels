@@ -1,23 +1,26 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { ChevronDown, Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Placeholder video from Pexels (fashion/model theme, free to use)
-const HERO_VIDEO_URL =
-  "https://videos.pexels.com/video-files/5765206/5765206-uhd_2560_1440_24fps.mp4";
-
-// Fallback image if video fails
-const HERO_FALLBACK_IMAGE =
-  "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1920";
+// Video local (provisório) — trocar por vídeo institucional do cliente depois
+const HERO_VIDEO_URL = "/hero-video.mp4";
 
 export function HeroVideo() {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [muted, setMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Lazy load: only start loading video after page is interactive
+  const [shouldLoad, setShouldLoad] = useState(false);
+  useEffect(() => {
+    // Small delay to prioritize page paint first
+    const timer = setTimeout(() => setShouldLoad(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const scrollToContent = () => {
     window.scrollTo({
@@ -26,17 +29,25 @@ export function HeroVideo() {
     });
   };
 
+  const toggleMute = () => {
+    if (videoRef.current) {
+      const newMuted = !muted;
+      videoRef.current.muted = newMuted;
+      setMuted(newMuted);
+    }
+  };
+
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      {/* Video background */}
-      {!videoError && (
+    <section className="relative h-screen w-full overflow-hidden bg-black">
+      {/* Video background — preload metadata only, lazy src */}
+      {shouldLoad && !videoError && (
         <video
           ref={videoRef}
           autoPlay
-          muted={muted}
+          muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           onLoadedData={() => setVideoLoaded(true)}
           onError={() => setVideoError(true)}
           className={cn(
@@ -48,21 +59,18 @@ export function HeroVideo() {
         </video>
       )}
 
-      {/* Fallback image (shown while video loads or on error) */}
+      {/* Loading state / fallback — elegant dark gradient */}
       {(!videoLoaded || videoError) && (
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${HERO_FALLBACK_IMAGE})` }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-black to-neutral-800" />
       )}
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/45" />
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-black/40" />
 
       {/* Content — centered */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
         {/* Main title */}
-        <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-light text-white uppercase tracking-[0.12em] leading-[0.9]">
+        <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-white uppercase tracking-[0.1em] leading-[0.9]">
           HL Models
         </h1>
 
@@ -93,7 +101,7 @@ export function HeroVideo() {
       {/* Bottom-right: mute/unmute */}
       {!videoError && videoLoaded && (
         <button
-          onClick={() => setMuted(!muted)}
+          onClick={toggleMute}
           className="absolute bottom-8 right-8 z-10 p-2 text-white/30 hover:text-white/60 transition-colors"
           aria-label={muted ? "Ativar som" : "Silenciar"}
         >
