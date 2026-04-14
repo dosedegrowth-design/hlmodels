@@ -2,28 +2,28 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect, useCallback } from "react";
-import { Menu, X, Star, ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 
 const NAV_LINKS = [
-  { href: "/", label: "Home", kids: false },
   { href: "/mulher", label: "Mulher", kids: false },
   { href: "/homem", label: "Homem", kids: false },
-  { href: "/nao-binario", label: "Nao Binario", kids: false },
+  { href: "/nao-binario", label: "Não Binário", kids: false },
   { href: "/baby", label: "Baby", kids: true },
   { href: "/kids", label: "Kids", kids: true },
   { href: "/teens", label: "Teens", kids: true },
-  { href: "/projetos", label: "Projetos", kids: false },
-  { href: "/faca-parte", label: "Faca Parte", kids: false },
-  { href: "/contato", label: "Contato", kids: false },
+];
+
+const SECONDARY_LINKS = [
+  { href: "/projetos", label: "Projetos" },
+  { href: "/sobre", label: "Sobre" },
 ];
 
 const KIDS_PATHS = ["/baby", "/kids", "/teens"];
 
-// Map nav items to category for image preview
 const CATEGORY_MAP: Record<string, string> = {
   "/mulher": "mulher",
   "/homem": "homem",
@@ -45,16 +45,17 @@ export function Header() {
   const isHome = pathname === "/";
   const isKidsPage = KIDS_PATHS.includes(pathname);
 
+  // Scroll detection
   useEffect(() => {
     function handleScroll() {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 60);
     }
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Load preview images when menu opens
+  // Load preview images on menu open
   useEffect(() => {
     if (!menuOpen || Object.keys(previewImages).length > 0) return;
     async function loadPreviews() {
@@ -80,11 +81,9 @@ export function Header() {
     loadPreviews();
   }, [menuOpen, previewImages]);
 
-  // Detect if current modelo page is a kids model
+  // Kids model detection for /modelo/[slug]
   const [isKidsModel, setIsKidsModel] = useState(false);
-
   useEffect(() => {
-    // Check if we're on /modelo/[slug] and if that model is kids category
     const modelMatch = pathname.match(/^\/modelo\/(.+)$/);
     if (modelMatch) {
       const slug = modelMatch[1];
@@ -95,124 +94,178 @@ export function Header() {
         .eq("slug", slug)
         .single()
         .then(({ data }) => {
-          if (data && ["baby", "kids", "teens"].includes(data.categoria)) {
-            setIsKidsModel(true);
-          } else {
-            setIsKidsModel(false);
-          }
+          setIsKidsModel(
+            !!data && ["baby", "kids", "teens"].includes(data.categoria)
+          );
         });
     } else {
       setIsKidsModel(false);
     }
   }, [pathname]);
 
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
   if (isAdmin || isMarcas) return null;
 
   const isKidsContext = isKidsPage || isKidsModel;
 
-  const getHeaderBg = () => {
-    if (!scrolled && isHome) return "bg-transparent";
-    if (isKidsContext) return "bg-[#FFF0E8] backdrop-blur-sm border-b border-[#F1755C]/10";
-    return "bg-white/95 backdrop-blur-sm";
-  };
+  // Determine if header should be transparent (over hero video/dark sections)
+  const isTransparent = isHome && !scrolled;
 
-  const getTextColor = () => {
-    if (!scrolled && isHome) return "text-white";
-    if (isKidsContext) return "text-[#8E6FBF]";
-    return "text-foreground";
-  };
-
-  const getLogoSrc = () => {
-    if (!scrolled && isHome) return "/logo-white.png";
-    return "/logo-dark.png";
-  };
-
-  // Get preview image for hovered link
   const hoveredCategory = hoveredLink ? CATEGORY_MAP[hoveredLink] : null;
   const previewSrc = hoveredCategory ? previewImages[hoveredCategory] : null;
 
   return (
     <>
-      <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", getHeaderBg())}>
-        {isKidsContext && (
-          <div className="h-1 bg-gradient-to-r from-[#F1755C] via-[#A1BCA6] to-[#3A6084]" />
+      {/* ===== MAIN HEADER BAR ===== */}
+      <header
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          isTransparent
+            ? "bg-transparent"
+            : isKidsContext
+            ? "bg-[#FFF9F5]/95 backdrop-blur-xl border-b border-kids-coral/10"
+            : "bg-white/95 backdrop-blur-xl border-b border-border"
         )}
-        <div className="px-6 lg:px-10 h-16 lg:h-20 flex items-center justify-between">
-          {/* Left: CTA button */}
-          <div className="w-32 hidden lg:block">
+      >
+        <div className="max-w-[1800px] mx-auto px-5 lg:px-10 h-16 lg:h-[72px] flex items-center justify-between">
+          {/* Left: Nav links (desktop) */}
+          <nav className="hidden lg:flex items-center gap-6">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "nav-link text-[11px] uppercase tracking-[0.15em] font-medium transition-colors duration-200",
+                  pathname === link.href
+                    ? isTransparent
+                      ? "text-white"
+                      : isKidsContext
+                      ? "text-kids-coral"
+                      : "text-foreground"
+                    : isTransparent
+                    ? "text-white/60 hover:text-white"
+                    : isKidsContext
+                    ? "text-kids-text/40 hover:text-kids-text"
+                    : "text-muted hover:text-foreground"
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Center: Logo */}
+          <Link href="/" className="lg:absolute lg:left-1/2 lg:-translate-x-1/2">
+            <div className="relative h-10 w-28 lg:h-12 lg:w-32">
+              <Image
+                src={isTransparent ? "/logo-white.png" : "/logo-dark.png"}
+                alt="HL Models"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </Link>
+
+          {/* Right: Secondary links + Menu */}
+          <div className="flex items-center gap-5">
+            {SECONDARY_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "hidden lg:block nav-link text-[11px] uppercase tracking-[0.15em] font-medium transition-colors duration-200",
+                  pathname === link.href
+                    ? isTransparent ? "text-white" : "text-foreground"
+                    : isTransparent
+                    ? "text-white/60 hover:text-white"
+                    : "text-muted hover:text-foreground"
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
+
             <Link
               href="/faca-parte"
               className={cn(
-                "px-4 py-2 text-[10px] uppercase tracking-widest rounded-full border transition-all hover:scale-105",
-                isKidsContext
-                  ? "border-[#F1755C] text-[#F1755C] hover:bg-[#F1755C] hover:text-white"
-                  : scrolled || !isHome
-                  ? "border-foreground text-foreground hover:bg-foreground hover:text-white"
-                  : "border-white/60 text-white hover:bg-white hover:text-foreground"
+                "hidden lg:flex items-center gap-1.5 text-[11px] uppercase tracking-[0.15em] font-medium px-4 py-2 border rounded-full transition-all duration-300",
+                isTransparent
+                  ? "border-white/30 text-white/80 hover:bg-white hover:text-foreground"
+                  : isKidsContext
+                  ? "border-kids-coral/40 text-kids-coral hover:bg-kids-coral hover:text-white"
+                  : "border-foreground/20 text-foreground hover:bg-foreground hover:text-white"
               )}
             >
-              Cadastre-se
+              Faça Parte
             </Link>
-          </div>
 
-          {/* Center: Logo */}
-          <Link href="/" className="relative h-14 w-36 lg:h-16 lg:w-44">
-            <Image src={getLogoSrc()} alt="HL Models Agency" fill className="object-contain" priority />
-          </Link>
-
-          {/* Right: Menu button */}
-          <div className="w-32 flex items-center justify-end">
             <button
               onClick={() => setMenuOpen(true)}
-              className={cn("flex items-center gap-2 text-sm uppercase tracking-widest transition-colors", getTextColor())}
-              aria-label="Menu"
+              className={cn(
+                "flex items-center gap-2 transition-colors duration-200",
+                isTransparent
+                  ? "text-white/80 hover:text-white"
+                  : isKidsContext
+                  ? "text-kids-text/60 hover:text-kids-text"
+                  : "text-muted hover:text-foreground"
+              )}
+              aria-label="Abrir menu"
             >
-              <span className="hidden sm:inline text-xs">Menu</span>
-              <Menu size={22} />
+              <span className="hidden sm:block text-[11px] uppercase tracking-[0.15em] font-medium">Menu</span>
+              <Menu size={20} strokeWidth={1.5} />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Fullscreen menu overlay — SPLIT LAYOUT */}
+      {/* ===== FULLSCREEN MENU OVERLAY ===== */}
       <div
         className={cn(
-          "fixed inset-0 z-[100] transition-all duration-500",
-          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
-          isKidsPage ? "bg-white" : "bg-foreground"
+          "fixed inset-0 z-[100] transition-all duration-600",
+          menuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         )}
       >
-        {isKidsPage && (
-          <div className="h-1 bg-gradient-to-r from-[#F2919B] via-[#8E6FBF] to-[#6DB8D4]" />
-        )}
-
-        <div className="h-full flex flex-col lg:flex-row">
-          {/* LEFT: Navigation links */}
+        <div className="h-full flex flex-col lg:flex-row bg-foreground">
+          {/* LEFT SIDE: Navigation */}
           <div className="flex-1 flex flex-col">
-            {/* Menu header */}
-            <div className="px-6 lg:px-10 h-16 lg:h-20 flex items-center justify-between shrink-0">
-              <Link href="/" onClick={() => setMenuOpen(false)} className="relative h-12 w-32">
-                <Image
-                  src={isKidsPage ? "/logo-dark.png" : "/logo-white.png"}
-                  alt="HL Models" fill className="object-contain object-left" priority
-                />
+            {/* Menu top bar */}
+            <div className="px-5 lg:px-10 h-16 lg:h-[72px] flex items-center justify-between shrink-0 border-b border-white/5">
+              <Link href="/" onClick={() => setMenuOpen(false)}>
+                <div className="relative h-10 w-28">
+                  <Image src="/logo-white.png" alt="HL Models" fill className="object-contain object-left" priority />
+                </div>
               </Link>
               <button
                 onClick={() => setMenuOpen(false)}
-                className={cn(
-                  "flex items-center gap-2 text-xs uppercase tracking-widest transition-colors lg:hidden",
-                  isKidsPage ? "text-foreground/60" : "text-white/60"
-                )}
+                className="flex items-center gap-2 text-white/40 hover:text-white transition-colors"
+                aria-label="Fechar menu"
               >
-                <X size={22} />
+                <span className="text-[11px] uppercase tracking-[0.15em]">Fechar</span>
+                <X size={18} strokeWidth={1.5} />
               </button>
             </div>
 
-            {/* Links */}
-            <nav className="flex-1 flex flex-col justify-center px-6 lg:px-12 gap-0">
+            {/* Navigation links */}
+            <nav className="flex-1 flex flex-col justify-center px-5 lg:px-10 xl:px-14">
+              {/* Categories label */}
+              <p className="text-[10px] uppercase tracking-[0.3em] text-white/20 mb-4 lg:mb-6">
+                Categorias
+              </p>
+
               {NAV_LINKS.map((link, i) => {
                 const isActive = pathname === link.href;
-
                 return (
                   <Link
                     key={link.href}
@@ -220,119 +273,106 @@ export function Header() {
                     onClick={() => setMenuOpen(false)}
                     onMouseEnter={() => setHoveredLink(link.href)}
                     onMouseLeave={() => setHoveredLink(null)}
-                    className={cn(
-                      "group flex items-center gap-3 py-1.5 lg:py-2 transition-all duration-200",
-                    )}
+                    className="group flex items-center gap-4 py-2 lg:py-2.5"
                   >
-                    {/* Number */}
                     <span className={cn(
-                      "text-[10px] w-6 tabular-nums",
-                      isKidsPage
-                        ? isActive ? "text-[#8E6FBF]" : "text-foreground/20"
-                        : isActive ? "text-white" : "text-white/20"
+                      "text-[10px] tabular-nums w-5 transition-colors",
+                      isActive ? "text-white/60" : "text-white/15 group-hover:text-white/40"
                     )}>
                       {String(i + 1).padStart(2, "0")}
                     </span>
-
-                    {/* Label */}
                     <span className={cn(
-                      "text-2xl md:text-3xl lg:text-4xl font-light tracking-tight transition-all duration-200 group-hover:tracking-wider group-hover:translate-x-2",
-                      isKidsPage
-                        ? isActive
-                          ? "text-[#8E6FBF]"
-                          : link.kids
-                          ? "text-[#F2919B]/50 group-hover:text-[#8E6FBF]"
-                          : "text-foreground/20 group-hover:text-foreground/60"
-                        : isActive
+                      "font-display text-3xl md:text-4xl lg:text-[2.8rem] font-light tracking-tight transition-all duration-300",
+                      "group-hover:translate-x-3",
+                      isActive
                         ? "text-white"
-                        : "text-white/25 group-hover:text-white/80"
+                        : "text-white/20 group-hover:text-white/80"
                     )}>
-                      {link.kids && isKidsPage && <Star size={10} className="inline-block mr-1.5 mb-1 text-[#FFD600]" />}
                       {link.label}
                     </span>
-
-                    {/* Arrow on hover */}
-                    <ArrowRight size={16} className={cn(
-                      "opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-2 group-hover:translate-x-0",
-                      isKidsPage ? "text-[#8E6FBF]" : "text-white/50"
-                    )} />
+                    <ArrowUpRight
+                      size={16}
+                      strokeWidth={1.5}
+                      className="opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0 text-white/40"
+                    />
                   </Link>
                 );
               })}
+
+              {/* Divider */}
+              <div className="w-12 h-px bg-white/10 my-4 lg:my-6" />
+
+              {/* Secondary links */}
+              {[...SECONDARY_LINKS, { href: "/faca-parte", label: "Faça Parte" }, { href: "/contato", label: "Contato" }].map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className={cn(
+                    "group flex items-center gap-3 py-1.5",
+                    pathname === link.href ? "text-white/70" : "text-white/25 hover:text-white/60"
+                  )}
+                >
+                  <span className="text-sm tracking-wide transition-all duration-200 group-hover:translate-x-1">
+                    {link.label}
+                  </span>
+                </Link>
+              ))}
             </nav>
 
-            {/* Footer */}
-            <div className={cn(
-              "px-6 lg:px-12 py-4 flex items-center gap-6 text-[10px] uppercase tracking-[0.2em] shrink-0",
-              isKidsPage ? "text-foreground/20" : "text-white/20"
-            )}>
-              <span>Sao Paulo, SP</span>
-              <a href="https://instagram.com/hlmodels" target="_blank" rel="noopener noreferrer"
-                className={isKidsPage ? "hover:text-foreground/40" : "hover:text-white/40"}>
+            {/* Menu footer */}
+            <div className="px-5 lg:px-10 py-4 flex items-center gap-6 text-[10px] uppercase tracking-[0.2em] text-white/15 shrink-0 border-t border-white/5">
+              <span>São Paulo, SP</span>
+              <a
+                href="https://instagram.com/hlmodels"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white/40 transition-colors"
+              >
                 @hlmodels
+              </a>
+              <a href="tel:+5511953506752" className="hover:text-white/40 transition-colors">
+                (11) 95350-6752
               </a>
             </div>
           </div>
 
-          {/* RIGHT: Image preview (desktop only) */}
-          <div className="hidden lg:block w-[45%] relative overflow-hidden">
-            {/* Close button on image side */}
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="absolute top-6 right-6 z-20 flex items-center gap-2 text-xs uppercase tracking-widest text-white/60 hover:text-white transition-colors"
-            >
-              Fechar <X size={18} />
-            </button>
-
-            {/* Default / fallback background */}
+          {/* RIGHT SIDE: Image preview (desktop only) */}
+          <div className="hidden lg:block w-[42%] relative overflow-hidden">
+            {/* Default state — no hover */}
             <div className={cn(
-              "absolute inset-0 transition-opacity duration-500",
+              "absolute inset-0 transition-opacity duration-600",
               previewSrc ? "opacity-0" : "opacity-100",
-              isKidsPage
-                ? "bg-gradient-to-br from-[#F2919B]/30 via-[#8E6FBF]/20 to-[#6DB8D4]/30"
-                : "bg-neutral-900"
+              "bg-neutral-900"
             )}>
               <div className="flex items-center justify-center h-full">
-                <div className="relative h-20 w-40 opacity-20">
-                  <Image
-                    src={isKidsPage ? "/logo-dark.png" : "/logo-white.png"}
-                    alt="" fill className="object-contain" />
+                <div className="relative h-16 w-36 opacity-10">
+                  <Image src="/logo-white.png" alt="" fill className="object-contain" />
                 </div>
               </div>
             </div>
 
-            {/* Preview image */}
+            {/* Preview image on category hover */}
             {previewSrc && (
               <Image
                 src={previewSrc}
                 alt="Preview"
                 fill
-                className="object-cover transition-all duration-700"
-                sizes="45vw"
+                className="object-cover transition-all duration-700 scale-105"
+                sizes="42vw"
               />
             )}
 
-            {/* Overlay on image */}
-            <div className={cn(
-              "absolute inset-0 transition-opacity duration-500",
-              isKidsPage
-                ? "bg-gradient-to-l from-transparent to-white/30"
-                : "bg-gradient-to-l from-transparent to-foreground/50"
-            )} />
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-foreground/60 via-foreground/20 to-transparent" />
 
-            {/* Hovered category label */}
+            {/* Category label overlay */}
             {hoveredLink && CATEGORY_MAP[hoveredLink] && (
-              <div className="absolute bottom-8 left-8 z-10">
-                <p className={cn(
-                  "text-xs uppercase tracking-[0.3em] mb-1",
-                  isKidsPage ? "text-foreground/50" : "text-white/50"
-                )}>
+              <div className="absolute bottom-10 left-10 z-10">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">
                   Explore
                 </p>
-                <p className={cn(
-                  "text-3xl font-light tracking-tight",
-                  isKidsPage ? "text-foreground" : "text-white"
-                )}>
+                <p className="font-display text-4xl font-light text-white tracking-tight">
                   {NAV_LINKS.find(l => l.href === hoveredLink)?.label}
                 </p>
               </div>

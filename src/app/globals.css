@@ -1,33 +1,33 @@
 @import "tailwindcss";
 
 @theme {
+  /* ===== FASHION PALETTE (B&W Editorial) ===== */
   --color-background: #ffffff;
   --color-foreground: #0a0a0a;
-  --color-muted: #737373;
-  --color-muted-foreground: #a3a3a3;
-  --color-border: #e5e5e5;
-  --color-accent: #0a0a0a;
+  --color-muted: #6B6B6B;
+  --color-muted-foreground: #999999;
+  --color-border: #E8E8E8;
+  --color-surface: #F7F7F7;
+  --color-accent: #1A1A1A;
   --color-accent-foreground: #ffffff;
 
-  /* Kids palette - warm & inviting (inspired by kids-r-us) */
-  --color-kids-cream: #FFFAF7;
-  --color-kids-sage: #A1BCA6;
-  --color-kids-coral: #F1755C;
-  --color-kids-blue: #3A6084;
-  --color-kids-pink: #F2919B;
-  --color-kids-orange: #FBB660;
-  --color-kids-purple: #8E6FBF;
-  --color-kids-yellow: #FFD600;
-  --color-kids-mint: #7ECDA0;
-  --color-kids-sky: #6DB8D4;
-  --color-kids-lavender: #B5A1D4;
-  --color-kids-peach: #F8C9A0;
+  /* ===== KIDS PALETTE (Sofisticado, NÃO berrante) ===== */
+  --color-kids-cream: #FFF9F5;
+  --color-kids-coral: #E8845A;
+  --color-kids-blue: #7EAEB8;
+  --color-kids-sage: #9DB8A0;
+  --color-kids-lavender: #A594C0;
+  --color-kids-peach: #F2C4A0;
+  --color-kids-pink: #D4919B;
+  --color-kids-text: #3D3D3D;
 
+  /* ===== TYPOGRAPHY ===== */
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Cormorant Garamond", "Georgia", serif;
   --font-kids: "Quicksand", "Inter", system-ui, sans-serif;
 }
 
+/* ===== BASE ===== */
 html {
   scroll-behavior: smooth;
 }
@@ -38,20 +38,28 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== MODEL CARD: FASHION (default) ===== */
+/* ===== FONT UTILITIES ===== */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-kids {
+  font-family: var(--font-kids);
+}
+
+/* ===== MODEL CARD: FASHION ===== */
 .model-card {
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
 }
 
 .model-card::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 40%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 50%);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.5s ease;
   z-index: 1;
 }
 
@@ -60,18 +68,18 @@ body {
 }
 
 .model-card img {
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .model-card:hover img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .model-card .model-name {
   z-index: 2;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
   opacity: 0;
-  transform: translateY(8px);
+  transform: translateY(16px);
 }
 
 .model-card:hover .model-name {
@@ -79,25 +87,25 @@ body {
   transform: translateY(0);
 }
 
-/* ===== MODEL CARD: KIDS variant ===== */
+/* ===== MODEL CARD: KIDS ===== */
 .model-card-kids {
   position: relative;
   overflow: hidden;
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.4s ease, transform 0.4s ease;
 }
 
 .model-card-kids:hover {
-  box-shadow: 0 8px 30px rgba(108, 99, 255, 0.15);
-  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
 }
 
 .model-card-kids::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 40%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.35) 0%, transparent 45%);
   opacity: 1;
   z-index: 1;
 }
@@ -107,7 +115,7 @@ body {
 }
 
 .model-card-kids:hover img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .model-card-kids .model-name {
@@ -116,26 +124,11 @@ body {
   transform: translateY(0);
 }
 
-/* ===== HERO KIDS slide ===== */
-.hero-kids-gradient {
-  background: linear-gradient(135deg, #F1755C 0%, #F2919B 25%, #FBB660 50%, #A1BCA6 75%, #6DB8D4 100%);
-}
-
-/* Kids font utility */
-.font-kids {
-  font-family: var(--font-kids);
-}
-
-/* Hero carousel transition */
-.hero-slide {
-  transition: opacity 0.8s ease;
-}
-
-/* Smooth page transitions */
+/* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -147,12 +140,67 @@ body {
   animation: fadeInUp 0.6s ease forwards;
 }
 
-/* Decorative elements for kids pages */
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(5deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
 }
 
 .kids-float {
   animation: float 6s ease-in-out infinite;
+}
+
+@keyframes scrollDown {
+  0% { opacity: 0; transform: translateY(-8px); }
+  50% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(8px); }
+}
+
+.animate-scroll-hint {
+  animation: scrollDown 2s ease-in-out infinite;
+}
+
+/* ===== NAV UNDERLINE ANIMATION ===== */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ===== CATEGORY CARD ===== */
+.category-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card img {
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.category-card:hover img {
+  transform: scale(1.04);
+}
+
+/* ===== ACCORDION ===== */
+.accordion-content {
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+/* ===== GALLERY LIGHTBOX ===== */
+.lightbox-backdrop {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }

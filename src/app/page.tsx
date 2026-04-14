@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { ModelGrid } from "@/components/public/model-grid";
-import { HeroCarousel } from "@/components/public/hero-carousel";
+import { HeroVideo } from "@/components/public/hero-video";
 import { CategoriesCarousel } from "@/components/public/categories-carousel";
 import { CATEGORIAS } from "@/types";
 import { ProjetoCard } from "@/components/public/projeto-card";
@@ -79,104 +79,89 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Hero - 4 models fullscreen carousel */}
-      <HeroCarousel modelos={heroModelos ?? []} modelosKids={heroKids ?? []} />
+      {/* Hero - fullscreen video */}
+      <HeroVideo />
 
-      {/* Categories carousel */}
-      <section className="py-16 lg:py-24">
+      {/* Section 1: Categories Grid */}
+      <section className="py-20 md:py-28">
         <div className="max-w-[1600px] mx-auto">
           <div className="px-6 lg:px-10 mb-10">
-            <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
               Explore
             </p>
-            <h2 className="text-3xl md:text-4xl font-light tracking-tight">
+            <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight">
               Categorias
             </h2>
           </div>
-          <CategoriesCarousel categoryPhotos={categoryPhotos} />
+          <div className="px-6 lg:px-10">
+            <CategoriesCarousel categoryPhotos={categoryPhotos} />
+          </div>
         </div>
       </section>
 
-      {/* Sobre Nos - CTA curto */}
-      <section className="py-16 lg:py-20 bg-[#FFF0E8]">
-        <div className="px-6 lg:px-10 max-w-[1000px] mx-auto text-center">
-          <p className="text-[10px] uppercase tracking-[0.4em] text-[#F1755C] mb-3 font-medium">
-            Quem somos
-          </p>
-          <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-4">
-            HL Models Agency
-          </h2>
-          <p className="text-foreground/60 leading-relaxed mb-8 max-w-2xl mx-auto">
-            Somos uma agencia de talentos e campanhas que acredita no poder da imagem e da presenca para contar historias inesqueciveis. Conectamos marcas, pessoas e oportunidades com autenticidade e profissionalismo.
-          </p>
-          <Link
-            href="/sobre"
-            className="inline-flex items-center gap-2 text-sm text-foreground hover:text-[#F1755C] transition-colors font-medium"
-          >
-            Conheca nossa historia
-            <span className="text-lg">&rarr;</span>
-          </Link>
-        </div>
-      </section>
-
-      {/* All models grid */}
+      {/* Section 2: Nossos Talentos */}
       {todosModelos && todosModelos.length > 0 && (
-        <section className="py-16 lg:py-24">
+        <section className="py-20 md:py-28">
           <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
             <div className="mb-10">
-              <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
                 Nosso casting
               </p>
-              <h2 className="text-3xl md:text-4xl font-light tracking-tight">
-                Todos os modelos
+              <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight">
+                Nossos Talentos
               </h2>
             </div>
             <ModelGrid modelos={todosModelos} />
+            <div className="mt-10 text-center">
+              <Link
+                href="/mulher"
+                className="inline-block text-xs uppercase tracking-[0.3em] text-muted hover:text-foreground transition-colors"
+              >
+                Ver todos os modelos &rarr;
+              </Link>
+            </div>
           </div>
         </section>
       )}
 
-      {/* Aprovados */}
+      {/* Section 3: Aprovados */}
       {aprovados.length > 0 && (
-        <section className="py-16 lg:py-24 bg-gradient-to-b from-green-50/50 to-white">
+        <section className="py-20 md:py-28">
           <div className="max-w-[1600px] mx-auto">
-            <div className="px-6 lg:px-10 mb-10 text-center">
-              <p className="text-[10px] uppercase tracking-[0.4em] text-green-600 mb-3 font-medium">
+            <div className="px-6 lg:px-10 mb-10">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
                 Prontos para brilhar
               </p>
-              <h2 className="text-3xl md:text-4xl font-light tracking-tight">
+              <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight">
                 Aprovados
               </h2>
-              <p className="text-sm text-muted mt-2">
-                Veja quem ja esta pronto para as campanhas
-              </p>
             </div>
             <AprovadosSection aprovados={aprovados} />
           </div>
         </section>
       )}
 
-      {/* Projetos destaque */}
+      {/* Section 4: Projetos */}
       {projetosDestaque && projetosDestaque.length > 0 && (
-        <section className="py-16 lg:py-24 bg-neutral-50">
+        <section className="py-20 md:py-28">
           <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
             <div className="flex items-end justify-between mb-10">
               <div>
-                <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
                   Portfolio
                 </p>
-                <h2 className="text-3xl md:text-4xl font-light tracking-tight">
+                <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight">
                   Projetos
                 </h2>
               </div>
               <Link
                 href="/projetos"
-                className="text-xs uppercase tracking-widest text-muted hover:text-foreground transition-colors"
+                className="text-xs uppercase tracking-[0.3em] text-muted hover:text-foreground transition-colors"
               >
                 Ver todos
               </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {projetosDestaque.map((p, i) => (
                 <ProjetoCard key={p.id} projeto={p} index={i} />
               ))}
@@ -185,14 +170,14 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Marcas Parceiras */}
-      <section className="py-16 lg:py-20">
+      {/* Section 5: Marcas Parceiras */}
+      <section className="py-20 md:py-28">
         <div className="max-w-[1600px] mx-auto">
-          <div className="px-6 lg:px-10 mb-8 text-center">
-            <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">
+          <div className="px-6 lg:px-10 mb-10 text-center">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
               Quem confia na gente
             </p>
-            <h2 className="text-3xl md:text-4xl font-light tracking-tight">
+            <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight">
               Marcas Parceiras
             </h2>
           </div>
@@ -200,32 +185,17 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-16 lg:py-24 bg-neutral-50">
-        <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">
-              Duvidas
-            </p>
-            <h2 className="text-3xl md:text-4xl font-light tracking-tight">
-              Perguntas Frequentes
-            </h2>
-          </div>
-          <FaqSection />
-        </div>
-      </section>
-
-      {/* CTA Faça Parte */}
-      <section className="bg-foreground text-white py-24 px-6">
+      {/* Section 6: CTA Faca Parte */}
+      <section className="bg-foreground text-white py-20 md:py-28 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-[10px] uppercase tracking-[0.4em] text-white/30 mb-6">
-            Junte-se a nós
+          <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6">
+            Junte-se a nos
           </p>
-          <h2 className="text-3xl md:text-5xl font-light tracking-tight mb-6">
-            Quer fazer parte?
+          <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight mb-6">
+            Faca Parte
           </h2>
-          <p className="text-white/50 mb-10 max-w-lg mx-auto">
-            Se você tem interesse em iniciar ou desenvolver sua carreira como
+          <p className="text-white/50 mb-10 max-w-lg mx-auto text-sm leading-relaxed">
+            Se voce tem interesse em iniciar ou desenvolver sua carreira como
             modelo, entre em contato conosco.
           </p>
           <Link
@@ -234,6 +204,21 @@ export default async function HomePage() {
           >
             Inscreva-se
           </Link>
+        </div>
+      </section>
+
+      {/* Section 7: FAQ */}
+      <section className="py-20 md:py-28">
+        <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+              Duvidas
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight">
+              Perguntas Frequentes
+            </h2>
+          </div>
+          <FaqSection />
         </div>
       </section>
     </>

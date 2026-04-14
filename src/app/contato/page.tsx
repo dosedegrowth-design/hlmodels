@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { Send, CheckCircle, AtSign, Phone, Mail, MapPin } from "lucide-react";
+import { CheckCircle, AtSign, Phone, Mail, MapPin } from "lucide-react";
+import Link from "next/link";
 
 export default function ContatoPage() {
   const [loading, setLoading] = useState(false);
@@ -35,133 +36,153 @@ export default function ContatoPage() {
 
   if (sent) {
     return (
-      <div className="pt-28 pb-20 px-6 max-w-2xl mx-auto text-center">
-        <CheckCircle size={48} className="mx-auto text-green-600 mb-6" />
-        <h1 className="text-3xl font-light tracking-tight mb-4">
-          Mensagem enviada!
-        </h1>
-        <p className="text-muted">
-          Recebemos sua mensagem e responderemos em breve.
-        </p>
+      <div className="pt-28 md:pt-32 pb-24 px-4 md:px-6 min-h-[70vh] flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <CheckCircle size={40} className="mx-auto text-foreground mb-6" strokeWidth={1} />
+          <h1 className="font-display text-3xl md:text-4xl font-light tracking-tight mb-4">
+            Mensagem enviada
+          </h1>
+          <p className="text-sm text-muted leading-relaxed mb-8">
+            Recebemos sua mensagem e responderemos em breve.
+          </p>
+          <Link
+            href="/"
+            className="inline-block text-[11px] uppercase tracking-[0.2em] border-b border-foreground pb-1 hover:opacity-70 transition-opacity"
+          >
+            Voltar ao inicio
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="pt-28 pb-20 px-6 max-w-5xl mx-auto">
-      <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-12">
-        Contato
-      </h1>
+    <div className="pt-28 md:pt-32 pb-24">
+      <div className="max-w-6xl mx-auto px-4 md:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          {/* LEFT — Info Section */}
+          <div className="lg:pt-4">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+              Fale conosco
+            </p>
+            <h1 className="font-display text-4xl md:text-5xl font-light tracking-tight mb-6">
+              Contato
+            </h1>
+            <p className="text-sm text-muted leading-relaxed mb-10">
+              Entre em contato para saber mais sobre nossos servicos, agendar
+              reunioes ou tirar duvidas sobre o casting. Estamos prontos para
+              atende-lo.
+            </p>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-                Nome *
-              </label>
-              <input
-                name="nome"
-                required
-                className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors"
-                placeholder="Seu nome"
-              />
-            </div>
-            <div>
-              <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-                Email *
-              </label>
-              <input
-                name="email"
-                type="email"
-                required
-                className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors"
-                placeholder="seu@email.com"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-              Telefone
-            </label>
-            <input
-              name="telefone"
-              className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors"
-              placeholder="(11) 95350-6752"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-              Assunto
-            </label>
-            <input
-              name="assunto"
-              className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors"
-              placeholder="Assunto da mensagem"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-              Mensagem *
-            </label>
-            <textarea
-              name="mensagem"
-              required
-              rows={5}
-              className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors resize-none"
-              placeholder="Sua mensagem..."
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="inline-flex items-center gap-2 px-10 py-4 bg-foreground text-white text-sm uppercase tracking-widest hover:bg-foreground/90 transition-colors disabled:opacity-50"
-          >
-            <Send size={16} />
-            {loading ? "Enviando..." : "Enviar mensagem"}
-          </button>
-        </form>
-
-        {/* Info */}
-        <div className="space-y-8">
-          <div>
-            <h2 className="text-sm uppercase tracking-widest text-muted mb-4">
-              Informações
-            </h2>
             <div className="space-y-4">
               <a
                 href="https://instagram.com/hlmodels"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-sm hover:text-foreground transition-colors"
+                className="flex items-center gap-3 text-sm hover:text-foreground transition-colors group"
               >
-                <AtSign size={18} className="text-muted" />
-                @hlmodels
+                <AtSign size={16} className="text-muted group-hover:text-foreground transition-colors" />
+                <span className="text-muted group-hover:text-foreground transition-colors">@hlmodels</span>
               </a>
               <a
                 href="tel:+5511953506752"
-                className="flex items-center gap-3 text-sm hover:text-foreground transition-colors"
+                className="flex items-center gap-3 text-sm hover:text-foreground transition-colors group"
               >
-                <Phone size={18} className="text-muted" />
-                (11) 95350-6752
+                <Phone size={16} className="text-muted group-hover:text-foreground transition-colors" />
+                <span className="text-muted group-hover:text-foreground transition-colors">(11) 95350-6752</span>
               </a>
               <a
                 href="mailto:hlmodels@outlook.com"
-                className="flex items-center gap-3 text-sm hover:text-foreground transition-colors"
+                className="flex items-center gap-3 text-sm hover:text-foreground transition-colors group"
               >
-                <Mail size={18} className="text-muted" />
-                hlmodels@outlook.com
+                <Mail size={16} className="text-muted group-hover:text-foreground transition-colors" />
+                <span className="text-muted group-hover:text-foreground transition-colors">hlmodels@outlook.com</span>
               </a>
-              <p className="flex items-start gap-3 text-sm">
-                <MapPin size={18} className="text-muted mt-0.5 shrink-0" />
-                São Paulo, SP
-              </p>
+              <div className="flex items-start gap-3 text-sm">
+                <MapPin size={16} className="text-muted mt-0.5 shrink-0" />
+                <span className="text-muted">
+                  Rua dos Cajueiros, 12 - Parque Terra Nova - Sao Bernardo do Campo/SP
+                </span>
+              </div>
             </div>
+          </div>
+
+          {/* RIGHT — Form */}
+          <div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Nome */}
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                  Nome *
+                </label>
+                <input
+                  name="nome"
+                  required
+                  className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors placeholder:text-muted/40"
+                  placeholder="Seu nome"
+                />
+              </div>
+
+              {/* Email */}
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                  Email *
+                </label>
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors placeholder:text-muted/40"
+                  placeholder="seu@email.com"
+                />
+              </div>
+
+              {/* Telefone */}
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                  Telefone
+                </label>
+                <input
+                  name="telefone"
+                  className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors placeholder:text-muted/40"
+                  placeholder="(11) 95350-6752"
+                />
+              </div>
+
+              {/* Assunto */}
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                  Assunto
+                </label>
+                <input
+                  name="assunto"
+                  className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors placeholder:text-muted/40"
+                  placeholder="Assunto da mensagem"
+                />
+              </div>
+
+              {/* Mensagem */}
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                  Mensagem *
+                </label>
+                <textarea
+                  name="mensagem"
+                  required
+                  className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors min-h-[120px] resize-none placeholder:text-muted/40"
+                  placeholder="Sua mensagem..."
+                />
+              </div>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-4 bg-foreground text-white text-[11px] uppercase tracking-[0.2em] hover:bg-foreground/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {loading ? "Enviando..." : "Enviar mensagem"}
+              </button>
+            </form>
           </div>
         </div>
       </div>

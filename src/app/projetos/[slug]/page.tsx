@@ -63,64 +63,100 @@ export default async function ProjetoPage({ params }: Props) {
   const galeriaFotos = fotos.map(f => ({ ...f, tipo: "book" as const, modelo_id: "" }));
 
   return (
-    <div className="pt-24 lg:pt-28 pb-20">
-      <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
-        <Link href="/projetos" className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-8">
-          <ArrowLeft size={16} /> Voltar para Projetos
+    <div>
+      {/* Back link - fixed at top */}
+      <div className="fixed top-4 left-4 z-30">
+        <Link
+          href="/projetos"
+          className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-white/70 hover:text-white transition-colors bg-black/30 backdrop-blur-sm px-3 py-2 rounded-full"
+        >
+          <ArrowLeft size={12} />
+          Projetos
         </Link>
+      </div>
 
-        {/* Hero image */}
-        {p.foto_capa && (
-          <div className="relative aspect-video bg-neutral-100 rounded-xl overflow-hidden mb-8">
-            <Image src={p.foto_capa} alt={p.titulo} fill className="object-cover" priority sizes="1200px" />
-          </div>
+      {/* Hero */}
+      <section className="relative h-[60vh] overflow-hidden">
+        {p.foto_capa ? (
+          <Image
+            src={p.foto_capa}
+            alt={p.titulo}
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-neutral-200" />
         )}
-
-        {/* Title + info */}
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-3">{p.titulo}</h1>
-          {p.marca_parceira && (
-            <p className="text-sm uppercase tracking-widest text-muted">{p.marca_parceira}</p>
-          )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0">
+          <div className="max-w-7xl mx-auto px-6 pb-12">
+            {p.marca_parceira && (
+              <p className="text-[10px] uppercase tracking-[0.3em] text-white/50 mb-2">
+                {p.marca_parceira}
+              </p>
+            )}
+            <h1 className="font-display text-4xl md:text-5xl font-light text-white tracking-tight">
+              {p.titulo}
+            </h1>
+          </div>
         </div>
+      </section>
 
+      {/* Content */}
+      <div className="max-w-5xl mx-auto px-4 md:px-6 py-16 md:py-24">
         {/* Description */}
         {p.descricao && (
-          <div className="mb-12 max-w-3xl">
-            <p className="text-muted leading-relaxed whitespace-pre-line">{p.descricao}</p>
-          </div>
+          <p className="text-lg text-muted leading-relaxed mb-12 whitespace-pre-line">
+            {p.descricao}
+          </p>
         )}
 
         {/* Video embed */}
         {embedUrl && (
-          <div className="mb-12">
-            <h2 className="text-xs uppercase tracking-[0.3em] text-muted mb-4">Video</h2>
-            <div className="relative aspect-video rounded-xl overflow-hidden bg-black">
-              <iframe src={embedUrl} className="absolute inset-0 w-full h-full" allowFullScreen allow="autoplay; encrypted-media" />
-            </div>
+          <div className="aspect-video rounded-sm overflow-hidden mb-16">
+            <iframe
+              src={embedUrl}
+              className="w-full h-full"
+              allowFullScreen
+              allow="autoplay; encrypted-media"
+            />
           </div>
         )}
 
         {/* Photo gallery */}
-        {fotos.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-xs uppercase tracking-[0.3em] text-muted mb-4">Galeria</h2>
+        {galeriaFotos.length > 0 && (
+          <div className="mb-16">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-6">
+              Galeria
+            </p>
             <ModelGallery fotos={galeriaFotos} nome={p.titulo} />
           </div>
         )}
 
-        {/* Models */}
+        {/* Participating models */}
         {modelos.length > 0 && (
           <div>
-            <h2 className="text-xs uppercase tracking-[0.3em] text-muted mb-4">Modelos</h2>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-6">
+              Modelos
+            </p>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
               {modelos.map((m: any) => (
                 <Link key={m.id} href={`/modelo/${m.slug}`} className="group">
-                  <div className="relative aspect-[3/4] bg-neutral-100 rounded-xl overflow-hidden mb-2">
+                  <div className="relative aspect-[3/4] bg-neutral-100 rounded-sm overflow-hidden mb-2">
                     {m.foto_principal ? (
-                      <Image src={m.foto_principal} alt={m.nome} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="150px" />
+                      <Image
+                        src={m.foto_principal}
+                        alt={m.nome}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="150px"
+                      />
                     ) : (
-                      <div className="flex items-center justify-center h-full text-xl text-neutral-300">{m.nome.charAt(0)}</div>
+                      <div className="flex items-center justify-center h-full text-xl text-neutral-300">
+                        {m.nome.charAt(0)}
+                      </div>
                     )}
                   </div>
                   <p className="text-xs text-center">{m.nome}</p>

@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { AtSign, Phone, Mail, MapPin, Star } from "lucide-react";
+import { AtSign, Phone, Mail, MapPin } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 const KIDS_PATHS = ["/baby", "/kids", "/teens"];
 
@@ -11,83 +13,139 @@ export function Footer() {
   const pathname = usePathname();
   const isKidsPage = KIDS_PATHS.includes(pathname);
 
+  // Kids model detection for /modelo/[slug]
+  const [isKidsModel, setIsKidsModel] = useState(false);
+  useEffect(() => {
+    const modelMatch = pathname.match(/^\/modelo\/(.+)$/);
+    if (modelMatch) {
+      const slug = modelMatch[1];
+      const supabase = createClient();
+      supabase
+        .from("modelos")
+        .select("categoria")
+        .eq("slug", slug)
+        .single()
+        .then(({ data }) => {
+          setIsKidsModel(
+            !!data && ["baby", "kids", "teens"].includes(data.categoria)
+          );
+        });
+    } else {
+      setIsKidsModel(false);
+    }
+  }, [pathname]);
+
+  // Hide on admin and marcas routes
   if (pathname.startsWith("/admin") || pathname.startsWith("/marcas")) {
     return null;
   }
 
-  if (isKidsPage) {
+  const isKidsContext = isKidsPage || isKidsModel;
+
+  if (isKidsContext) {
     return (
-      <footer className="relative overflow-hidden">
-        {/* Gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#F2919B]/10 via-[#8E6FBF]/10 to-[#6DB8D4]/10" />
-        <div className="h-1 bg-gradient-to-r from-[#F2919B] via-[#8E6FBF] to-[#6DB8D4]" />
-
-        <div className="relative max-w-7xl mx-auto px-6 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {/* Brand */}
-            <div>
-              <div className="relative h-14 w-36 mb-4">
-                <Image src="/logo-dark.png" alt="HL Models Agency" fill className="object-contain object-left" />
-              </div>
-              <p className="text-foreground/50 text-sm leading-relaxed">
-                Agencia de modelos para todas as idades. Conectamos talentos a oportunidades.
-              </p>
-              <div className="flex gap-2 mt-4">
-                <span className="px-2.5 py-1 bg-[#F2919B]/15 text-[#F1755C] text-[10px] font-medium rounded-full">Baby</span>
-                <span className="px-2.5 py-1 bg-[#8E6FBF]/15 text-[#8E6FBF] text-[10px] font-medium rounded-full">Kids</span>
-                <span className="px-2.5 py-1 bg-[#6DB8D4]/15 text-[#6DB8D4] text-[10px] font-medium rounded-full">Teens</span>
-              </div>
-            </div>
-
-            {/* Links */}
-            <div>
-              <h4 className="text-sm uppercase tracking-widest mb-4 text-foreground/30">
-                Categorias
-              </h4>
-              <div className="space-y-2">
-                <Link href="/baby" className="flex items-center gap-2 text-sm text-foreground/50 hover:text-[#F1755C] transition-colors">
-                  <Star size={10} className="text-[#F2919B]" /> Baby
-                </Link>
-                <Link href="/kids" className="flex items-center gap-2 text-sm text-foreground/50 hover:text-[#8E6FBF] transition-colors">
-                  <Star size={10} className="text-[#8E6FBF]" /> Kids
-                </Link>
-                <Link href="/teens" className="flex items-center gap-2 text-sm text-foreground/50 hover:text-[#6DB8D4] transition-colors">
-                  <Star size={10} className="text-[#6DB8D4]" /> Teens
-                </Link>
-                <div className="h-2" />
-                <Link href="/mulher" className="block text-sm text-foreground/30 hover:text-foreground/60 transition-colors">Mulher</Link>
-                <Link href="/homem" className="block text-sm text-foreground/30 hover:text-foreground/60 transition-colors">Homem</Link>
-                <Link href="/faca-parte" className="block text-sm text-foreground/30 hover:text-foreground/60 transition-colors">Faca Parte</Link>
-              </div>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <h4 className="text-sm uppercase tracking-widest mb-4 text-foreground/30">
-                Contato
-              </h4>
-              <div className="space-y-3">
-                <a href="https://instagram.com/hlmodels" target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-foreground/50 hover:text-[#8E6FBF] transition-colors">
-                  <AtSign size={16} />@hlmodels
-                </a>
-                <a href="tel:+5511953506752"
-                  className="flex items-center gap-2 text-sm text-foreground/50 hover:text-foreground transition-colors">
-                  <Phone size={16} />(11) 95350-6752
-                </a>
-                <a href="mailto:hlmodels@outlook.com"
-                  className="flex items-center gap-2 text-sm text-foreground/50 hover:text-foreground transition-colors">
-                  <Mail size={16} />hlmodels@outlook.com
-                </a>
-                <p className="flex items-start gap-2 text-sm text-foreground/50">
-                  <MapPin size={16} className="mt-0.5 shrink-0" />Rua dos Cajueiros, 12 - Parque Terra Nova - Sao Bernardo do Campo/SP
+      <footer className="bg-[#3D3D3D] text-white">
+        <div className="py-16 md:py-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
+              {/* Col 1 — Logo */}
+              <div>
+                <div className="relative h-8 w-28 mb-3">
+                  <Image
+                    src="/logo-white.png"
+                    alt="HL Models Agency"
+                    fill
+                    className="object-contain object-left"
+                  />
+                </div>
+                <p className="text-[10px] text-white/30 uppercase tracking-[0.2em] mt-3">
+                  Agencia de talentos
                 </p>
               </div>
-            </div>
-          </div>
 
-          <div className="mt-12 pt-8 border-t border-foreground/5 text-center text-sm text-foreground/30">
-            &copy; {new Date().getFullYear()} HL Models. Todos os direitos reservados.
+              {/* Col 2 — Navegacao */}
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-white/20 mb-4">
+                  Navegacao
+                </p>
+                <div className="space-y-2">
+                  <Link href="/" className="block text-sm text-white/40 hover:text-kids-cream transition-colors">Home</Link>
+                  <Link href="/projetos" className="block text-sm text-white/40 hover:text-kids-cream transition-colors">Projetos</Link>
+                  <Link href="/sobre" className="block text-sm text-white/40 hover:text-kids-cream transition-colors">Sobre</Link>
+                  <Link href="/faca-parte" className="block text-sm text-white/40 hover:text-kids-cream transition-colors">Faca Parte</Link>
+                  <Link href="/contato" className="block text-sm text-white/40 hover:text-kids-cream transition-colors">Contato</Link>
+                </div>
+              </div>
+
+              {/* Col 3 — Categorias */}
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-white/20 mb-4">
+                  Categorias
+                </p>
+                <div className="space-y-2">
+                  <Link href="/mulher" className="block text-sm text-white/40 hover:text-kids-cream transition-colors">Mulher</Link>
+                  <Link href="/homem" className="block text-sm text-white/40 hover:text-kids-cream transition-colors">Homem</Link>
+                  <Link href="/nao-binario" className="block text-sm text-white/40 hover:text-kids-cream transition-colors">Nao Binario</Link>
+                  <Link href="/baby" className="block text-sm text-white/40 hover:text-kids-cream transition-colors">Baby</Link>
+                  <Link href="/kids" className="block text-sm text-white/40 hover:text-kids-cream transition-colors">Kids</Link>
+                  <Link href="/teens" className="block text-sm text-white/40 hover:text-kids-cream transition-colors">Teens</Link>
+                </div>
+              </div>
+
+              {/* Col 4 — Contato */}
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-white/20 mb-4">
+                  Contato
+                </p>
+                <div className="space-y-3">
+                  <a
+                    href="https://instagram.com/hlmodels"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-white/40 hover:text-kids-cream transition-colors"
+                  >
+                    <AtSign size={14} />
+                    @hlmodels
+                  </a>
+                  <a
+                    href="tel:+5511953506752"
+                    className="flex items-center gap-2 text-sm text-white/40 hover:text-kids-cream transition-colors"
+                  >
+                    <Phone size={14} />
+                    (11) 95350-6752
+                  </a>
+                  <a
+                    href="mailto:hlmodels@outlook.com"
+                    className="flex items-center gap-2 text-sm text-white/40 hover:text-kids-cream transition-colors"
+                  >
+                    <Mail size={14} />
+                    hlmodels@outlook.com
+                  </a>
+                  <p className="flex items-start gap-2 text-sm text-white/40">
+                    <MapPin size={14} className="mt-0.5 shrink-0" />
+                    Sao Bernardo do Campo, SP
+                  </p>
+                  <div className="pt-3">
+                    <Link
+                      href="/marcas/login"
+                      className="text-[10px] uppercase tracking-[0.2em] text-white/25 hover:text-kids-cream transition-colors"
+                    >
+                      Portal de Marcas
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom bar */}
+            <div className="border-t border-white/5 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2">
+              <p className="text-[10px] text-white/20">
+                &copy; {new Date().getFullYear()} HL Models. Todos os direitos reservados.
+              </p>
+              <p className="text-[10px] text-white/15">
+                Dose de Growth
+              </p>
+            </div>
           </div>
         </div>
       </footer>
@@ -97,49 +155,107 @@ export function Footer() {
   // Default fashion footer
   return (
     <footer className="bg-foreground text-white">
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div>
-            <div className="relative h-14 w-36 mb-4">
-              <Image src="/logo-white.png" alt="HL Models Agency" fill className="object-contain object-left" />
-            </div>
-            <p className="text-white/60 text-sm leading-relaxed">
-              Agencia de modelos profissional. Conectamos talentos a oportunidades no mundo da moda e publicidade.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-sm uppercase tracking-widest mb-4 text-white/40">Navegacao</h4>
-            <div className="space-y-2">
-              <Link href="/sobre" className="block text-sm text-white/60 hover:text-white transition-colors">Sobre</Link>
-              <Link href="/homem" className="block text-sm text-white/60 hover:text-white transition-colors">Homem</Link>
-              <Link href="/mulher" className="block text-sm text-white/60 hover:text-white transition-colors">Mulher</Link>
-              <Link href="/nao-binario" className="block text-sm text-white/60 hover:text-white transition-colors">Nao Binario</Link>
-              <Link href="/baby" className="block text-sm text-white/60 hover:text-white transition-colors">Baby / Kids / Teens</Link>
-              <Link href="/faca-parte" className="block text-sm text-white/60 hover:text-white transition-colors">Faca Parte</Link>
-              <Link href="/marcas/login" className="block text-sm text-white/60 hover:text-white transition-colors">Portal de Marcas</Link>
-            </div>
-          </div>
-          <div>
-            <h4 className="text-sm uppercase tracking-widest mb-4 text-white/40">Contato</h4>
-            <div className="space-y-3">
-              <a href="https://instagram.com/hlmodels" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
-                <AtSign size={16} />@hlmodels
-              </a>
-              <a href="tel:+5511953506752" className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
-                <Phone size={16} />(11) 95350-6752
-              </a>
-              <a href="mailto:hlmodels@outlook.com" className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
-                <Mail size={16} />hlmodels@outlook.com
-              </a>
-              <p className="flex items-start gap-2 text-sm text-white/60">
-                <MapPin size={16} className="mt-0.5 shrink-0" />Rua dos Cajueiros, 12 - Parque Terra Nova - Sao Bernardo do Campo/SP
+      <div className="py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
+            {/* Col 1 — Logo */}
+            <div>
+              <div className="relative h-8 w-28 mb-3">
+                <Image
+                  src="/logo-white.png"
+                  alt="HL Models Agency"
+                  fill
+                  className="object-contain object-left"
+                />
+              </div>
+              <p className="text-[10px] text-white/30 uppercase tracking-[0.2em] mt-3">
+                Agencia de talentos
               </p>
             </div>
+
+            {/* Col 2 — Navegacao */}
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-white/20 mb-4">
+                Navegacao
+              </p>
+              <div className="space-y-2">
+                <Link href="/" className="block text-sm text-white/40 hover:text-white/80 transition-colors">Home</Link>
+                <Link href="/projetos" className="block text-sm text-white/40 hover:text-white/80 transition-colors">Projetos</Link>
+                <Link href="/sobre" className="block text-sm text-white/40 hover:text-white/80 transition-colors">Sobre</Link>
+                <Link href="/faca-parte" className="block text-sm text-white/40 hover:text-white/80 transition-colors">Faca Parte</Link>
+                <Link href="/contato" className="block text-sm text-white/40 hover:text-white/80 transition-colors">Contato</Link>
+              </div>
+            </div>
+
+            {/* Col 3 — Categorias */}
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-white/20 mb-4">
+                Categorias
+              </p>
+              <div className="space-y-2">
+                <Link href="/mulher" className="block text-sm text-white/40 hover:text-white/80 transition-colors">Mulher</Link>
+                <Link href="/homem" className="block text-sm text-white/40 hover:text-white/80 transition-colors">Homem</Link>
+                <Link href="/nao-binario" className="block text-sm text-white/40 hover:text-white/80 transition-colors">Nao Binario</Link>
+                <Link href="/baby" className="block text-sm text-white/40 hover:text-white/80 transition-colors">Baby</Link>
+                <Link href="/kids" className="block text-sm text-white/40 hover:text-white/80 transition-colors">Kids</Link>
+                <Link href="/teens" className="block text-sm text-white/40 hover:text-white/80 transition-colors">Teens</Link>
+              </div>
+            </div>
+
+            {/* Col 4 — Contato */}
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-white/20 mb-4">
+                Contato
+              </p>
+              <div className="space-y-3">
+                <a
+                  href="https://instagram.com/hlmodels"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-white/40 hover:text-white/80 transition-colors"
+                >
+                  <AtSign size={14} />
+                  @hlmodels
+                </a>
+                <a
+                  href="tel:+5511953506752"
+                  className="flex items-center gap-2 text-sm text-white/40 hover:text-white/80 transition-colors"
+                >
+                  <Phone size={14} />
+                  (11) 95350-6752
+                </a>
+                <a
+                  href="mailto:hlmodels@outlook.com"
+                  className="flex items-center gap-2 text-sm text-white/40 hover:text-white/80 transition-colors"
+                >
+                  <Mail size={14} />
+                  hlmodels@outlook.com
+                </a>
+                <p className="flex items-start gap-2 text-sm text-white/40">
+                  <MapPin size={14} className="mt-0.5 shrink-0" />
+                  Sao Bernardo do Campo, SP
+                </p>
+                <div className="pt-3">
+                  <Link
+                    href="/marcas/login"
+                    className="text-[10px] uppercase tracking-[0.2em] text-white/25 hover:text-white/60 transition-colors"
+                  >
+                    Portal de Marcas
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="mt-12 pt-8 border-t border-white/10 text-center text-sm text-white/40">
-          &copy; {new Date().getFullYear()} HL Models. Todos os direitos reservados.
+
+          {/* Bottom bar */}
+          <div className="border-t border-white/5 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p className="text-[10px] text-white/20">
+              &copy; {new Date().getFullYear()} HL Models. Todos os direitos reservados.
+            </p>
+            <p className="text-[10px] text-white/15">
+              Dose de Growth
+            </p>
+          </div>
         </div>
       </div>
     </footer>

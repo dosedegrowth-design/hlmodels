@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import type { ModeloFoto } from "@/types";
 
@@ -16,24 +16,37 @@ export function ModelGallery({ fotos, nome }: ModelGalleryProps) {
   const openLightbox = (index: number) => setLightboxIndex(index);
   const closeLightbox = () => setLightboxIndex(null);
 
-  const goNext = () => {
+  const goNext = useCallback(() => {
     if (lightboxIndex === null) return;
     setLightboxIndex((lightboxIndex + 1) % fotos.length);
-  };
+  }, [lightboxIndex, fotos.length]);
 
-  const goPrev = () => {
+  const goPrev = useCallback(() => {
     if (lightboxIndex === null) return;
     setLightboxIndex((lightboxIndex - 1 + fotos.length) % fotos.length);
-  };
+  }, [lightboxIndex, fotos.length]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") goNext();
+      if (e.key === "ArrowLeft") goPrev();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [lightboxIndex, goNext, goPrev]);
 
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {/* Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
         {fotos.map((foto, i) => (
           <button
             key={foto.id}
             onClick={() => openLightbox(i)}
-            className="relative aspect-[3/4] bg-neutral-100 rounded-xl overflow-hidden group cursor-pointer"
+            className="relative aspect-[3/4] bg-neutral-100 overflow-hidden group cursor-pointer"
           >
             <Image
               src={foto.url}
@@ -49,31 +62,34 @@ export function ModelGallery({ fotos, nome }: ModelGalleryProps) {
       {/* Lightbox */}
       {lightboxIndex !== null && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+          className="fixed inset-0 z-50 bg-black/90 lightbox-backdrop flex items-center justify-center"
           onClick={closeLightbox}
         >
+          {/* Close button */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               closeLightbox();
             }}
-            className="absolute top-6 right-6 text-white/60 hover:text-white transition-colors"
+            className="absolute top-6 right-6 text-white/60 hover:text-white transition-colors z-20"
             aria-label="Fechar"
           >
             <X size={28} />
           </button>
 
+          {/* Previous arrow */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               goPrev();
             }}
-            className="absolute left-6 text-white/60 hover:text-white transition-colors"
+            className="absolute left-6 text-white/60 hover:text-white transition-colors z-20"
             aria-label="Anterior"
           >
             <ChevronLeft size={36} />
           </button>
 
+          {/* Image */}
           <div
             className="relative max-w-4xl max-h-[85vh] w-full mx-16"
             onClick={(e) => e.stopPropagation()}
@@ -87,17 +103,19 @@ export function ModelGallery({ fotos, nome }: ModelGalleryProps) {
             />
           </div>
 
+          {/* Next arrow */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               goNext();
             }}
-            className="absolute right-6 text-white/60 hover:text-white transition-colors"
-            aria-label="Próxima"
+            className="absolute right-6 text-white/60 hover:text-white transition-colors z-20"
+            aria-label="Proxima"
           >
             <ChevronRight size={36} />
           </button>
 
+          {/* Counter */}
           <div className="absolute bottom-6 text-white/40 text-sm">
             {lightboxIndex + 1} / {fotos.length}
           </div>

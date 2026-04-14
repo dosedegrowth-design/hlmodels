@@ -62,23 +62,18 @@ export function BrandsCarousel() {
 
       <div
         ref={scrollRef}
-        className="flex gap-8 overflow-hidden"
+        className="flex items-center overflow-hidden"
         style={{ scrollbarWidth: "none" }}
       >
         {allBrands.map((brand, i) => (
           <div
             key={`${brand.name}-${i}`}
-            className="shrink-0 flex items-center justify-center px-8 py-6 group cursor-default"
+            className="shrink-0 flex items-center cursor-default group"
           >
-            <div className="flex items-center gap-3 transition-transform duration-300 group-hover:scale-110">
-              <div
-                className="w-3 h-3 rounded-full shrink-0 transition-transform duration-300 group-hover:scale-150"
-                style={{ backgroundColor: brand.color }}
-              />
-              <span className="text-lg md:text-xl font-light tracking-wider text-foreground/30 group-hover:text-foreground transition-colors duration-300 whitespace-nowrap">
-                {brand.name}
-              </span>
-            </div>
+            <span className="text-2xl md:text-3xl font-light text-muted/30 group-hover:text-foreground transition-colors duration-300 whitespace-nowrap px-4">
+              {brand.name}
+            </span>
+            <span className="text-muted/20 text-lg select-none">&mdash;</span>
           </div>
         ))}
       </div>

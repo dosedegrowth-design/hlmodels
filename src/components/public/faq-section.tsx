@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const FAQ_ITEMS = [
@@ -42,34 +41,34 @@ export function FaqSection() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="space-y-3">
+      <div className="divide-y divide-border">
         {FAQ_ITEMS.map((item, i) => (
-          <div
-            key={i}
-            className="border border-border rounded-xl overflow-hidden bg-white"
-          >
+          <div key={i}>
             <button
               onClick={() => setOpenIndex(openIndex === i ? null : i)}
-              className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-neutral-50 transition-colors"
+              className="w-full flex items-center justify-between py-5 text-left group"
             >
               <span className="text-sm md:text-base font-medium pr-4">
                 {item.question}
               </span>
-              <ChevronDown
-                size={18}
+              <span
                 className={cn(
-                  "shrink-0 text-muted transition-transform duration-300",
-                  openIndex === i && "rotate-180"
+                  "shrink-0 text-muted text-lg font-light transition-transform duration-300 select-none",
+                  openIndex === i && "rotate-45"
                 )}
-              />
+              >
+                +
+              </span>
             </button>
             <div
               className={cn(
-                "overflow-hidden transition-all duration-300",
-                openIndex === i ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                "accordion-content",
+                openIndex === i
+                  ? "max-h-96 opacity-100 pb-5"
+                  : "max-h-0 opacity-0"
               )}
             >
-              <p className="px-6 pb-5 text-sm text-muted leading-relaxed">
+              <p className="text-sm text-muted leading-relaxed">
                 {item.answer}
               </p>
             </div>

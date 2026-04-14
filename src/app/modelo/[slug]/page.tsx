@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, AtSign, MapPin, Calendar, Star, Sparkles } from "lucide-react";
+import { ArrowLeft, AtSign } from "lucide-react";
 import { categoriaLabel } from "@/types";
 import type { ModeloComFotos } from "@/types";
 import type { Metadata } from "next";
@@ -71,13 +71,6 @@ const MEDIDAS = [
   { key: "cabelo", label: "Cabelo" },
 ] as const;
 
-// Kids-specific color maps
-const KIDS_COLORS: Record<string, { accent: string; badge: string }> = {
-  baby: { accent: "text-[#F1755C]", badge: "bg-[#F1755C]/15 text-[#F1755C]" },
-  kids: { accent: "text-[#A1BCA6]", badge: "bg-[#A1BCA6]/15 text-[#A1BCA6]" },
-  teens: { accent: "text-[#3A6084]", badge: "bg-[#3A6084]/15 text-[#3A6084]" },
-};
-
 export default async function ModeloPage({ params }: Props) {
   const { slug } = await params;
   const supabase = await createClient();
@@ -94,7 +87,6 @@ export default async function ModeloPage({ params }: Props) {
   const m = modelo as ModeloComFotos;
   const fotos = (m.modelo_fotos ?? []).sort((a, b) => a.ordem - b.ordem);
   const isKids = KIDS_CATS.includes(m.categoria);
-  const kidsColor = KIDS_COLORS[m.categoria];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -110,37 +102,19 @@ export default async function ModeloPage({ params }: Props) {
     m.categoria === "nao_binario" ? "/nao-binario" : `/${m.categoria}`;
 
   return (
-    <div
-      className={`pt-28 pb-20 min-h-screen ${
-        isKids ? "bg-[#FFF0E8]" : ""
-      }`}
-    >
-      <div className="px-6 max-w-7xl mx-auto">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+    <div className="pt-24 min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
-        {/* Back */}
-        <Link
-          href={backHref}
-          className={`inline-flex items-center gap-2 text-sm transition-colors mb-8 ${
-            isKids
-              ? `${kidsColor.accent} hover:opacity-70`
-              : "text-muted hover:text-foreground"
-          }`}
-        >
-          <ArrowLeft size={16} />
-          Voltar para {categoriaLabel(m.categoria)}
-        </Link>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Main photo */}
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+        {/* Split Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 lg:gap-12">
+          {/* LEFT - Main Photo */}
           <div
             className={`relative aspect-[3/4] overflow-hidden ${
-              isKids
-                ? "rounded-2xl shadow-xl"
-                : "rounded-xl bg-neutral-100"
+              isKids ? "rounded-2xl" : "rounded-sm"
             }`}
           >
             {m.foto_principal ? (
@@ -150,106 +124,56 @@ export default async function ModeloPage({ params }: Props) {
                 fill
                 className="object-cover"
                 priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 100vw, 60vw"
               />
             ) : (
-              <div
-                className={`absolute inset-0 flex items-center justify-center text-6xl font-light ${
-                  isKids
-                    ? "bg-gradient-to-br from-[#F2919B]/20 to-kids-lavender/20 text-[#8E6FBF]/30"
-                    : "text-muted"
-                }`}
-              >
+              <div className="absolute inset-0 flex items-center justify-center bg-neutral-100 text-6xl font-light text-muted">
                 {m.nome.charAt(0)}
-              </div>
-            )}
-
-            {/* Kids badge on photo */}
-            {isKids && (
-              <div className="absolute top-4 left-4 z-10">
-                <span
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm ${kidsColor.badge} bg-white/80`}
-                >
-                  <Star size={10} />
-                  {categoriaLabel(m.categoria)}
-                </span>
               </div>
             )}
           </div>
 
-          {/* Info */}
-          <div>
-            <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-2">
-              {m.nome}
-            </h1>
-            <p
-              className={`text-sm uppercase tracking-widest mb-6 ${
-                isKids ? kidsColor.accent + " font-medium" : "text-muted"
-              }`}
+          {/* RIGHT - Sidebar */}
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            {/* Back link */}
+            <Link
+              href={backHref}
+              className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted hover:text-foreground transition-colors mb-6"
             >
-              {isKids && <Sparkles size={12} className="inline mr-1 mb-0.5" />}
+              <ArrowLeft size={12} />
+              Voltar para {categoriaLabel(m.categoria)}
+            </Link>
+
+            {/* Category badge */}
+            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-2">
               {categoriaLabel(m.categoria)}
               {m.idade ? ` — ${m.idade} anos` : ""}
             </p>
 
-            {/* Quick info tags (kids) */}
-            {isKids && (m.cidade || m.idade) && (
-              <div className="flex flex-wrap gap-2 mb-6">
-                {m.cidade && (
-                  <span className="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full text-xs shadow-sm border border-border/50">
-                    <MapPin size={12} className={kidsColor.accent} />{" "}
-                    {m.cidade}
-                  </span>
-                )}
-                {m.idade && (
-                  <span className="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full text-xs shadow-sm border border-border/50">
-                    <Calendar size={12} className={kidsColor.accent} />{" "}
-                    {m.idade} anos
-                  </span>
-                )}
-              </div>
-            )}
+            {/* Name */}
+            <h1 className="font-display text-4xl md:text-5xl font-light tracking-tight mb-4">
+              {m.nome}
+            </h1>
 
+            {/* Bio */}
             {m.bio && (
-              <p
-                className={`leading-relaxed mb-8 ${
-                  isKids ? "text-foreground/70" : "text-muted"
-                }`}
-              >
+              <p className="text-sm text-muted leading-relaxed mb-8">
                 {m.bio}
               </p>
             )}
 
             {/* Measurements */}
             <div className="mb-8">
-              <h2
-                className={`text-xs uppercase tracking-widest mb-4 ${
-                  isKids ? kidsColor.accent : "text-muted"
-                }`}
-              >
-                Medidas
-              </h2>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-x-8 gap-y-3">
                 {MEDIDAS.map(({ key, label }) => {
                   const value = m[key];
                   if (!value) return null;
                   return (
-                    <div
-                      key={key}
-                      className={`py-2 px-3 rounded-lg ${
-                        isKids
-                          ? "bg-white shadow-sm border border-border/30"
-                          : "border-b border-border"
-                      }`}
-                    >
-                      <span
-                        className={`text-[10px] uppercase tracking-widest ${
-                          isKids ? kidsColor.accent : "text-muted"
-                        }`}
-                      >
+                    <div key={key}>
+                      <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                         {label}
                       </span>
-                      <p className="text-sm mt-0.5 font-medium">{value}</p>
+                      <p className="text-sm">{value}</p>
                     </div>
                   );
                 })}
@@ -263,16 +187,14 @@ export default async function ModeloPage({ params }: Props) {
                 <div className="mb-8 space-y-4">
                   {m.habilidades && m.habilidades.length > 0 && (
                     <div>
-                      <h2
-                        className={`text-[10px] uppercase tracking-widest mb-2 ${kidsColor.accent}`}
-                      >
+                      <h2 className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">
                         Habilidades
                       </h2>
                       <div className="flex flex-wrap gap-1.5">
                         {m.habilidades.map((h) => (
                           <span
                             key={h}
-                            className="px-2.5 py-1 bg-[#FFD600]/15 text-foreground/70 rounded-full text-xs"
+                            className="px-2.5 py-1 bg-neutral-100 text-foreground/70 rounded-full text-xs"
                           >
                             {h}
                           </span>
@@ -282,16 +204,14 @@ export default async function ModeloPage({ params }: Props) {
                   )}
                   {m.idiomas && m.idiomas.length > 0 && (
                     <div>
-                      <h2
-                        className={`text-[10px] uppercase tracking-widest mb-2 ${kidsColor.accent}`}
-                      >
+                      <h2 className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">
                         Idiomas
                       </h2>
                       <div className="flex flex-wrap gap-1.5">
                         {m.idiomas.map((i) => (
                           <span
                             key={i}
-                            className="px-2.5 py-1 bg-[#6DB8D4]/15 text-foreground/70 rounded-full text-xs"
+                            className="px-2.5 py-1 bg-neutral-100 text-foreground/70 rounded-full text-xs"
                           >
                             {i}
                           </span>
@@ -308,35 +228,21 @@ export default async function ModeloPage({ params }: Props) {
                 href={`https://instagram.com/${m.instagram.replace("@", "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-2 text-sm transition-colors ${
-                  isKids
-                    ? "text-[#8E6FBF] hover:opacity-70"
-                    : "text-muted hover:text-foreground"
-                }`}
+                className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
               >
-                <AtSign size={16} />
+                <AtSign size={14} />
                 {m.instagram}
               </a>
             )}
           </div>
         </div>
 
-        {/* Photo gallery */}
+        {/* Photo Gallery - full width below split */}
         {fotos.length > 0 && (
-          <div className="mt-16">
-            <h2
-              className={`text-2xl font-light tracking-tight mb-8 ${
-                isKids ? "" : ""
-              }`}
-            >
-              {isKids && (
-                <Sparkles
-                  size={16}
-                  className={`inline mr-2 mb-1 ${kidsColor.accent}`}
-                />
-              )}
+          <div className="mt-16 md:mt-24 mb-16">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-6">
               Book
-            </h2>
+            </p>
             <ModelGallery fotos={fotos} nome={m.nome} />
           </div>
         )}

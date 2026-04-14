@@ -2,8 +2,9 @@
 
 import { useState, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { Send, CheckCircle, Upload, X, Camera } from "lucide-react";
+import { CheckCircle, Camera, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function FacaPartePage() {
   const [loading, setLoading] = useState(false);
@@ -75,184 +76,279 @@ export default function FacaPartePage() {
 
   if (sent) {
     return (
-      <div className="pt-28 pb-20 px-6 max-w-2xl mx-auto text-center">
-        <CheckCircle size={48} className="mx-auto text-green-600 mb-6" />
-        <h1 className="text-3xl font-light tracking-tight mb-4">
-          Candidatura enviada!
-        </h1>
-        <p className="text-muted">
-          Recebemos sua candidatura e entraremos em contato em breve. Obrigado
-          pelo interesse!
-        </p>
+      <div className="pt-28 md:pt-32 pb-24 px-4 md:px-6 min-h-[70vh] flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <CheckCircle size={40} className="mx-auto text-foreground mb-6" strokeWidth={1} />
+          <h1 className="font-display text-3xl md:text-4xl font-light tracking-tight mb-4">
+            Candidatura enviada
+          </h1>
+          <p className="text-sm text-muted leading-relaxed mb-8">
+            Recebemos sua candidatura e entraremos em contato em breve. Obrigado pelo interesse!
+          </p>
+          <Link
+            href="/"
+            className="inline-block text-[11px] uppercase tracking-[0.2em] border-b border-foreground pb-1 hover:opacity-70 transition-opacity"
+          >
+            Voltar ao inicio
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="pt-28 pb-20 px-6 max-w-2xl mx-auto">
-      <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-2">
-        Faca Parte
-      </h1>
-      <p className="text-muted mb-12">
-        Preencha o formulario abaixo para se candidatar ao nosso casting.
-      </p>
+    <div className="pt-28 md:pt-32 pb-24">
+      <div className="max-w-6xl mx-auto px-4 md:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          {/* LEFT — Info Section */}
+          <div className="lg:pt-4">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
+              Casting aberto
+            </p>
+            <h1 className="font-display text-4xl md:text-5xl font-light tracking-tight mb-6">
+              Faca Parte
+            </h1>
+            <p className="text-sm text-muted leading-relaxed mb-8">
+              Estamos sempre em busca de novos talentos para integrar nosso casting.
+              Se voce tem interesse em trabalhar como modelo, preencha o formulario
+              ao lado com seus dados e fotos.
+            </p>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Photo upload section */}
-        <div>
-          <label className="block text-xs uppercase tracking-widest text-muted mb-3">
-            Suas fotos (ate 5) *
-          </label>
-          <p className="text-xs text-muted mb-4">
-            Envie fotos de rosto (frente e perfil) e corpo inteiro. Fotos naturais, sem filtros.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            {fotos.map((foto, i) => (
-              <div
-                key={i}
-                className="relative w-24 h-32 rounded-lg overflow-hidden bg-neutral-100"
-              >
-                <Image
-                  src={foto.preview}
-                  alt={`Foto ${i + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="96px"
-                />
-                <button
-                  type="button"
-                  onClick={() => removeFoto(i)}
-                  className="absolute top-1 right-1 p-1 bg-black/60 rounded-full text-white hover:bg-black/80"
-                >
-                  <X size={10} />
-                </button>
+            <div className="mb-10">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-muted mb-4">
+                Requisitos para as fotos
+              </p>
+              <div className="space-y-3">
+                <p className="text-sm text-muted">
+                  <span className="inline-block w-4 text-muted/40">&mdash;</span>{" "}
+                  Fotos naturais, sem filtros ou edicao
+                </p>
+                <p className="text-sm text-muted">
+                  <span className="inline-block w-4 text-muted/40">&mdash;</span>{" "}
+                  Rosto de frente e perfil
+                </p>
+                <p className="text-sm text-muted">
+                  <span className="inline-block w-4 text-muted/40">&mdash;</span>{" "}
+                  Corpo inteiro, roupas neutras
+                </p>
+                <p className="text-sm text-muted">
+                  <span className="inline-block w-4 text-muted/40">&mdash;</span>{" "}
+                  Boa iluminacao, fundo limpo
+                </p>
+                <p className="text-sm text-muted">
+                  <span className="inline-block w-4 text-muted/40">&mdash;</span>{" "}
+                  Ate 5 fotos por candidatura
+                </p>
               </div>
-            ))}
-            {fotos.length < 5 && (
+            </div>
+
+            <div className="border-t border-border pt-6">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-2">
+                Duvidas?
+              </p>
+              <p className="text-sm text-muted">
+                hlmodels@outlook.com
+              </p>
+              <p className="text-sm text-muted">
+                (11) 95350-6752
+              </p>
+            </div>
+          </div>
+
+          {/* RIGHT — Form */}
+          <div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Photo upload */}
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                  Suas fotos *
+                </label>
+                <div
+                  className="border border-dashed border-border rounded-lg p-8 text-center cursor-pointer hover:border-foreground/30 transition-colors"
+                  onClick={() => fotos.length < 5 && fileRef.current?.click()}
+                >
+                  {fotos.length === 0 ? (
+                    <div>
+                      <Camera size={24} className="mx-auto text-muted mb-3" strokeWidth={1} />
+                      <p className="text-sm text-muted mb-1">
+                        Clique para adicionar fotos
+                      </p>
+                      <p className="text-[10px] text-muted/60">
+                        Maximo 5 fotos
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="flex flex-wrap gap-3 justify-center mb-4">
+                        {fotos.map((foto, i) => (
+                          <div
+                            key={i}
+                            className="relative w-20 h-28 rounded overflow-hidden bg-neutral-100"
+                          >
+                            <Image
+                              src={foto.preview}
+                              alt={`Foto ${i + 1}`}
+                              fill
+                              className="object-cover"
+                              sizes="80px"
+                            />
+                            <button
+                              type="button"
+                              onClick={(ev) => {
+                                ev.stopPropagation();
+                                removeFoto(i);
+                              }}
+                              className="absolute top-1 right-1 p-0.5 bg-black/60 rounded-full text-white hover:bg-black/80"
+                            >
+                              <X size={10} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                      {fotos.length < 5 && (
+                        <p className="text-[10px] text-muted/60">
+                          {fotos.length}/5 fotos &mdash; clique para adicionar mais
+                        </p>
+                      )}
+                      {fotos.length >= 5 && (
+                        <p className="text-[10px] text-muted/60">
+                          5/5 fotos (maximo atingido)
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={addFotos}
+                  className="hidden"
+                />
+              </div>
+
+              {/* Nome */}
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                  Nome completo *
+                </label>
+                <input
+                  name="nome"
+                  required
+                  className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors placeholder:text-muted/40"
+                  placeholder="Seu nome completo"
+                />
+              </div>
+
+              {/* Email & Telefone */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                    Email *
+                  </label>
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors placeholder:text-muted/40"
+                    placeholder="seu@email.com"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                    Telefone / WhatsApp
+                  </label>
+                  <input
+                    name="telefone"
+                    className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors placeholder:text-muted/40"
+                    placeholder="(11) 99999-9999"
+                  />
+                </div>
+              </div>
+
+              {/* Idade & Altura */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                    Idade
+                  </label>
+                  <input
+                    name="idade"
+                    type="number"
+                    min={1}
+                    max={99}
+                    className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors placeholder:text-muted/40"
+                    placeholder="25"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                    Altura
+                  </label>
+                  <input
+                    name="altura"
+                    className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors placeholder:text-muted/40"
+                    placeholder="1.75m"
+                  />
+                </div>
+              </div>
+
+              {/* Cidade */}
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                  Cidade
+                </label>
+                <input
+                  name="cidade"
+                  className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors placeholder:text-muted/40"
+                  placeholder="Sao Paulo, SP"
+                />
+              </div>
+
+              {/* Instagram */}
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                  Instagram
+                </label>
+                <input
+                  name="instagram"
+                  className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors placeholder:text-muted/40"
+                  placeholder="@seuinstagram"
+                />
+              </div>
+
+              {/* Mensagem */}
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
+                  Mensagem
+                </label>
+                <textarea
+                  name="mensagem"
+                  rows={4}
+                  className="w-full border-b border-border bg-transparent px-0 py-3 text-sm focus:outline-none focus:border-foreground transition-colors resize-none placeholder:text-muted/40"
+                  placeholder="Conte um pouco sobre voce e sua experiencia..."
+                />
+              </div>
+
+              {/* Submit */}
               <button
-                type="button"
-                onClick={() => fileRef.current?.click()}
-                className="w-24 h-32 rounded-lg border-2 border-dashed border-border hover:border-foreground flex flex-col items-center justify-center gap-1 transition-colors text-muted hover:text-foreground"
+                type="submit"
+                disabled={loading || fotos.length === 0}
+                className="w-full py-4 bg-foreground text-white text-[11px] uppercase tracking-[0.2em] hover:bg-foreground/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                <Camera size={20} />
-                <span className="text-[10px]">Adicionar</span>
+                {loading ? "Enviando..." : "Enviar candidatura"}
               </button>
-            )}
-          </div>
-          <input
-            ref={fileRef}
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={addFotos}
-            className="hidden"
-          />
-        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-              Nome completo *
-            </label>
-            <input
-              name="nome"
-              required
-              className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors"
-              placeholder="Seu nome"
-            />
-          </div>
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-              Email *
-            </label>
-            <input
-              name="email"
-              type="email"
-              required
-              className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors"
-              placeholder="seu@email.com"
-            />
-          </div>
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-              Telefone / WhatsApp
-            </label>
-            <input
-              name="telefone"
-              className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors"
-              placeholder="(11) 99999-9999"
-            />
-          </div>
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-              Idade
-            </label>
-            <input
-              name="idade"
-              type="number"
-              min={1}
-              max={99}
-              className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors"
-              placeholder="25"
-            />
-          </div>
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-              Altura
-            </label>
-            <input
-              name="altura"
-              className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors"
-              placeholder="1.75m"
-            />
-          </div>
-          <div>
-            <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-              Cidade
-            </label>
-            <input
-              name="cidade"
-              className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors"
-              placeholder="Sao Paulo, SP"
-            />
+              {fotos.length === 0 && (
+                <p className="text-sm text-red-600 text-center">
+                  Adicione pelo menos 1 foto para enviar.
+                </p>
+              )}
+            </form>
           </div>
         </div>
-
-        <div>
-          <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-            Instagram
-          </label>
-          <input
-            name="instagram"
-            className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors"
-            placeholder="@seuinstagram"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs uppercase tracking-widest text-muted mb-2">
-            Mensagem
-          </label>
-          <textarea
-            name="mensagem"
-            rows={4}
-            className="w-full border border-border px-4 py-3 text-sm focus:outline-none focus:border-foreground transition-colors resize-none"
-            placeholder="Conte um pouco sobre voce e sua experiencia..."
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading || fotos.length === 0}
-          className="inline-flex items-center gap-2 px-10 py-4 bg-foreground text-white text-sm uppercase tracking-widest hover:bg-foreground/90 transition-colors disabled:opacity-50"
-        >
-          <Send size={16} />
-          {loading ? "Enviando..." : "Enviar candidatura"}
-        </button>
-        {fotos.length === 0 && (
-          <p className="text-xs text-red-500">Adicione pelo menos 1 foto para enviar.</p>
-        )}
-      </form>
+      </div>
     </div>
   );
 }

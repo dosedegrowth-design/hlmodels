@@ -1,7 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
-import { ArrowRight, Star, Users, Briefcase, Award } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Sobre",
@@ -12,150 +10,133 @@ export const metadata: Metadata = {
 
 export default function SobrePage() {
   return (
-    <div className="pt-24 lg:pt-28 pb-20">
+    <div>
       {/* Hero */}
-      <section className="px-6 lg:px-10 max-w-[1200px] mx-auto mb-20">
-        <p className="text-[10px] uppercase tracking-[0.4em] text-[#F1755C] mb-3 font-medium">
+      <section className="pt-32 pb-16 md:pb-24 text-center px-4 md:px-6">
+        <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
           Quem somos
         </p>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight mb-8">
+        <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light tracking-tight">
           Sobre Nos
         </h1>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="space-y-5 text-foreground/70 leading-relaxed">
-            <p>
-              Somos uma agencia de talentos e campanhas que acredita no poder da imagem e da presenca para contar historias inesqueciveis.
-            </p>
-            <p>
-              Nascemos da paixao por conectar marcas, pessoas e oportunidades com autenticidade, diversidade e profissionalismo.
-            </p>
-            <p>
-              Nossos talentos ja brilharam em campanhas para grandes marcas, editoriais, comerciais, novelas, videoclipes, catalogos e desfiles.
-            </p>
-            <p>
-              Somos movidos por paixao, etica, criatividade e resultado. Nossa missao e simples: descobrir, valorizar e lancar talentos reais, com verdade, planejamento e proposito.
-            </p>
-          </div>
-          <div className="relative aspect-[4/3] bg-neutral-100 rounded-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#F1755C]/20 via-[#A1BCA6]/20 to-[#3A6084]/20 flex items-center justify-center">
-              <div className="relative h-24 w-48">
-                <Image src="/logo-dark.png" alt="HL Models" fill className="object-contain" />
-              </div>
-            </div>
-          </div>
-        </div>
+        <p className="max-w-2xl mx-auto text-sm md:text-base text-muted leading-relaxed mt-6">
+          Somos uma agencia de talentos e campanhas que acredita no poder da
+          imagem e da presenca para contar historias inesqueciveis. Nascemos da
+          paixao por conectar marcas, pessoas e oportunidades com autenticidade,
+          diversidade e profissionalismo.
+        </p>
       </section>
 
       {/* Stats */}
-      <section className="bg-foreground text-white py-16 mb-20">
-        <div className="px-6 lg:px-10 max-w-[1200px] mx-auto">
+      <section className="bg-surface py-12 md:py-16">
+        <div className="max-w-5xl mx-auto px-4 md:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { icon: Users, value: "+100", label: "Modelos agenciados" },
-              { icon: Briefcase, value: "+50", label: "Clientes atendidos" },
-              { icon: Award, value: "+200", label: "Jobs realizados" },
-              { icon: Star, value: "6", label: "Categorias" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <stat.icon size={24} className="mx-auto mb-3 text-white/40" />
-                <p className="text-3xl md:text-4xl font-light mb-1">{stat.value}</p>
-                <p className="text-[10px] uppercase tracking-widest text-white/50">{stat.label}</p>
-              </div>
-            ))}
+            <div className="text-center">
+              <p className="font-display text-4xl md:text-5xl font-light">+100</p>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Modelos</p>
+            </div>
+            <div className="text-center">
+              <p className="font-display text-4xl md:text-5xl font-light">+50</p>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Clientes</p>
+            </div>
+            <div className="text-center">
+              <p className="font-display text-4xl md:text-5xl font-light">+200</p>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Trabalhos</p>
+            </div>
+            <div className="text-center">
+              <p className="font-display text-4xl md:text-5xl font-light">6</p>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-muted mt-2">Categorias</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Missao / Visao / Valores */}
-      <section className="px-6 lg:px-10 max-w-[1200px] mx-auto mb-20">
-        <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3 text-center">
-          Nossos ideais
-        </p>
-        <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-12 text-center">
-          Missao, Visao e Valores
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              title: "Missao",
-              color: "bg-[#F1755C]",
-              text: "Revelar talentos, valorizar identidades e conectar pessoas e marcas por meio de experiencias visuais autenticas, campanhas marcantes e relacoes de confianca.",
-            },
-            {
-              title: "Visao",
-              color: "bg-[#A1BCA6]",
-              text: "Ser referencia no mercado de agenciamento de modelos e talentos, reconhecida pela excelencia, diversidade e pela capacidade de transformar sonhos em realidade.",
-            },
-            {
-              title: "Valores",
-              color: "bg-[#3A6084]",
-              text: "Autenticidade, diversidade, profissionalismo, etica, criatividade e resultado. Acreditamos no poder da imagem e da presenca para contar historias inesqueciveis.",
-            },
-          ].map((item) => (
-            <div key={item.title} className="bg-white rounded-2xl border border-border p-8 shadow-sm">
-              <div className={`w-10 h-1 ${item.color} rounded-full mb-4`} />
-              <h3 className="text-lg font-medium mb-3">{item.title}</h3>
-              <p className="text-sm text-foreground/60 leading-relaxed">{item.text}</p>
-            </div>
-          ))}
+      <section className="max-w-5xl mx-auto px-6 py-20 md:py-28">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <div className="text-left">
+            <h2 className="font-display text-2xl font-light mb-4">Missao</h2>
+            <p className="text-sm text-muted leading-relaxed">
+              Conectar talentos unicos a oportunidades no mundo da moda e
+              publicidade. Revelar identidades, valorizar historias e construir
+              carreiras com etica, planejamento e proposito.
+            </p>
+          </div>
+          <div className="text-left">
+            <h2 className="font-display text-2xl font-light mb-4">Visao</h2>
+            <p className="text-sm text-muted leading-relaxed">
+              Ser referencia em gestao de modelos e talentos, reconhecida pela
+              excelencia, diversidade e pela capacidade de transformar sonhos em
+              realidade no mercado da moda e publicidade.
+            </p>
+          </div>
+          <div className="text-left">
+            <h2 className="font-display text-2xl font-light mb-4">Valores</h2>
+            <p className="text-sm text-muted leading-relaxed">
+              Diversidade, profissionalismo, transparencia, etica e
+              criatividade. Acreditamos no poder da autenticidade e da presenca
+              para contar historias inesqueciveis.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Como fazer parte */}
-      <section className="px-6 lg:px-10 max-w-[1200px] mx-auto mb-20">
-        <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3 text-center">
-          Junte-se a nos
-        </p>
-        <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-12 text-center">
-          Como fazer parte do casting
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {[
-            {
-              step: "01",
-              title: "Cadastre-se",
-              text: "Acesse a pagina 'Faca Parte' e envie suas fotos e dados. Fotos naturais, sem filtros, mostrando rosto e corpo inteiro.",
-            },
-            {
-              step: "02",
-              title: "Avaliacao",
-              text: "Nossa equipe de selecao ira analisar seu perfil. Se aprovado, entraremos em contato para os proximos passos.",
-            },
-            {
-              step: "03",
-              title: "Aprovacao",
-              text: "Apos aprovado, voce entra para nosso casting e comeca a receber oportunidades de trabalho com marcas parceiras.",
-            },
-          ].map((item) => (
-            <div key={item.step} className="text-center">
-              <div className="w-14 h-14 rounded-full bg-foreground text-white flex items-center justify-center mx-auto mb-4 text-lg font-light">
-                {item.step}
-              </div>
-              <h3 className="text-lg font-medium mb-2">{item.title}</h3>
-              <p className="text-sm text-foreground/60 leading-relaxed">{item.text}</p>
+      {/* Como Participar */}
+      <section className="bg-foreground text-white py-20 md:py-28">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="font-display text-4xl font-light text-white mb-12 text-center">
+            Como Participar
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <p className="text-5xl font-display text-white/10 mb-3">01</p>
+              <p className="text-sm uppercase tracking-wide text-white mb-2">
+                Inscreva-se
+              </p>
+              <p className="text-sm text-white/50 leading-relaxed">
+                Preencha o formulario de candidatura com seus dados e fotos.
+                Fotos naturais, sem filtros, mostrando rosto e corpo inteiro.
+              </p>
             </div>
-          ))}
-        </div>
-
-        <div className="text-center">
-          <Link
-            href="/faca-parte"
-            className="inline-flex items-center gap-2 px-10 py-4 bg-foreground text-white text-sm uppercase tracking-widest rounded-xl hover:bg-foreground/90 transition-colors"
-          >
-            Inscreva-se agora
-            <ArrowRight size={16} />
-          </Link>
+            <div>
+              <p className="text-5xl font-display text-white/10 mb-3">02</p>
+              <p className="text-sm uppercase tracking-wide text-white mb-2">
+                Avaliacao
+              </p>
+              <p className="text-sm text-white/50 leading-relaxed">
+                Nossa equipe analisa seu perfil com atencao. Se aprovado,
+                entraremos em contato para os proximos passos.
+              </p>
+            </div>
+            <div>
+              <p className="text-5xl font-display text-white/10 mb-3">03</p>
+              <p className="text-sm uppercase tracking-wide text-white mb-2">
+                Aprovacao
+              </p>
+              <p className="text-sm text-white/50 leading-relaxed">
+                Se aprovado, voce entra para nosso casting e comeca a receber
+                oportunidades de trabalho com marcas parceiras.
+              </p>
+            </div>
+          </div>
+          <div className="text-center mt-12">
+            <Link
+              href="/faca-parte"
+              className="inline-block border border-white/25 text-white text-[11px] uppercase tracking-wide px-6 py-3 hover:bg-white/10 transition-colors"
+            >
+              Inscreva-se agora
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Nota */}
-      <section className="px-6 lg:px-10 max-w-[800px] mx-auto">
-        <div className="bg-neutral-50 rounded-2xl p-8 text-center">
-          <p className="text-xs uppercase tracking-widest text-muted mb-3">Nota</p>
-          <p className="text-sm text-foreground/60 leading-relaxed">
-            A HL Models Agency preza pela qualidade e profissionalismo de todos os materiais recebidos. Se as fotos enviadas nao atenderem aos padroes visuais da agencia, poderemos recusar a submissao. Disponibilizamos estudios parceiros caso deseje realizar um book profissional.
-          </p>
-        </div>
+      {/* Quality note */}
+      <section className="py-16 text-center px-4 md:px-6">
+        <p className="text-xs text-muted max-w-lg mx-auto leading-relaxed">
+          A HL Models Agency preza pela qualidade e profissionalismo de todos os
+          materiais recebidos. Disponibilizamos estudios parceiros caso deseje
+          realizar um book profissional.
+        </p>
       </section>
     </div>
   );

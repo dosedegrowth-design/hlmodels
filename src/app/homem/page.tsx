@@ -17,17 +17,33 @@ export default async function HomemPage() {
     .eq("ativo", true)
     .order("ordem", { ascending: true });
 
+  const heroImage = modelos?.[0]?.foto_principal ?? null;
+
   return (
-    <div className="pt-24 lg:pt-28 pb-20">
-      <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
-        <div className="mb-14 lg:mb-20">
-          <p className="text-[10px] uppercase tracking-[0.4em] text-muted mb-3">
-            Mainboard
-          </p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tight">
+    <div>
+      {/* Hero Section */}
+      <section className="relative h-[50vh] overflow-hidden">
+        {heroImage ? (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${heroImage})` }}
+          />
+        ) : (
+          <div className="absolute inset-0 bg-neutral-100" />
+        )}
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative h-full flex flex-col items-center justify-center text-center">
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl uppercase tracking-[0.1em] text-white font-light">
             Homem
           </h1>
+          <p className="mt-4 text-[10px] uppercase tracking-[0.3em] text-white/40">
+            {modelos?.length ?? 0} modelo{(modelos?.length ?? 0) !== 1 ? "s" : ""}
+          </p>
         </div>
+      </section>
+
+      {/* Model Grid */}
+      <div className="max-w-[1800px] mx-auto px-4 md:px-6 py-16 md:py-24">
         <ModelGrid modelos={modelos ?? []} />
       </div>
     </div>

@@ -17,20 +17,34 @@ export default async function BabyPage() {
     .eq("ativo", true)
     .order("ordem", { ascending: true });
 
+  const heroImage = modelos?.[0]?.foto_principal ?? null;
+
   return (
-    <div className="pt-24 lg:pt-28 pb-20 min-h-screen bg-[#FFF0E8]">
-      <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
-        <div className="mb-14 lg:mb-20 relative">
-          {/* Decorative elements */}
-          <div className="absolute -top-4 -right-4 w-20 h-20 bg-[#F2919B]/20 rounded-full blur-2xl kids-float" />
-          <div className="absolute top-10 right-20 w-12 h-12 bg-[#B5A1D4]/30 rounded-full blur-xl kids-float" style={{ animationDelay: "2s" }} />
-          <p className="text-[10px] uppercase tracking-[0.4em] text-[#F1755C] mb-3 font-medium">
-            Ate 5 anos
-          </p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#F1755C] font-kids">
+    <div>
+      {/* Hero Section */}
+      <section className="relative h-[50vh] overflow-hidden">
+        {heroImage ? (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${heroImage})` }}
+          />
+        ) : (
+          <div className="absolute inset-0 bg-[#FFF0E8]" />
+        )}
+        <div className="absolute inset-0 bg-[#F1755C]/20 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-black/25" />
+        <div className="relative h-full flex flex-col items-center justify-center text-center">
+          <h1 className="font-kids text-5xl md:text-6xl lg:text-7xl uppercase tracking-[0.1em] text-white font-bold">
             Baby
           </h1>
+          <p className="mt-4 text-[10px] uppercase tracking-[0.3em] text-white/50">
+            {modelos?.length ?? 0} modelo{(modelos?.length ?? 0) !== 1 ? "s" : ""}
+          </p>
         </div>
+      </section>
+
+      {/* Model Grid */}
+      <div className="max-w-[1800px] mx-auto px-4 md:px-6 py-16 md:py-24">
         <ModelGrid modelos={modelos ?? []} />
       </div>
     </div>
