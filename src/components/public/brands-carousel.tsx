@@ -3,15 +3,15 @@
 import { useRef, useEffect, useState } from "react";
 
 const BRANDS = [
-  { name: "PomPom", logo: "/marcas/pompom.png" },
-  { name: "Brandili", logo: "/marcas/brandili.png" },
-  { name: "Marisa", logo: "/marcas/marisa.png" },
-  { name: "Torra", logo: "/marcas/torra.png" },
-  { name: "Wilson", logo: "/marcas/wilson.png" },
-  { name: "Netflix", logo: "/marcas/netflix.png" },
-  { name: "SBT", logo: "/marcas/sbt.png" },
-  { name: "C&A", logo: "/marcas/cea.png" },
-  { name: "Pampers", logo: "/marcas/pampers.png" },
+  { name: "PomPom", logo: "/logos/pompom.png" },
+  { name: "Brandili", logo: "/logos/brandili.png" },
+  { name: "Marisa", logo: "/logos/marisa.png" },
+  { name: "Torra", logo: "/logos/torra.png" },
+  { name: "Wilson", logo: "/logos/wilson.png" },
+  { name: "Netflix", logo: "/logos/netflix.png" },
+  { name: "SBT", logo: "/logos/sbt.png" },
+  { name: "C&A", logo: "/logos/cea.png" },
+  { name: "Pampers", logo: "/logos/pampers.png" },
 ];
 
 export function BrandsCarousel() {
