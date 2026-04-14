@@ -69,13 +69,13 @@ export default async function HomePage() {
   // Get approved models with brand seals
   const { data: aprovadosRaw } = await supabase
     .from("modelo_aprovacoes")
-    .select("marca_nome, modelos(id, nome, slug, foto_principal, categoria)")
+    .select("marca_nome, marca_logo, modelos(id, nome, slug, foto_principal, categoria)")
     .order("created_at", { ascending: false })
     .limit(12);
 
   const aprovados = (aprovadosRaw ?? [])
     .filter((a: any) => a.modelos)
-    .map((a: any) => ({ modelo: a.modelos, marca_nome: a.marca_nome }));
+    .map((a: any) => ({ modelo: a.modelos, marca_nome: a.marca_nome, marca_logo: a.marca_logo }));
 
   return (
     <>
@@ -83,7 +83,7 @@ export default async function HomePage() {
       <HeroVideo />
 
       {/* Section 1: Categories Grid */}
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-20">
         <div className="max-w-[1600px] mx-auto">
           <div className="px-6 lg:px-10 mb-10">
             <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
@@ -101,7 +101,7 @@ export default async function HomePage() {
 
       {/* Section 2: Nossos Talentos */}
       {todosModelos && todosModelos.length > 0 && (
-        <section className="py-20 md:py-28">
+        <section className="py-14 md:py-20">
           <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
             <div className="mb-10">
               <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
@@ -126,7 +126,7 @@ export default async function HomePage() {
 
       {/* Section 3: Aprovados */}
       {aprovados.length > 0 && (
-        <section className="py-20 md:py-28">
+        <section className="py-14 md:py-20">
           <div className="max-w-[1600px] mx-auto">
             <div className="px-6 lg:px-10 mb-10">
               <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
@@ -143,7 +143,7 @@ export default async function HomePage() {
 
       {/* Section 4: Projetos */}
       {projetosDestaque && projetosDestaque.length > 0 && (
-        <section className="py-20 md:py-28">
+        <section className="py-14 md:py-20">
           <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
             <div className="flex items-end justify-between mb-10">
               <div>
@@ -171,7 +171,7 @@ export default async function HomePage() {
       )}
 
       {/* Section 5: Marcas Parceiras */}
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-20">
         <div className="max-w-[1600px] mx-auto">
           <div className="px-6 lg:px-10 mb-10 text-center">
             <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">
@@ -186,7 +186,7 @@ export default async function HomePage() {
       </section>
 
       {/* Section 6: CTA Faca Parte */}
-      <section className="bg-foreground text-white py-20 md:py-28 px-6">
+      <section className="bg-foreground text-white py-14 md:py-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6">
             Junte-se a nos
@@ -208,7 +208,7 @@ export default async function HomePage() {
       </section>
 
       {/* Section 7: FAQ */}
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-20">
         <div className="px-6 lg:px-10 max-w-[1600px] mx-auto">
           <div className="text-center mb-12">
             <p className="text-[10px] uppercase tracking-[0.3em] text-muted mb-3">

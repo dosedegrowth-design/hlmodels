@@ -156,6 +156,7 @@ export interface ModeloAprovacao {
   id: string;
   modelo_id: string;
   marca_nome: string;
+  marca_logo: string | null;
   created_at: string;
 }
 

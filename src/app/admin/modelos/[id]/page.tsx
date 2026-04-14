@@ -22,7 +22,7 @@ export default async function EditarModeloPage({ params }: Props) {
   // Get aprovacoes
   const { data: aprovacoes } = await supabase
     .from("modelo_aprovacoes")
-    .select("id, marca_nome")
+    .select("id, marca_nome, marca_logo")
     .eq("modelo_id", id);
 
   return (

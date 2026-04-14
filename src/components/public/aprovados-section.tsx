@@ -8,6 +8,7 @@ import type { Modelo } from "@/types";
 interface AprovadoItem {
   modelo: Modelo;
   marca_nome: string;
+  marca_logo: string | null;
 }
 
 interface AprovadosSectionProps {
@@ -20,7 +21,7 @@ export function AprovadosSection({ aprovados }: AprovadosSectionProps) {
   return (
     <div className="relative">
       <div
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-6 lg:px-10"
+        className="flex gap-5 overflow-x-auto snap-x snap-mandatory px-6 lg:px-10 pb-4"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {aprovados.map((item, i) => (
@@ -29,7 +30,7 @@ export function AprovadosSection({ aprovados }: AprovadosSectionProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
-            className="snap-start shrink-0 w-48 md:w-56"
+            className="snap-start shrink-0 w-64 md:w-72 lg:w-80"
           >
             <Link href={`/modelo/${item.modelo.slug}`} className="group block">
               <div className="relative aspect-[3/4] bg-neutral-100 overflow-hidden rounded-2xl">
@@ -40,31 +41,47 @@ export function AprovadosSection({ aprovados }: AprovadosSectionProps) {
                     alt={item.modelo.nome}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    sizes="224px"
+                    sizes="320px"
                   />
                 ) : (
-                  <div className="flex items-center justify-center h-full text-4xl text-neutral-300 font-light">
+                  <div className="flex items-center justify-center h-full text-5xl text-neutral-300 font-light">
                     {item.modelo.nome.charAt(0)}
                   </div>
                 )}
 
-                {/* Aprovado badge at top */}
-                <div className="absolute top-3 right-3 z-10">
-                  <div className="flex items-center gap-1 px-2 py-0.5 bg-white/90 backdrop-blur-sm text-foreground">
-                    <span className="text-[9px] font-medium uppercase tracking-wider">
+                {/* Brand badge at top — logo or text */}
+                <div className="absolute top-4 right-4 z-10">
+                  {item.marca_logo ? (
+                    <div className="bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 shadow-sm">
+                      <div className="relative h-6 w-16">
+                        <Image
+                          src={item.marca_logo}
+                          alt={item.marca_nome}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="bg-white/95 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm">
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-foreground">
+                        {item.marca_nome}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Bottom gradient with name */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10">
+                  <p className="text-white text-sm font-medium">
+                    {item.modelo.nome}
+                  </p>
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <div className="w-3 h-px bg-green-400" />
+                    <span className="text-[10px] uppercase tracking-wider text-green-300/80">
                       Aprovado
                     </span>
                   </div>
-                </div>
-
-                {/* Bottom gradient with name and brand */}
-                <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent z-10">
-                  <p className="text-white text-xs font-medium">
-                    {item.modelo.nome}
-                  </p>
-                  <span className="text-[10px] uppercase tracking-wide text-white/60">
-                    {item.marca_nome}
-                  </span>
                 </div>
               </div>
             </Link>
