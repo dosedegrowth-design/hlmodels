@@ -4,7 +4,7 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Lock, Mail, Search, Star, FileText } from "lucide-react";
+import { Lock, Mail } from "lucide-react";
 
 export default function MarcasLoginPage() {
   const [email, setEmail] = useState("");
@@ -30,133 +30,117 @@ export default function MarcasLoginPage() {
   }
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center p-4 overflow-hidden">
-      {/* Background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1920')",
-        }}
-      />
+    <div className="min-h-screen flex items-center justify-center p-4 md:p-8 bg-[#1a1a2e]">
+      {/* Main card container */}
+      <div className="w-full max-w-[1000px] bg-[#1e1e36] rounded-3xl overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.5)] flex flex-col lg:flex-row">
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/65 backdrop-blur-[2px]" />
+        {/* Left — Image side */}
+        <div className="relative lg:w-[50%] min-h-[240px] lg:min-h-[650px] overflow-hidden">
+          <img
+            src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            alt="Models"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1e1e36]/90 via-[#1e1e36]/30 to-transparent" />
 
-      {/* Subtle gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(255,255,255,0.04)_0%,_transparent_60%)]" />
+          {/* Logo + back link */}
+          <div className="absolute top-6 left-6 right-6 flex items-center justify-between z-10">
+            <img src="/logo-white.png" alt="HL Models" className="h-10 w-auto object-contain" />
+            <Link
+              href="/"
+              className="flex items-center gap-1.5 text-[11px] text-white/60 hover:text-white uppercase tracking-widest transition-colors bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/10"
+            >
+              Voltar ao site &rarr;
+            </Link>
+          </div>
 
-      {/* Card */}
-      <div className="relative z-10 w-full max-w-[440px]">
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <Link href="/">
-            <img src="/logo-white.png" alt="HL Models" className="h-16 w-auto object-contain mx-auto" />
-          </Link>
+          {/* Bottom text */}
+          <div className="absolute bottom-8 left-6 right-6 z-10">
+            <h2 className="font-display text-3xl md:text-4xl text-white font-medium tracking-tight leading-tight">
+              Encontre os talentos<br />ideais para sua marca
+            </h2>
+          </div>
         </div>
 
-        {/* Glass card */}
-        <div className="bg-white/10 backdrop-blur-2xl border border-white/15 rounded-3xl p-8 md:p-10 shadow-[0_8px_60px_rgba(0,0,0,0.4)]">
-          <div className="text-center mb-8">
-            <h1 className="font-display text-3xl text-white font-medium tracking-tight">
+        {/* Right — Form side */}
+        <div className="lg:w-[50%] flex flex-col justify-center p-8 md:p-12 lg:p-14">
+          <div className="max-w-sm mx-auto w-full">
+            <h1 className="font-display text-3xl md:text-4xl text-white font-medium tracking-tight mb-2">
               Portal de Marcas
             </h1>
-            <p className="text-white/50 text-sm mt-2">
-              Encontre os modelos ideais para sua campanha.
+            <p className="text-white/40 text-sm mb-8">
+              Já tem uma conta?{" "}
+              <span className="text-white/60">Faça login abaixo.</span>
             </p>
-          </div>
 
-          <form onSubmit={handleLogin} className="space-y-5">
-            {error && (
-              <div className="bg-red-500/15 border border-red-400/20 text-red-200 text-sm px-4 py-3 rounded-2xl text-center">
-                {error}
-              </div>
-            )}
+            <form onSubmit={handleLogin} className="space-y-5">
+              {error && (
+                <div className="bg-red-500/10 border border-red-400/20 text-red-300 text-sm px-4 py-3 rounded-xl text-center">
+                  {error}
+                </div>
+              )}
 
-            <div>
-              <label className="block text-[11px] uppercase tracking-[0.15em] text-white/50 mb-2 font-medium">
-                E-mail
-              </label>
-              <div className="relative">
-                <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full bg-white/8 border border-white/12 text-white placeholder-white/25 pl-11 pr-4 py-4 text-sm rounded-2xl focus:outline-none focus:border-white/30 focus:bg-white/12 transition-all"
-                  placeholder="marca@empresa.com"
-                />
+              <div>
+                <label className="block text-[11px] uppercase tracking-[0.15em] text-white/40 mb-2 font-medium">
+                  E-mail
+                </label>
+                <div className="relative">
+                  <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/25" />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="w-full bg-white/5 border border-white/10 text-white placeholder-white/20 pl-11 pr-4 py-4 text-sm rounded-xl focus:outline-none focus:border-white/25 focus:bg-white/8 transition-all"
+                    placeholder="marca@empresa.com"
+                  />
+                </div>
               </div>
+
+              <div>
+                <label className="block text-[11px] uppercase tracking-[0.15em] text-white/40 mb-2 font-medium">
+                  Senha
+                </label>
+                <div className="relative">
+                  <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/25" />
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="w-full bg-white/5 border border-white/10 text-white placeholder-white/20 pl-11 pr-4 py-4 text-sm rounded-xl focus:outline-none focus:border-white/25 focus:bg-white/8 transition-all"
+                    placeholder="••••••••"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-4 bg-white text-[#1e1e36] text-sm font-semibold tracking-wider uppercase rounded-xl hover:bg-white/90 transition-all disabled:opacity-50"
+              >
+                {loading ? "Entrando..." : "Entrar"}
+              </button>
+            </form>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 my-6">
+              <div className="flex-1 h-px bg-white/8" />
+              <span className="text-[10px] text-white/20 uppercase tracking-widest">ou</span>
+              <div className="flex-1 h-px bg-white/8" />
             </div>
 
-            <div>
-              <label className="block text-[11px] uppercase tracking-[0.15em] text-white/50 mb-2 font-medium">
-                Senha
-              </label>
-              <div className="relative">
-                <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full bg-white/8 border border-white/12 text-white placeholder-white/25 pl-11 pr-4 py-4 text-sm rounded-2xl focus:outline-none focus:border-white/30 focus:bg-white/12 transition-all"
-                  placeholder="••••••••"
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-4 bg-white text-foreground text-sm font-semibold tracking-wider uppercase rounded-2xl hover:bg-white/90 transition-all disabled:opacity-50 shadow-lg"
-            >
-              {loading ? "Entrando..." : "Entrar"}
-            </button>
-          </form>
-
-          {/* Divider */}
-          <div className="flex items-center gap-3 my-6">
-            <div className="flex-1 h-px bg-white/10" />
-            <span className="text-[10px] text-white/25 uppercase tracking-widest">ou</span>
-            <div className="flex-1 h-px bg-white/10" />
-          </div>
-
-          {/* Register */}
-          <div className="text-center">
-            <p className="text-sm text-white/40 mb-3">
+            {/* Register */}
+            <p className="text-sm text-white/35 text-center mb-3">
               Não tem uma conta?
             </p>
             <Link
               href="/marcas/registro"
-              className="inline-block w-full py-3.5 border border-white/20 text-white/70 text-sm tracking-wider uppercase rounded-2xl hover:bg-white/8 hover:text-white hover:border-white/30 transition-all"
+              className="block w-full py-3.5 text-center border border-white/15 text-white/60 text-sm tracking-wider uppercase rounded-xl hover:bg-white/5 hover:text-white hover:border-white/25 transition-all"
             >
               Crie sua conta agora
             </Link>
           </div>
-        </div>
-
-        {/* Features */}
-        <div className="mt-8 flex items-center justify-center gap-6 md:gap-8 flex-wrap">
-          <div className="flex items-center gap-2 text-white/25">
-            <Search size={13} />
-            <span className="text-[10px] uppercase tracking-widest">Buscar modelos</span>
-          </div>
-          <div className="flex items-center gap-2 text-white/25">
-            <Star size={13} />
-            <span className="text-[10px] uppercase tracking-widest">Criar seleções</span>
-          </div>
-          <div className="flex items-center gap-2 text-white/25 hidden sm:flex">
-            <FileText size={13} />
-            <span className="text-[10px] uppercase tracking-widest">Orçamentos</span>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-6 text-center">
-          <Link href="/" className="text-[11px] text-white/25 hover:text-white/50 transition-colors uppercase tracking-widest">
-            Voltar ao site
-          </Link>
         </div>
       </div>
     </div>
