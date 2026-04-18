@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Modelos Baby - Até 5 anos",
   description: "Conheça nosso casting de modelos baby. Agência HL Models em São Paulo com bebês e crianças para campanhas publicitárias.",
-  alternates: { canonical: "https://hlmodels.vercel.app/baby" },
+  alternates: { canonical: "https://www.hlmodels.com.br/baby" },
 };
 
 export default async function BabyPage() {

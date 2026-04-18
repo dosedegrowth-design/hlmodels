@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Modelos Kids - 5 a 15 anos",
   description: "Conheça nosso casting de modelos kids. Agência HL Models em São Paulo com crianças para campanhas de moda e publicidade.",
-  alternates: { canonical: "https://hlmodels.vercel.app/kids" },
+  alternates: { canonical: "https://www.hlmodels.com.br/kids" },
 };
 
 export default async function KidsPage() {

@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Projetos e Portfolio",
   description: "Conheça os projetos e campanhas realizados pela HL Models com marcas e modelos. Portfolio de moda, publicidade e editorial.",
-  alternates: { canonical: "https://hlmodels.vercel.app/projetos" },
+  alternates: { canonical: "https://www.hlmodels.com.br/projetos" },
 };
 
 export default async function ProjetosPage() {

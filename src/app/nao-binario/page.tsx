@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Modelos Não Binários",
   description: "Conheça nosso casting de modelos não binários. Agência HL Models em São Paulo com diversidade e inclusão.",
-  alternates: { canonical: "https://hlmodels.vercel.app/nao-binario" },
+  alternates: { canonical: "https://www.hlmodels.com.br/nao-binario" },
 };
 
 export default async function NaoBinarioPage() {

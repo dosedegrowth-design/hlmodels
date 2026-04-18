@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Modelos Teens - 15 a 18 anos",
   description: "Conheça nosso casting de modelos teens. Agência HL Models em São Paulo com adolescentes para campanhas de moda.",
-  alternates: { canonical: "https://hlmodels.vercel.app/teens" },
+  alternates: { canonical: "https://www.hlmodels.com.br/teens" },
 };
 
 export default async function TeensPage() {

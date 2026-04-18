@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Sobre",
   description:
     "Conheca a HL Models, agencia de talentos e campanhas em Sao Bernardo do Campo. Diversidade, autenticidade e profissionalismo no mercado da moda e publicidade.",
-  alternates: { canonical: "https://hlmodels.vercel.app/sobre" },
+  alternates: { canonical: "https://www.hlmodels.com.br/sobre" },
 };
 
 export default function SobrePage() {

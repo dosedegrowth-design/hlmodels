@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: projeto.foto_capa ? [{ url: projeto.foto_capa, width: 1200, height: 800, alt: projeto.titulo }] : [],
       type: "article",
     },
-    alternates: { canonical: `https://hlmodels.vercel.app/projetos/${slug}` },
+    alternates: { canonical: `https://www.hlmodels.com.br/projetos/${slug}` },
   };
 }
 

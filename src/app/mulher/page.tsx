@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Modelos Femininas",
   description: "Conheça nosso casting de modelos femininas. Agência HL Models em São Paulo com modelos para moda, publicidade e editorial.",
-  alternates: { canonical: "https://hlmodels.vercel.app/mulher" },
+  alternates: { canonical: "https://www.hlmodels.com.br/mulher" },
 };
 
 export default async function MulherPage() {

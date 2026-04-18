@@ -3,7 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/public/header";
 import { Footer } from "@/components/public/footer";
 
-const SITE_URL = "https://hlmodels.vercel.app";
+const SITE_URL = "https://www.hlmodels.com.br";
 const SITE_NAME = "HL Models";
 const SITE_DESCRIPTION =
   "Agência de modelos profissional em São Paulo. Casting de modelos masculinos, femininos, não-binários, baby, kids e teens para moda, publicidade e editorial.";

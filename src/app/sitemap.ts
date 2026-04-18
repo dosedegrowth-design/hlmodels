@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import type { MetadataRoute } from "next";
 
-const SITE_URL = "https://hlmodels.vercel.app";
+const SITE_URL = "https://www.hlmodels.com.br";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = await createClient();

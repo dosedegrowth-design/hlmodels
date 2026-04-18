@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: modelo.foto_principal ? [modelo.foto_principal] : [],
     },
     alternates: {
-      canonical: `https://hlmodels.vercel.app/modelo/${slug}`,
+      canonical: `https://www.hlmodels.com.br/modelo/${slug}`,
     },
   };
 }
@@ -75,7 +75,7 @@ export default async function ModeloPage({ params }: Props) {
     "@type": "Person",
     name: m.nome,
     image: m.foto_principal,
-    url: `https://hlmodels.vercel.app/modelo/${m.slug}`,
+    url: `https://www.hlmodels.com.br/modelo/${m.slug}`,
     description: m.bio,
     worksFor: { "@type": "Organization", name: "HL Models" },
   };
